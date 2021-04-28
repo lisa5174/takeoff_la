@@ -20,3 +20,14 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
+
+Route::resource("VisitorOrder",\App\Http\Controllers\VisitorOrder::class);
+
+// Route::get($uri, $callback);
+// Route::post($uri, $callback);
+// Route::put($uri, $callback);
+// Route::patch($uri, $callback);
+// Route::delete($uri, $callback);
+// Route::options($uri, $callback);
