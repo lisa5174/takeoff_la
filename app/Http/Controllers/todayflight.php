@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class VisitorOrder extends Controller
+class todayflight extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,17 @@ class VisitorOrder extends Controller
      */
     public function index()
     {
-        //
+        // select *
+        // from flight as a,airplane as b,location as c,location as d
+        // where a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId
+        // ORDER BY a.time
+        $flights = DB::table('flight as a','')
+        ->select('a.fName', 'a.time','c.loName as toplace','d.loName as foplace','b.airSeat','a.unboughtSeat')
+        ->join('airplane as b','a.fName','=','b.airName')
+        ->join('location as c','a.toPlace','=','c.loId')
+        ->join('location as d','a.foPlace','=','d.loId')  //value('loName')只有一個回傳
+        ->orderBy('a.time', 'asc')->get(); 
+        return view('flights.index',['flights' => $flights]);
     }
 
     /**

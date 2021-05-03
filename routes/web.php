@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\todayflight;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/',[todayflight::class,'index'])->name('today');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -23,7 +26,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 
-Route::resource("VisitorOrder",\App\Http\Controllers\VisitorOrder::class);
+Route::resource('flights', todayflight::class);
+
+//Route::resource("visitororder",\App\Http\Controllers\VisitorOrder::class);
 
 // Route::get($uri, $callback);
 // Route::post($uri, $callback);

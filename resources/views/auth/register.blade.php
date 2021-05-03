@@ -51,13 +51,13 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-jet-button class="ml-2">
+                <!-- <x-jet-button class="ml-2">
                     {{ __('google') }}
                 </x-jet-button>
 
                 <x-jet-button class="ml-2">
                     {{ __('facebook') }}
-                </x-jet-button>
+                </x-jet-button> -->
 
                 <x-jet-button class="ml-4">
                     {{ __('Register') }}
