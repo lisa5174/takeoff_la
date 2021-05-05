@@ -1,8 +1,12 @@
 @extends('layouts.flights')
-{{-- 
-@section('p1.css')
 
-@endsection --}}
+@section('css')
+  <link rel="stylesheet" href="{{ asset('css/p1.css')}}"/>
+@endsection
+
+@section('title')
+  <title>Take off 空|後台_今日航班</title>
+@endsection
 
 @section('main')
 <div class="container ">

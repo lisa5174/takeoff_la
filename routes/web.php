@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\todayflight;
+use \App\Http\Controllers\putshelf;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,19 +15,24 @@ use \App\Http\Controllers\todayflight;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/',[todayflight::class,'index'])->name('today');
+Route::get('/today',[todayflight::class,'index'])->name('today');
+
+Route::get('/putshelf',[putshelf::class,'index'])->name('putshelf');
+
+Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
+Route::resource('flights', todayflight::class)->only('index');
 
-Route::resource('flights', todayflight::class);
+Route::resource('putshelfs', putshelf::class);
+
 
 //Route::resource("visitororder",\App\Http\Controllers\VisitorOrder::class);
 

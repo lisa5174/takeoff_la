@@ -1,0 +1,124 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Nothing+You+Could+Do); /* Google font */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body {
+    background-color: #fffdf7;
+}
+aside {
+    position: relative;
+    top: -30%;
+
+    font-size: 20px;
+    background-color: #fdd85d;
+    float: left;
+}
+span {
+    font-size: 20px;
+}
+.dropdown-item {
+    margin: center;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.abgne_tab {
+    clear: left;
+    width: 400px;
+    margin: center;
+}
+ul.tabs {
+    width: 100%;
+    height: 32px;
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+}
+ul.tabs li {
+    float: left;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: -1px; /* 讓 li 往下移來遮住 ul 的部份 border-bottom */
+    border: 1px solid #999;
+    border-left: none;
+    background: #e1e1e1;
+}
+ul.tabs li a {
+    display: block;
+    padding: 0 20px;
+    color: #000;
+    border: 1px solid #fff;
+    text-decoration: none;
+}
+ul.tabs li a:hover {
+    background: #ccc;
+}
+ul.tabs li.active {
+    background: #fff;
+    border-bottom: 1px solid#fff;
+}
+ul.tabs li.active a:hover {
+    background: #fff;
+}
+div.tab_container {
+    clear: left;
+    width: 100%;
+    border: 1px solid #999;
+    border-top: none;
+    background: #fff;
+}
+div.tab_container .tab_content {
+    padding: 20px;
+}
+div.tab_container .tab_content h2 {
+    margin: 0 0 20px;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.tbl-header {
+    background-color: #99d6ea;
+}
+.tbl-content {
+    overflow-x: auto;
+    margin-top: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+th {
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+}
+td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 300;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+}
+section {
+    margin: 50px;
+}
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}

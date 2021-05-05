@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class todayflight extends Controller
+class putshelf extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +14,7 @@ class todayflight extends Controller
      */
     public function index()
     {
-        // select *
-        // from flight as a,airplane as b,location as c,location as d
-        // where a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId
-        // ORDER BY a.time
-        $flights = DB::table('flight as a','')
-        ->select('a.fName', 'a.time','c.loName as toplace','d.loName as foplace','b.airSeat','a.unboughtSeat')
-        ->join('airplane as b','a.fName','=','b.airName')
-        ->join('location as c','a.toPlace','=','c.loId')
-        ->join('location as d','a.foPlace','=','d.loId')  //value('loName')只有一個回傳
-        ->orderBy('a.time', 'asc')->get(); 
-        return view('today.index',['flights' => $flights]);
+        return view("putshelf.index");
     }
 
     /**
@@ -34,7 +24,7 @@ class todayflight extends Controller
      */
     public function create()
     {
-        //
+        return view("putshelf.create");
     }
 
     /**
@@ -45,7 +35,21 @@ class todayflight extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $put = $request->validate([
+            'apname' => 'required',
+            'apdate' => 'required',
+            'aptime' => 'required',
+            'apto' => 'required',
+            'apfo' => 'required'
+        ]);
+
+        //putshelf::create
+        //$show = Corona::create($put);
+
+        //auth()->user()->putshelfs()->create($put);
+        
+        return redirect()->route('putshelf')->with('notice','航班上架成功'); 
+        //web.php->name('putshelf')
     }
 
     /**
@@ -67,7 +71,7 @@ class todayflight extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
