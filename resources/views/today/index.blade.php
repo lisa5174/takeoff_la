@@ -46,7 +46,7 @@
                     @foreach($flights as $flight)
                         <tr>
                             <td>{{ $flight->fName}}</td>
-                            <td>{{ $flight->time }}</td>
+                            <td>{{ $flight->Ltime }}</td>  
                             <td>{{ $flight->toplace}}</td>
                             <td>{{ $flight->foplace}}</td>
                             <td>{{ $flight->airSeat}}</td>

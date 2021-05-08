@@ -14,16 +14,23 @@ class todayflight extends Controller
      */
     public function index()
     {
-        // select *
-        // from flight as a,airplane as b,location as c,location as d
-        // where a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId
-        // ORDER BY a.time
-        $flights = DB::table('flight as a','')
-        ->select('a.fName', 'a.time','c.loName as toplace','d.loName as foplace','b.airSeat','a.unboughtSeat')
-        ->join('airplane as b','a.fName','=','b.airName')
-        ->join('location as c','a.toPlace','=','c.loId')
-        ->join('location as d','a.foPlace','=','d.loId')  //value('loName')只有一個回傳
-        ->orderBy('a.time', 'asc')->get(); 
+        $sql ="
+        select `a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, LEFT(a.time,5) AS Ltime 
+        from flight as a,airplane as b,location as c,location as d 
+        where current_date() = a.date AND a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId 
+        order by `a`.`time` asc
+        ";
+
+        // SELECT  *, LEFT(time,5) AS Ltime FROM `flight`
+        $flights = DB::select( $sql );
+        //DB::table(DB::raw('flight as a,airplane as b,location as c,location as d'))
+        //->select('a.fName', 'a.time','c.loName as toplace','d.loName as foplace','b.airSeat','a.unboughtSeat',DB::raw('LEFT(a.time,5) AS Ltime'))
+        //->join('airplane as b','a.fName','=','b.airName')
+        //->join('location as c','a.toPlace','=','c.loId')
+        //->join('location as d','a.foPlace','=','d.loId')  //value('loName')只有一個回傳
+        //->where(DB::raw('current_date() = a.date'))
+        //->where(DB::raw('where current_date() = a.date AND a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId'))
+        //->orderBy('a.time', 'asc')->get(); 
         return view('today.index',['flights' => $flights]);
     }
 
