@@ -14,7 +14,29 @@ class putshelf extends Controller
      */
     public function index()
     {
-        return view("putshelf.index");
+        // select * from flight
+        // WHERE date >= current_date() AND date <= DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH)
+        
+        // select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        // from flight as a,airplane as b,location as c,location as d 
+        // where a.date >= current_date() AND a.date <= DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH) AND a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId 
+        // order by `a`.`date` ASC,`a`.`time` asc
+        
+        //上下兩個方法是相等的
+
+        $sql ="
+        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.date >= current_date() AND a.date <= DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH)
+        order by `a`.`date` ASC,`a`.`time` asc
+        ";
+
+        $flights = DB::select( $sql );
+        return view("putshelf.index",['flights' => $flights]);
+    
     }
 
     /**
@@ -22,9 +44,32 @@ class putshelf extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function date(Request $request)
+    {
+        $put = $request->validate([
+            'putdate' => 'required|date',
+        ]);
+
+        $sql ="
+        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.date = '$request->putdate'
+        order by `a`.`date` ASC,`a`.`time` asc
+        ";
+        // //'2021-05-10' 記得加分號
+        $flights = DB::select( $sql );
+        //return view("putshelf.index",['flights' => $flights]);
+        return redirect()->route('putshelf')->with(['flights' => $flights]); 
+    }
+    
     public function create()
     {
-        return view("putshelf.create");
+        //return view("putshelf.create");
+        return view("putshelf.index");
     }
 
     /**
@@ -69,19 +114,19 @@ class putshelf extends Controller
             $toP = '7';
 
         if($request->apfo == '松山(TSA)')
-            $toP = '1';
+            $foP = '1';
         elseif($request->apfo == '高雄(KHH)')  
-            $toP = '2';  
+            $foP = '2';  
         elseif($request->apfo == '台中(RMQ)')  
-            $toP = '3';
+            $foP = '3';
         elseif($request->apfo == '花蓮(HUN)')  
-            $toP = '4';
+            $foP = '4';
         elseif($request->apfo == '台東(TTT)')  
-            $toP = '5';
+            $foP = '5';
         elseif($request->apfo == '澎湖(MZG)')  
-            $toP = '6';
+            $foP = '6';
         elseif($request->apfo == '金門(KNH)')  
-            $toP = '7';    
+            $foP = '7';    
 
         DB::table('flight')->insert(
             [//'fId' => $fid+1,

@@ -20,9 +20,9 @@
       </div>
   @endif
 
+  {{-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--增新上架--> --}}
     <form action="{{ route('putshelfs.store')}} " method="POST">
-      @csrf
-      {{-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--增新上架--> --}}
+        @csrf
           <div class="col-md-6 offset-md-3">
             <label for="inputPassword4" class="form-label ">飛機名稱：</label>
             <input type="text" name="apname" class="form-control" id="apname">
@@ -70,6 +70,6 @@
           <!-- Button trigger modal -->
           <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">新增</button>
           </div>
-      {{-- </div> --}}
     </form>
+  {{-- </div> --}}
 @endsection

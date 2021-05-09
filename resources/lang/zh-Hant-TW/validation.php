@@ -160,6 +160,8 @@ return [
         'apname'                => '飛機名稱',
         'apdate'                => '起飛日期',
         'aptime'                => '起飛時間',
+        'apto'                => '起飛地點',
+        'apfo'                => '降落地點',
         'apprice'               => '機票價格',
     ],
 ];

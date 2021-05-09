@@ -36,8 +36,9 @@
                     <th><h6><b> 起飛時間</th>
                     <th><h6><b> 起飛地點</th>
                     <th><h6><b> 降落地點</th>
-                    <th><h6><b> 座位</th>
+                    <th><h6><b> 座位數量</th>
                     <th><h6><b> 已售座位</th>
+                    <th><h6><b> 機票價格</th>
                   </tr>
                 </thead>
             </div>
@@ -51,6 +52,7 @@
                             <td>{{ $flight->foplace}}</td>
                             <td>{{ $flight->airSeat}}</td>
                             <td>{{ $flight->unboughtSeat}}</td>
+                            <td>{{ $flight->fprice}}</td>
                         </tr>
                     @endforeach
                 </tbody>
