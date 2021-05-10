@@ -30,7 +30,7 @@ class putshelf extends Controller
         INNER JOIN airplane as b ON a.fName = b.airName
         INNER JOIN location as c ON a.toPlace = c.loId
         INNER JOIN location as d ON a.foPlace = d.loId 
-        where a.date >= current_date() AND a.date <= DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH)
+        where a.date >= current_date() AND a.date <= DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH) AND a.status = 1
         order by `a`.`date` ASC,`a`.`time` asc
         ";
 
@@ -45,26 +45,27 @@ class putshelf extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function date(Request $request)
-    {
-        $put = $request->validate([
-            'putdate' => 'required|date',
-        ]);
+    // public function date(Request $request)
+    // {
+    //     $put = $request->validate([
+    //         'putdate' => 'required|date',
+    //     ]);
 
-        $sql ="
-        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
-        from flight as a 
-        INNER JOIN airplane as b ON a.fName = b.airName
-        INNER JOIN location as c ON a.toPlace = c.loId
-        INNER JOIN location as d ON a.foPlace = d.loId 
-        where a.date = '$request->putdate'
-        order by `a`.`date` ASC,`a`.`time` asc
-        ";
-        // //'2021-05-10' 記得加分號
-        $flights = DB::select( $sql );
-        //return view("putshelf.index",['flights' => $flights]);
-        return redirect()->route('putshelf')->with(['flights' => $flights]); 
-    }
+    //     $sql ="
+    //     select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+    //     from flight as a 
+    //     INNER JOIN airplane as b ON a.fName = b.airName
+    //     INNER JOIN location as c ON a.toPlace = c.loId
+    //     INNER JOIN location as d ON a.foPlace = d.loId 
+    //     where a.date = '$request->putdate' AND a.status = 1
+    //     order by `a`.`date` ASC,`a`.`time` asc
+    //     ";
+    //     // //'2021-05-10' 記得加分號
+    //     $flights = DB::select( $sql );
+    //     return view("putshelf.index",['flights' => $flights]);
+    //     //return view("search.search",['flights' => $flights]);
+    //     //return redirect()->route('putshelf'); 
+    // }
     
     public function create()
     {
@@ -137,7 +138,7 @@ class putshelf extends Controller
             'time' => $request->aptime,//'07:36:00'
             'unboughtSeat' => 0,
             'boughtSeat' => 0,
-            'status' => '',
+            'status' => 1,
             'fprice' => $request->apprice
             ]
         );

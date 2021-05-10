@@ -1,7 +1,7 @@
 @extends('layouts.flights')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/p2.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/b_putshelf.css')}}"/>
 @endsection
 
 @section('title')
@@ -29,38 +29,13 @@
 
     <nav>
         <div class="nav nav-tabs col-md-10" id="nav-tab" role="tablist" >
-            <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">已上架</a>
-            <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">新增上架</a>
+            <a class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">新增上架</a>
+            <a class="nav-link" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">已上架</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--上架-->
+        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--上架-->
             <div id=h1></div>
-            <form action="{{ url('/putshelf/date')}} " method="POST">
-                @method('GET')
-                @csrf
-                <input type="date" value="{{ old('apdate') }}" name="putdate" class="form-control">
-                <button type="submit" class="m-2 bg-blue-300 px-3 py-2 rounded" >搜尋</button>
-            </form>
-
-            <script>
-                $(function(){
-                    //得到当前时间
-                    var date_now = new Date();
-                    //得到当前年份
-                    var year = date_now.getFullYear();
-                    //得到当前月份
-                    //注：
-                    //  1：js中获取Date中的month时，会比当前月份少一个月，所以这里需要先加一
-                    //  2: 判断当前月份是否小于10，如果小于，那么就在月份的前面加一个 '0' ， 如果大于，就显示当前月份
-                    var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
-                    //得到当前日子（多少号）
-                    var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
-                    //设置input标签的max属性
-                    var month1 = date_now.getMonth()+2 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
-                    //设置input标签的max属性
-                    $("#birthday").attr("min",year+"-"+month+"-"+date);}) 
-            </script>
 
             @if (session()->has('flights')) 
                 <div class="m-2 bg-green-300 px-3 py-2 rounded">
@@ -104,7 +79,7 @@
             </section>
         </div>
 
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--增新上架-->
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--增新上架-->
 
             <form action="{{ route('putshelfs.store')}} " method="POST">
                 @csrf

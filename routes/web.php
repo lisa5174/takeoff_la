@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\todayflight;
 use \App\Http\Controllers\putshelf;
-use \App\Http\Controllers\alreadyPutshelf;
+use \App\Http\Controllers\offshelf;
+use \App\Http\Controllers\search;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,12 @@ Route::get('/', function () {
 
 Route::get('/today',[todayflight::class,'index'])->name('today');
 Route::get('/putshelf',[putshelf::class,'index'])->name('putshelf');
-Route::post('/putshelf/date',[putshelf::class,'date']);
+Route::get('/offshelf',[offshelf::class,'index'])->name('offshelf');
+// Route::post('/putshelf/date',[putshelf::class,'date']);
+// Route::get('/putshelf/date',[putshelf::class,'date']);
 
-//Route::get('/putshelf',[alreadyPutshelf::class,'index'])->name('putshelf');
+Route::get('/search',[search::class,'index']);
+Route::post('/search',[search::class,'store']);
 
 Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 
@@ -33,9 +37,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('flights', todayflight::class)->only('index');
-
-Route::resource('putshelfs', putshelf::class);
-Route::resource('alreadyputshelfs', alreadyPutshelf::class);
+Route::resource('putshelfs', putshelf::class)->only('index','store');
+Route::resource('offshelfs', offshelf::class)->only('index','store');
 
 
 

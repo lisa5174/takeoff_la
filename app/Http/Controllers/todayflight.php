@@ -17,7 +17,7 @@ class todayflight extends Controller
         $sql ="
         select `a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
         from flight as a,airplane as b,location as c,location as d 
-        where current_date() = a.date AND a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId 
+        where current_date() = a.date AND a.status = 1 AND a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId 
         order by `a`.`time` asc
         ";
 
