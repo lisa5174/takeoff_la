@@ -63,14 +63,27 @@
                     <tbody>
                     @foreach($flights as $flight)
                     <tr>
-                        <td>{{ $flight->fName}}</td>
-                        <td>{{ $flight->date }}</td>
-                        <td>{{ $flight->Ltime }}</td>  
-                        <td>{{ $flight->toplace}}</td>
-                        <td>{{ $flight->foplace}}</td>
-                        <td>{{ $flight->airSeat}}</td>
-                        <td>{{ $flight->unboughtSeat}}</td>
-                        <td>{{ $flight->fprice}}</td>
+                        @if ($flight->date == date('Y-m-d', strtotime('+8HOUR') ))
+                            @if ($flight->Ltime < date('H:i', strtotime('+8HOUR') ))
+                                <td>{{ $flight->fName}}</td>
+                                <td>{{ $flight->date }}</td>
+                                <td>{{ $flight->Ltime }}</td>  
+                                <td>{{ $flight->toplace}}</td>
+                                <td>{{ $flight->foplace}}</td>
+                                <td>{{ $flight->airSeat}}</td>
+                                <td>{{ $flight->unboughtSeat}}</td>
+                                <td>{{ $flight->fprice}}</td>
+                            @endif
+                        @else
+                            <td>{{ $flight->fName}}</td>
+                            <td>{{ $flight->date }}</td>
+                            <td>{{ $flight->Ltime }}</td>  
+                            <td>{{ $flight->toplace}}</td>
+                            <td>{{ $flight->foplace}}</td>
+                            <td>{{ $flight->airSeat}}</td>
+                            <td>{{ $flight->unboughtSeat}}</td>
+                            <td>{{ $flight->fprice}}</td>
+                        @endif
                     </tr>
                     @endforeach
                     </tbody>

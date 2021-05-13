@@ -56,7 +56,7 @@
                 <tbody>
                     @foreach($flights as $flight)
                     <tr>
-                        @if($flight->status==0)
+                        @if($flight->status==0 || $flight->date < getdate())
                             <td>下架</td>
                         @elseif($flight->status==1)
                             <td>上架</td>

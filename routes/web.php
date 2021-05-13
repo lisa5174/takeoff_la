@@ -5,6 +5,7 @@ use \App\Http\Controllers\todayflight;
 use \App\Http\Controllers\putshelf;
 use \App\Http\Controllers\offshelf;
 use \App\Http\Controllers\search;
+use \App\Http\Controllers\updateflight;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::get('/offshelf',[offshelf::class,'index'])->name('offshelf');
 
 Route::get('/search',[search::class,'index']);
 Route::post('/search',[search::class,'store']);
+Route::get('/updateflight',[updateflight::class,'index']);
+Route::post('/updateflight',[updateflight::class,'store']);
 
 Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 

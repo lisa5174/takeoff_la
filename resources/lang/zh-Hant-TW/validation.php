@@ -164,6 +164,8 @@ return [
         'apfo'                  => '降落地點',
         'apprice'               => '機票價格',
         'putname'               => '飛機名稱',
-        'putdate'               => '搜尋日期',
+        'putdate'               => '起飛日期',
+        'updatename'            => '飛機名稱',
+        'updatedate'            => '起飛日期',
     ],
 ];

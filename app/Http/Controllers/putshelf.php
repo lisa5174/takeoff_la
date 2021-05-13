@@ -34,6 +34,9 @@ class putshelf extends Controller
         order by `a`.`date` ASC,`a`.`time` asc
         ";
 
+        //本來想從sql語法限制當日期是今天時，去判斷時間是否小於現在時間，是的話才加入篩選，但是失敗了
+        //所以目前將這部分的判斷放在view
+
         $flights = DB::select( $sql );
         return view("putshelf.index",['flights' => $flights]);
     

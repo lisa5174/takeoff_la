@@ -20,8 +20,8 @@ class offshelf extends Controller
         INNER JOIN airplane as b ON a.fName = b.airName
         INNER JOIN location as c ON a.toPlace = c.loId
         INNER JOIN location as d ON a.foPlace = d.loId 
-        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) 
-        order by `a`.`date` ASC,`a`.`time` asc
+        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) AND a.time < CURRENT_TIME()
+        order by `a`.`date` desc,`a`.`time` desc
         ";
         //AND a.status = 0
         $flights = DB::select( $sql );
