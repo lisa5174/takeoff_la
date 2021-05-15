@@ -30,8 +30,8 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--航班-->
             <div class="row g-3 align-items-center float-right">
-                <form action="{{ url('/updateflight') }} " method="POST">
-                    {{-- @method('GET') --}}
+                <form action="{{ url('/updateflights') }} " method="POST">
+                  {{-- @method('GET') --}}
                     @csrf
                     <div class="col-auto">
                         <label for="inputPassword6" class="col-form-label">飛機名稱：</label>
@@ -97,7 +97,8 @@
                                         <td>{{ $flight->fprice}}</td>
                                         <td>
                                             <div>
-                                                <button type="button" class="btn btn-primary" onclick="location.href='要前往的網頁連結'">修改</button>
+                                                <button type="button" class="btn btn-primary" onclick="location.href='{{route('updateflight.edit',$flight->fId)}}'">修改</button>
+                                                {{-- <a href=" ">修改</a> --}}
                                             </div>
                                         </td>
                                     @endif
@@ -112,7 +113,11 @@
                                     <td>{{ $flight->fprice}}</td>
                                     <td>
                                         <div>
-                                            <button type="submit" class="btn btn-primary" >修改</button>
+                                            <button type="submit" class="btn btn-primary" 
+                                            onclick="location.href='{{ route('updateflight.edit',$flight->fId)}}'">修改</button>
+                                            {{-- {{ route('updateflight.edit',['updateflight' => $flight->fId])}} 這也可以 --}}
+                                            {{-- {{ url('/updateflights',[$flight->fId],'/edit' )}} --}}
+                                            {{-- {{ url('/updateflights/{updateflight}/edit',[$flight->fId] )}} --}}
                                         </div>
                                     </td>
                                 @endif

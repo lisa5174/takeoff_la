@@ -30,8 +30,14 @@ Route::get('/offshelf',[offshelf::class,'index'])->name('offshelf');
 
 Route::get('/search',[search::class,'index']);
 Route::post('/search',[search::class,'store']);
-Route::get('/updateflight',[updateflight::class,'index']);
-Route::post('/updateflight',[updateflight::class,'store']);
+
+Route::get('/updateflights',[updateflight::class,'index']);
+Route::post('/updateflights',[updateflight::class,'store']);
+Route::get('/updateflights/{updateflight}/edit',[updateflight::class,'edit'])
+->where('updateflight', '[0-9]+')->name('updateflight.edit');
+Route::put('/updateflights/{updateflight}',[updateflight::class,'update'])
+->name('updateflight.update');
+//這裡有命名，就可以在view用route('updateflight.update',$aaa)
 
 Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 

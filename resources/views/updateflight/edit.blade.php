@@ -20,7 +20,9 @@
     </div>
     @endif  
 
+    efsdfsdfsdfes
     
+        {{$id}}
 
     
 @endsection

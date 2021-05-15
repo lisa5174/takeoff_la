@@ -10,7 +10,7 @@ class updateflight extends Controller
     public function index()
     {
         $sql ="
-        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
         from flight as a 
         INNER JOIN airplane as b ON a.fName = b.airName
         INNER JOIN location as c ON a.toPlace = c.loId
@@ -39,7 +39,7 @@ class updateflight extends Controller
 
         if($request->updatename == ''){
             $sql ="
-            select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
             from flight as a 
             INNER JOIN airplane as b ON a.fName = b.airName
             INNER JOIN location as c ON a.toPlace = c.loId
@@ -62,7 +62,7 @@ class updateflight extends Controller
         }
         else{
             $sql ="
-            select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
             from flight as a 
             INNER JOIN airplane as b ON a.fName = b.airName
             INNER JOIN location as c ON a.toPlace = c.loId
@@ -82,5 +82,15 @@ class updateflight extends Controller
             return view("updateflight.index",['airplanes' => $airplanes],['flights' => $flights]);
         }
 
+    }
+    public function edit($id)
+    {
+
+        // return view("updateflight.edit",['id' => $id]);
+        return dd($id);
+    }
+    public function update(Request $request, $id)
+    {
+        return 'I am update.';
     }
 }
