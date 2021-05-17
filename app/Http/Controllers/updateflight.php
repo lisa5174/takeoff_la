@@ -33,18 +33,18 @@ class updateflight extends Controller
     public function store(Request $request)
     {
         $put = $request->validate([
-            'updatename' => 'max:15',
-            'updatedate' => 'required|date|after_or_equal:today'//nullable 可為空
+            'editname' => 'max:15',
+            'editdate' => 'required|date|after_or_equal:today'//nullable 可為空
         ]);
 
-        if($request->updatename == ''){
+        if($request->editname == ''){
             $sql ="
             select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
             from flight as a 
             INNER JOIN airplane as b ON a.fName = b.airName
             INNER JOIN location as c ON a.toPlace = c.loId
             INNER JOIN location as d ON a.foPlace = d.loId 
-            where a.date = '$request->updatedate' AND a.status = 1
+            where a.date = '$request->editdate' AND a.status = 1
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             //'2021-05-10' 記得加分號
@@ -67,7 +67,7 @@ class updateflight extends Controller
             INNER JOIN airplane as b ON a.fName = b.airName
             INNER JOIN location as c ON a.toPlace = c.loId
             INNER JOIN location as d ON a.foPlace = d.loId 
-            where a.date = '$request->updatedate' AND a.fName = '$request->updatename' AND a.status = 1
+            where a.date = '$request->editdate' AND a.fName = '$request->editname' AND a.status = 1
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             //'2021-05-10' 記得加分號
@@ -85,12 +85,37 @@ class updateflight extends Controller
     }
     public function edit($id)
     {
+        $sql ="
+        select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.fID = '$id' AND a.date >= current_date() AND a.status = 1
+        order by `a`.`date` ASC,`a`.`time` asc
+        ";
+        //'2021-05-10' 記得加分號
+    
+        $flights = DB::select( $sql );
+        //isset($flights) v.s. empty($flights)
 
-        // return view("updateflight.edit",['id' => $id]);
-        return dd($id);
+        return view("updateflight.edit",['flights' => $flights]);
     }
     public function update(Request $request, $id)
     {
-        return 'I am update.';
+        $put = $request->validate([
+            'updatedate' => 'required|date|after_or_equal:today',//nullable 可為空
+            'updatetime' => 'required'
+        ]);
+
+        
+        DB::table('flight')->where('fId', $id)->update(
+            [
+                'date' => $request->updatedate,//'2021-04-08'
+                'time' => $request->updatetime,//'07:36:00'
+            ]
+        );
+
+        return redirect()->route('updateflight.index')->with('notice','航班修改成功!');
     }
 }

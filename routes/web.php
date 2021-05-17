@@ -25,18 +25,19 @@ Route::get('/', function () {
 Route::get('/today',[todayflight::class,'index'])->name('today');
 Route::get('/putshelf',[putshelf::class,'index'])->name('putshelf');
 Route::get('/offshelf',[offshelf::class,'index'])->name('offshelf');
+Route::post('/offshelf',[offshelf::class,'off'])->name('offshelfs.off');
 // Route::post('/putshelf/date',[putshelf::class,'date']);
 // Route::get('/putshelf/date',[putshelf::class,'date']);
 
 Route::get('/search',[search::class,'index']);
 Route::post('/search',[search::class,'store']);
 
-Route::get('/updateflights',[updateflight::class,'index']);
+Route::get('/updateflights',[updateflight::class,'index'])->name('updateflight.index');
 Route::post('/updateflights',[updateflight::class,'store']);
-Route::get('/updateflights/{updateflight}/edit',[updateflight::class,'edit'])
-->where('updateflight', '[0-9]+')->name('updateflight.edit');
+Route::get('/updateflights/{editflight}/edit',[updateflight::class,'edit'])
+->where('editflight', '[0-9]+')->name('updateflight.edit');
 Route::put('/updateflights/{updateflight}',[updateflight::class,'update'])
-->name('updateflight.update');
+->where('updateflight', '[0-9]+')->name('updateflight.update');
 //這裡有命名，就可以在view用route('updateflight.update',$aaa)
 
 Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
@@ -47,7 +48,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('flights', todayflight::class)->only('index');
 Route::resource('putshelfs', putshelf::class)->only('index','store');
-Route::resource('offshelfs', offshelf::class)->only('index','store');
+Route::resource('offshelfs', offshelf::class)->only('index','store','update','store','off');
 
 
 

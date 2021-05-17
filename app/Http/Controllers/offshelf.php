@@ -14,18 +14,35 @@ class offshelf extends Controller
      */
     public function index()
     {
-        $sql ="
+        $off ="
+        select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.date >= current_date() AND a.date <= DATE_ADD(CURRENT_DATE(), INTERVAL 3 MONTH) AND a.status = 1
+        order by `a`.`date` asc,`a`.`time` asc
+        ";
+
+        $already ="
         select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
         from flight as a 
         INNER JOIN airplane as b ON a.fName = b.airName
         INNER JOIN location as c ON a.toPlace = c.loId
         INNER JOIN location as d ON a.foPlace = d.loId 
-        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) AND a.time < CURRENT_TIME()
+        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH)
         order by `a`.`date` desc,`a`.`time` desc
         ";
+
+        $airplane ="
+        SELECT airName FROM airplane
+        ";
+
         //AND a.status = 0
-        $flights = DB::select( $sql );
-        return view("offshelf.index",['flights' => $flights]);
+        $offs = DB::select( $off );
+        $alreadyoffs = DB::select( $already );
+        $airplanes = DB::select( $airplane );
+        return view("offshelf.index",['airplanes' => $airplanes,'offs' => $offs,'alreadyoffs' => $alreadyoffs]);
     }
 
     /**
@@ -46,7 +63,14 @@ class offshelf extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // DB::table('flight')->where('fId', $id)->update(
+        //     [
+        //         'status' => 1
+        //     ]
+        // );
+        
+        return dd($request->all());
+        // return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
     }
 
     /**
@@ -80,7 +104,14 @@ class offshelf extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // DB::table('flight')->where('fId', $id)->update(
+        //     [
+        //         'status' => 1
+        //     ]
+        // );
+        
+        return dd($id);
+        // return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
     }
 
     /**
@@ -91,6 +122,17 @@ class offshelf extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+    }
+    public function off(Request $request)
+    {
+        // DB::table('flight')->where('fId', $id)->update(
+        //     [
+        //         'status' => 1
+        //     ]
+        // );
+        
+        return dd($request->all());
+        // return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
     }
 }

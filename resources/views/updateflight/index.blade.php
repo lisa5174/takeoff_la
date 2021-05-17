@@ -10,6 +10,12 @@
 
 @section('main')
 
+    @if (session()->has('notice')) 
+      <div class="m-2 bg-green-300 px-3 py-2 rounded">
+          {{ session()->get('notice')}}
+      </div>
+    @endif
+
     @if ($errors->any())
     <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
         <ul>
@@ -37,7 +43,7 @@
                         <label for="inputPassword6" class="col-form-label">飛機名稱：</label>
                     </div>
                     <div class="col-auto">
-                        <select name="updatename" class="form-select" aria-label="Default select example">
+                        <select name="editname" class="form-select" aria-label="Default select example">
                             <option selected></option>
                             @foreach($airplanes as $airplane)
                                 <option>{{ $airplane->airName}}</option>
@@ -50,7 +56,7 @@
                         <label for="inputAddress" class="form-label">起飛日期：</label>
                     </div>
                     <div class="col-auto">
-                        <input type="date" value="{{ old('updatedate') }}" name="updatedate" class="form-control" id="apdate" >
+                        <input type="date" value="{{ old('editdate') }}" name="editdate" class="form-control">
                     </div>
                     
                     <div class="col-auto">

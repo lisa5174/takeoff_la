@@ -165,7 +165,9 @@ return [
         'apprice'               => '機票價格',
         'putname'               => '飛機名稱',
         'putdate'               => '起飛日期',
-        'updatename'            => '飛機名稱',
+        'editname'              => '飛機名稱',
+        'editdate'              => '起飛日期',
         'updatedate'            => '起飛日期',
+        'updatetime'            => '起飛時間',
     ],
 ];

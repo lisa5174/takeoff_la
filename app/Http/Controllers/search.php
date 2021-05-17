@@ -10,7 +10,14 @@ class search extends Controller
     public function index()
     {
         //$flights = '還沒搜尋';
-        return view('search.search');//,['flights' => $flights]
+        $airplane ="
+        SELECT airName FROM airplane
+        ";
+        //不要用重音符，有時會有錯
+
+        $airplanes = DB::select( $airplane );
+
+        return view('search.search',['airplanes' => $airplanes]);//,['flights' => $flights]
     }
     public function store(Request $request)
     {
@@ -30,12 +37,18 @@ class search extends Controller
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             //'2021-05-10' 記得加分號
+
+            $airplane ="
+            SELECT airName FROM airplane
+            ";
+            //不要用重音符，有時會有錯
+
             $flights = DB::select( $sql );
             //$flights =$request->putdate; 
-
+            $airplanes = DB::select( $airplane );
             //isset($flights) v.s. empty($flights)
 
-            return view("search.search",['flights' => $flights]);
+            return view("search.search",['airplanes' => $airplanes],['flights' => $flights]);
             //return redirect()->route('putshelf'); 
         }
         else{
@@ -49,12 +62,18 @@ class search extends Controller
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             //'2021-05-10' 記得加分號
+
+            $airplane ="
+            SELECT airName FROM airplane
+            ";
+            //不要用重音符，有時會有錯
+    
             $flights = DB::select( $sql );
             //$flights =$request->putdate; 
-
+            $airplanes = DB::select( $airplane );
             //isset($flights) v.s. empty($flights)
 
-            return view("search.search",['flights' => $flights]);
+            return view("search.search",['airplanes' => $airplanes],['flights' => $flights]);
             //return redirect()->route('putshelf'); 
         }
 

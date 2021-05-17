@@ -37,12 +37,6 @@
         <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--上架-->
             <div id=h1></div>
 
-            @if (session()->has('flights')) 
-                <div class="m-2 bg-green-300 px-3 py-2 rounded">
-                    {{ session()->get('flights')}}
-                </div>
-            @endif
-
             <section class="table table-hover">
                 <div > <!--時間表-->
                 <table cellpadding="0" cellspacing="0" >
@@ -100,7 +94,12 @@
                 @csrf
                     <div class="col-md-6 offset-md-3">
                         <label for="inputPassword4" class="form-label ">飛機名稱：</label>
-                        <input type="text" value="{{ old('apname') }}" name="apname" class="form-control" id="apname">
+                        <select name="apname" class="form-select" aria-label="Default select example">
+                            <option selected></option>
+                            @foreach($airplanes as $airplane)
+                                <option>{{ $airplane->airName}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-6 offset-md-3">
                         <label for="inputAddress" class="form-label">起飛日期：</label>

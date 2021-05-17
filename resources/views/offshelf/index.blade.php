@@ -34,14 +34,8 @@
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--下架-->
+        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--已下架-->
             <div id=h1></div>
-            
-            @if (session()->has('flights')) 
-                <div class="m-2 bg-green-300 px-3 py-2 rounded">
-                    {{ session()->get('flights')}}
-                </div>
-            @endif
 
             <section class="table table-hover">
                 <div > <!--時間表-->
@@ -61,28 +55,28 @@
                 </div>
                 <div class="tbl-content ">
                     <tbody>
-                    @foreach($flights as $flight)
+                    @foreach($alreadyoffs as $alreadyoff)
                     <tr>
-                        @if ($flight->date == date('Y-m-d', strtotime('+8HOUR') ))
-                            @if ($flight->Ltime < date('H:i', strtotime('+8HOUR') ))
-                                <td>{{ $flight->fName}}</td>
-                                <td>{{ $flight->date }}</td>
-                                <td>{{ $flight->Ltime }}</td>  
-                                <td>{{ $flight->toplace}}</td>
-                                <td>{{ $flight->foplace}}</td>
-                                <td>{{ $flight->airSeat}}</td>
-                                <td>{{ $flight->unboughtSeat}}</td>
-                                <td>{{ $flight->fprice}}</td>
+                        @if ($alreadyoff->date == date('Y-m-d', strtotime('+8HOUR') ))
+                            @if ($alreadyoff->Ltime < date('H:i', strtotime('+8HOUR') ))
+                                <td>{{ $alreadyoff->fName}}</td>
+                                <td>{{ $alreadyoff->date }}</td>
+                                <td>{{ $alreadyoff->Ltime }}</td>  
+                                <td>{{ $alreadyoff->toplace}}</td>
+                                <td>{{ $alreadyoff->foplace}}</td>
+                                <td>{{ $alreadyoff->airSeat}}</td>
+                                <td>{{ $alreadyoff->unboughtSeat}}</td>
+                                <td>{{ $alreadyoff->fprice}}</td>
                             @endif
                         @else
-                            <td>{{ $flight->fName}}</td>
-                            <td>{{ $flight->date }}</td>
-                            <td>{{ $flight->Ltime }}</td>  
-                            <td>{{ $flight->toplace}}</td>
-                            <td>{{ $flight->foplace}}</td>
-                            <td>{{ $flight->airSeat}}</td>
-                            <td>{{ $flight->unboughtSeat}}</td>
-                            <td>{{ $flight->fprice}}</td>
+                            <td>{{ $alreadyoff->fName}}</td>
+                            <td>{{ $alreadyoff->date }}</td>
+                            <td>{{ $alreadyoff->Ltime }}</td>  
+                            <td>{{ $alreadyoff->toplace}}</td>
+                            <td>{{ $alreadyoff->foplace}}</td>
+                            <td>{{ $alreadyoff->airSeat}}</td>
+                            <td>{{ $alreadyoff->unboughtSeat}}</td>
+                            <td>{{ $alreadyoff->fprice}}</td>
                         @endif
                     </tr>
                     @endforeach
@@ -92,7 +86,35 @@
             </section>
         </div>
 
-        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--已上架-->
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--下架-->
+            <form action="{{ url('/updateflights') }} " method="POST">
+                {{-- @method('GET') --}}
+                @csrf
+                <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">飛機名稱：</label>
+                </div>
+                <div class="col-auto">
+                    <select name="editname" class="form-select" aria-label="Default select example">
+                        <option selected></option>
+                        @foreach($airplanes as $airplane)
+                            <option>{{ $airplane->airName}}</option>
+                        @endforeach
+                    </select>
+                    {{-- <input type="text" value="{{ old('updatename') }}" name="updatename" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline"> --}}
+                </div>
+
+                <div class="col-auto">
+                    <label for="inputAddress" class="form-label">起飛日期：</label>
+                </div>
+                <div class="col-auto">
+                    <input type="date" value="{{ old('editdate') }}" name="editdate" class="form-control">
+                </div>
+                
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">搜尋</button>
+                </div>
+            </form>
+
             <section class="table table-hover">
                 <div > <!--時間表-->
                 <table cellpadding="0" cellspacing="0" >
@@ -112,46 +134,71 @@
                 </div>
                 <div class="tbl-content ">
                     <tbody>
-                    @foreach($flights as $flight)
+                    @foreach($offs as $off)
                     <tr>
-                        <td>{{ $flight->fName}}</td>
-                        <td>{{ $flight->date }}</td>
-                        <td>{{ $flight->Ltime }}</td>  
-                        <td>{{ $flight->toplace}}</td>
-                        <td>{{ $flight->foplace}}</td>
-                        <td>{{ $flight->airSeat}}</td>
-                        <td>{{ $flight->unboughtSeat}}</td>
-                        <td>{{ $flight->fprice}}</td>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">刪除</td>
+                        @if ($off->date == date('Y-m-d', strtotime('+8HOUR') ))
+                            @if ($off->Ltime > date('H:i', strtotime('+8HOUR') ))
+                                <td>{{ $off->fName}}</td>
+                                <td>{{ $off->date }}</td>
+                                <td>{{ $off->Ltime }}</td>  
+                                <td>{{ $off->toplace}}</td>
+                                <td>{{ $off->foplace}}</td>
+                                <td>{{ $off->airSeat}}</td>
+                                <td>{{ $off->unboughtSeat}}</td>
+                                <td>{{ $off->fprice}}</td>
+                                <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">刪除</td>
+                            @endif
+                        @else
+                        <td>{{ $off->fName}}</td>
+                        <td>{{ $off->date }}</td>
+                        <td>{{ $off->Ltime }}</td>  
+                        <td>{{ $off->toplace}}</td>
+                        <td>{{ $off->foplace}}</td>
+                        <td>{{ $off->airSeat}}</td>
+                        <td>{{ $off->unboughtSeat}}</td>
+                        <td>{{ $off->fprice}}</td>
+                        <td><button type="submit" value="{{ $off->fId }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">刪除</button></td>  
+                        {{-- <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{ $off->fId }}" aria-label="..."> --}}
+                        @endif      
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
                 </div>
             </section>
-
-            <div class="d-grid gap-2 col-2 mx-auto">
+            
+            {{-- 返回true或者false --}}
+            {{-- <div class="d-grid gap-2 col-2 mx-auto"> --}}
                 <!-- Button trigger modal -->
-                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">刪除</button>
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">確認刪除</h5>
-                            <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            確定要刪除嗎?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">確認</button>
-                        </div>
+                {{-- <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">刪除</button> --}}
+                
+                <form action="{{ route('offshelfs.off')}}"  method="POST">
+                    @csrf
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">確認刪除</h5>
+                                <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                確定要刪除嗎?
+                                {{-- {{@isset($_POST[""])
+                                    
+                                @endisset}} --}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">確認</button>
+                            {{-- onclick="location.href='{{ route('offshelfs.off')}}'" --}}
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </form>
+            {{-- </div> --}}
+            
         </div>    
     </div>    
 

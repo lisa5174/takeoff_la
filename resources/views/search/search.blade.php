@@ -23,7 +23,12 @@
         {{-- @method('GET') --}}
         @csrf
         <label for="inputPassword4" class="form-label ">飛機名稱：</label>
-        <input type="text" value="{{ old('putname') }}" name="putname" class="form-control">
+        <select name="putname" class="form-select" aria-label="Default select example">
+            <option selected></option>
+            @foreach($airplanes as $airplane)
+                <option>{{ $airplane->airName}}</option>
+            @endforeach
+        </select>
         <input type="date" value="{{ old('putdate') }}" name="putdate" class="form-control">
         <button type="submit" class="m-2 bg-blue-300 px-3 py-2 rounded" >搜尋</button>
     </form>               
@@ -56,7 +61,11 @@
                 <tbody>
                     @foreach($flights as $flight)
                     <tr>
-                        @if($flight->status==0 || $flight->date < getdate())
+                        @if($flight->status==0 || $flight->date < date('Y-m-d', strtotime('+8HOUR')) )
+                        {{--   getdate() --}}
+                            <td>下架</td>
+                        @elseif($flight->date == date('Y-m-d', strtotime('+8HOUR')) 
+                            && $flight->Ltime < date('H:i', strtotime('+8HOUR')))
                             <td>下架</td>
                         @elseif($flight->status==1)
                             <td>上架</td>

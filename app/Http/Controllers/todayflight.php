@@ -30,6 +30,7 @@ class todayflight extends Controller
         //->where(DB::raw('current_date() = a.date'))
         //->where(DB::raw('where current_date() = a.date AND a.fName = b.airName AND a.toPlace = c.loId AND a.foPlace = d.loId'))
         //->orderBy('a.time', 'asc')->get(); 
+
         return view('today.index',['flights' => $flights]);
     }
 
