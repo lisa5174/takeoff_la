@@ -30,7 +30,7 @@ class offshelf extends Controller
         INNER JOIN airplane as b ON a.fName = b.airName
         INNER JOIN location as c ON a.toPlace = c.loId
         INNER JOIN location as d ON a.foPlace = d.loId 
-        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH)
+        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) 
         order by `a`.`date` desc,`a`.`time` desc
         ";
 
@@ -63,14 +63,57 @@ class offshelf extends Controller
      */
     public function store(Request $request)
     {
-        // DB::table('flight')->where('fId', $id)->update(
-        //     [
-        //         'status' => 1
-        //     ]
-        // );
-        
-        return dd($request->all());
-        // return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
+        $put = $request->validate([
+            'editname' => 'max:15',
+            'editdate' => 'required|date|after_or_equal:today'//nullable 可為空
+        ]);
+
+        if($request->editname == ''){
+            $sql ="
+            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+            from flight as a 
+            INNER JOIN airplane as b ON a.fName = b.airName
+            INNER JOIN location as c ON a.toPlace = c.loId
+            INNER JOIN location as d ON a.foPlace = d.loId 
+            where a.date = '$request->editdate' AND a.status = 1
+            order by `a`.`date` ASC,`a`.`time` asc
+            ";
+            //'2021-05-10' 記得加分號
+            $airplane ="
+            SELECT airName FROM airplane
+            ";
+
+            $flights = DB::select( $sql );
+            $airplanes = DB::select( $airplane );
+            //$flights =$request->putdate; 
+
+            //isset($flights) v.s. empty($flights)
+
+            return view("updateflight.index",['airplanes' => $airplanes],['flights' => $flights]);
+        }
+        else{
+            $sql ="
+            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+            from flight as a 
+            INNER JOIN airplane as b ON a.fName = b.airName
+            INNER JOIN location as c ON a.toPlace = c.loId
+            INNER JOIN location as d ON a.foPlace = d.loId 
+            where a.date = '$request->editdate' AND a.fName = '$request->editname' AND a.status = 1
+            order by `a`.`date` ASC,`a`.`time` asc
+            ";
+            //'2021-05-10' 記得加分號
+            $airplane ="
+            SELECT airName FROM airplane
+            ";
+    
+            $flights = DB::select( $sql );
+            $airplanes = DB::select( $airplane );
+            //isset($flights) v.s. empty($flights)
+    
+            return view("offshelfs.index",['airplanes' => $airplanes],['flights' => $flights]);
+            // return view("offshelf.index",['airplanes' => $airplanes,'offs' => $offs,'alreadyoffs' => $alreadyoffs]);
+        }
+
     }
 
     /**
@@ -104,14 +147,7 @@ class offshelf extends Controller
      */
     public function update(Request $request, $id)
     {
-        // DB::table('flight')->where('fId', $id)->update(
-        //     [
-        //         'status' => 1
-        //     ]
-        // );
-        
-        return dd($id);
-        // return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
+
     }
 
     /**
@@ -126,13 +162,20 @@ class offshelf extends Controller
     }
     public function off(Request $request)
     {
-        // DB::table('flight')->where('fId', $id)->update(
-        //     [
-        //         'status' => 1
-        //     ]
-        // );
-        
-        return dd($request->all());
-        // return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
+        if(isset($request->checkbox)){
+            $num = count($request->input('checkbox'));//數陣列內容
+            $delete = $request->input('checkbox');
+            $i = 0;
+            for($i=0;$i<$num;$i++){
+                DB::table('flight')->where('fId', $delete[$i])->update(
+                    [
+                        'status' => 0
+                    ]
+                );
+            }
+            return redirect()->route('offshelfs.index')->with('notice','航班刪除成功!');
+        }
+        else
+            return redirect()->route('offshelfs.index')->with('no','未選取航班!');
     }
 }

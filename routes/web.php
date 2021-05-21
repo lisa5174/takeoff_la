@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('flights', todayflight::class)->only('index');
 Route::resource('putshelfs', putshelf::class)->only('index','store');
-Route::resource('offshelfs', offshelf::class)->only('index','store','update','store','off');
+Route::resource('offshelfs', offshelf::class)->only('index','store','off');
 
 
 
