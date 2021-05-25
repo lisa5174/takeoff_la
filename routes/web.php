@@ -6,6 +6,7 @@ use \App\Http\Controllers\putshelf;
 use \App\Http\Controllers\offshelf;
 use \App\Http\Controllers\search;
 use \App\Http\Controllers\updateflight;
+use \App\Http\Controllers\be_homepage;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::resource('flights', todayflight::class)->only('index');
 Route::resource('putshelfs', putshelf::class)->only('index','store');
 Route::resource('offshelfs', offshelf::class)->only('index','store','off');
+
+
+
+
+Route::get('/homepage',[be_homepage::class,'index'])->name('be_homepage');
+
+
+
+
+Route::resource('be_homepage', be_homepage::class)->only('index','store');
 
 
 

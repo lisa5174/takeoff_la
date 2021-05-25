@@ -68,6 +68,23 @@ class offshelf extends Controller
             'editdate' => 'required|date|after_or_equal:today'//nullable 可為空
         ]);
 
+        $already ="
+        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) 
+        order by `a`.`date` desc,`a`.`time` desc
+        ";
+
+        $airplane ="
+        SELECT airName FROM airplane
+        ";
+
+        $alreadyoffs = DB::select( $already );
+        $airplanes = DB::select( $airplane );
+
         if($request->editname == ''){
             $sql ="
             select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
@@ -79,17 +96,13 @@ class offshelf extends Controller
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             //'2021-05-10' 記得加分號
-            $airplane ="
-            SELECT airName FROM airplane
-            ";
 
-            $flights = DB::select( $sql );
-            $airplanes = DB::select( $airplane );
+            $offs = DB::select( $sql );
             //$flights =$request->putdate; 
 
             //isset($flights) v.s. empty($flights)
 
-            return view("updateflight.index",['airplanes' => $airplanes],['flights' => $flights]);
+            return view("offshelf.index",['airplanes' => $airplanes,'offs' => $offs,'alreadyoffs' => $alreadyoffs]);
         }
         else{
             $sql ="
@@ -102,16 +115,13 @@ class offshelf extends Controller
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             //'2021-05-10' 記得加分號
-            $airplane ="
-            SELECT airName FROM airplane
-            ";
-    
-            $flights = DB::select( $sql );
-            $airplanes = DB::select( $airplane );
+
+            $offs = DB::select( $sql );
+            
             //isset($flights) v.s. empty($flights)
     
-            return view("offshelfs.index",['airplanes' => $airplanes],['flights' => $flights]);
-            // return view("offshelf.index",['airplanes' => $airplanes,'offs' => $offs,'alreadyoffs' => $alreadyoffs]);
+            //return view("offshelfs.index",['airplanes' => $airplanes],['flights' => $flights]);
+            return view("offshelf.index",['airplanes' => $airplanes,'offs' => $offs,'alreadyoffs' => $alreadyoffs]);
         }
 
     }

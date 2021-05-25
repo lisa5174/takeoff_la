@@ -121,89 +121,94 @@
                 </div>
             </form>
 
-            <form action="{{ route('offshelfs.off')}}"  method="POST">
-                @csrf
-                <section class="table table-hover">
-                    <div > <!--時間表-->
-                    <table cellpadding="0" cellspacing="0" >
-                        <thead>
-                        <tr class="tbl-header">
-                        <th><h6><b> 飛機名稱</th>
-                        <th><h6><b> 起飛日期</th>    
-                        <th><h6><b> 起飛時間</th>
-                        <th><h6><b> 起飛地點</th>
-                        <th><h6><b> 降落地點</th>
-                        <th><h6><b> 座位數量</th>
-                        <th><h6><b> 已售座位</th>
-                        <th><h6><b> 機票價格</th>
-                        <th><h6><b> 刪除</th>
-                        </tr>
-                        </thead>
-                    </div>
-                
-                    <div class="tbl-content ">
-                        <tbody>
-                        @foreach($offs as $off)
-                        <tr>
-                            @if ($off->date == date('Y-m-d', strtotime('+8HOUR') ))
-                                @if ($off->Ltime > date('H:i', strtotime('+8HOUR') ))
-                                    <td>{{ $off->fName}}</td>
-                                    <td>{{ $off->date }}</td>
-                                    <td>{{ $off->Ltime }}</td>  
-                                    <td>{{ $off->toplace}}</td>
-                                    <td>{{ $off->foplace}}</td>
-                                    <td>{{ $off->airSeat}}</td>
-                                    <td>{{ $off->unboughtSeat}}</td>
-                                    <td>{{ $off->fprice}}</td>
-                                    <td><input class="form-check-input" type="checkbox" name="checkbox{{$off->fId}}" value="{{$off->fId}}">刪除</td>
-                                @endif
-                            @else
-                            <td>{{ $off->fName}}</td>
-                            <td>{{ $off->date }}</td>
-                            <td>{{ $off->Ltime }}</td>  
-                            <td>{{ $off->toplace}}</td>
-                            <td>{{ $off->foplace}}</td>
-                            <td>{{ $off->airSeat}}</td>
-                            <td>{{ $off->unboughtSeat}}</td>
-                            <td>{{ $off->fprice}}</td>
-                            <td><input class="form-check-input" type="checkbox" name="checkbox[]" value="{{$off->fId}}"></td>
-                                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                data-bs-whatever="{{$off->fName}}" data-bs-whatever2="{{$off->fId}}">刪除</button> --}}
+            @if(!isset($offs))
+                請搜尋欲刪除的航班
+            @elseif(empty($offs))
+                <h4>查無航班!</h4>
+            @else
+                <form action="{{ route('offshelfs.off')}}"  method="POST">
+                    @csrf
+                    <section class="table table-hover">
+                        <div > <!--時間表-->
+                        <table cellpadding="0" cellspacing="0" >
+                            <thead>
+                            <tr class="tbl-header">
+                            <th><h6><b> 飛機名稱</th>
+                            <th><h6><b> 起飛日期</th>    
+                            <th><h6><b> 起飛時間</th>
+                            <th><h6><b> 起飛地點</th>
+                            <th><h6><b> 降落地點</th>
+                            <th><h6><b> 座位數量</th>
+                            <th><h6><b> 已售座位</th>
+                            <th><h6><b> 機票價格</th>
+                            <th><h6><b> 刪除</th>
+                            </tr>
+                            </thead>
+                        </div>
+                    
+                        <div class="tbl-content ">
+                            <tbody>
+                            @foreach($offs as $off)
+                            <tr>
+                                @if ($off->date == date('Y-m-d', strtotime('+8HOUR') ))
+                                    @if ($off->Ltime > date('H:i', strtotime('+8HOUR') ))
+                                        <td>{{ $off->fName}}</td>
+                                        <td>{{ $off->date }}</td>
+                                        <td>{{ $off->Ltime }}</td>  
+                                        <td>{{ $off->toplace}}</td>
+                                        <td>{{ $off->foplace}}</td>
+                                        <td>{{ $off->airSeat}}</td>
+                                        <td>{{ $off->unboughtSeat}}</td>
+                                        <td>{{ $off->fprice}}</td>
+                                        <td><input class="form-check-input" type="checkbox" name="checkbox{{$off->fId}}" value="{{$off->fId}}">刪除</td>
+                                    @endif
+                                @else
+                                <td>{{ $off->fName}}</td>
+                                <td>{{ $off->date }}</td>
+                                <td>{{ $off->Ltime }}</td>  
+                                <td>{{ $off->toplace}}</td>
+                                <td>{{ $off->foplace}}</td>
+                                <td>{{ $off->airSeat}}</td>
+                                <td>{{ $off->unboughtSeat}}</td>
+                                <td>{{ $off->fprice}}</td>
+                                <td><input class="form-check-input" type="checkbox" name="checkbox[]" value="{{$off->fId}}"></td>
+                                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                    data-bs-whatever="{{$off->fName}}" data-bs-whatever2="{{$off->fId}}">刪除</button> --}}
 
-                            @endif      
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                    </div>
-                </section>
-            
-                <div class="d-grid gap-2 col-2 mx-auto">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                {{-- <input type="hidden" name="fId"> --}}
-                                <h5 class="modal-title" id="exampleModalLabel">確認刪除</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    確定要刪除嗎?
+                                @endif      
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        </div>
+                    </section>
+                
+                    <div class="d-grid gap-2 col-2 mx-auto">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    {{-- <input type="hidden" name="fId"> --}}
+                                    <h5 class="modal-title" id="exampleModalLabel">確認刪除</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-primary">確認</button>
-                            </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        確定要刪除嗎?
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">確認</button>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-                
+                </form>
+            @endif
                 {{-- <script>
                     var exampleModal = document.getElementById('exampleModal')
                     exampleModal.addEventListener('show.bs.modal', function (event) {
