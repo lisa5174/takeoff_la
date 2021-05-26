@@ -169,5 +169,11 @@ return [
         'editdate'              => '起飛日期',
         'updatedate'            => '起飛日期',
         'updatetime'            => '起飛時間',
+        'be_apto'               => '出發機場',
+        'be_apfo'               => '目的機場',
+        'dateto'                => '啟程日期',
+        'datefo'                => '回程日期',
+        'quantity'              => '旅客',
+        'quantity2'             => '嬰兒'
     ],
 ];

@@ -90,7 +90,9 @@
                 </table>
                 </div>
             </section>
+            {{-- {{ $alreadyoffs->links() }} --}}
         </div>
+        
 
         <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--下架-->
             <form action="{{ route('offshelfs.store') }} " method="POST">
@@ -182,7 +184,7 @@
                         </table>
                         </div>
                     </section>
-                
+
                     <div class="d-grid gap-2 col-2 mx-auto">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
@@ -228,5 +230,5 @@
             
         </div>    
     </div>    
-
+    
 @endsection

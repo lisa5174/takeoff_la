@@ -24,7 +24,7 @@ class offshelf extends Controller
         order by `a`.`date` asc,`a`.`time` asc
         ";
 
-        $already ="
+        $already ="(
         select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
         from flight as a 
         INNER JOIN airplane as b ON a.fName = b.airName
@@ -32,17 +32,19 @@ class offshelf extends Controller
         INNER JOIN location as d ON a.foPlace = d.loId 
         where a.date <= current_date() AND a.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH) 
         order by `a`.`date` desc,`a`.`time` desc
-        ";
-
+        )  ";
+        //as already
         $airplane ="
         SELECT airName FROM airplane
         ";
 
         //AND a.status = 0
         $offs = DB::select( $off );
-        $alreadyoffs = DB::select( $already );
+        $alreadyoffs = DB::select( $already);
+        // $alreadyoffs = DB::table( DB::raw($already))->paginate(3);
         $airplanes = DB::select( $airplane );
         return view("offshelf.index",['airplanes' => $airplanes,'offs' => $offs,'alreadyoffs' => $alreadyoffs]);
+        // return view("offshelf.test",['alreadyoffs' => $alreadyoffs]);
     }
 
     /**
