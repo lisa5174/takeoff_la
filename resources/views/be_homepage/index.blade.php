@@ -26,7 +26,8 @@
         </div>
     @endif  
 
-    <form action="{{ route('choose.edit')}} " method="POST">
+    <form action="{{ route('homepage.store')}} " method="POST">
+        {{-- choose.index --}}
         @csrf
         <label for="inputAddress" class="form-label">出發機場：</label>
         <select name="be_apto" class="form-select" aria-label="Default select example">
@@ -70,7 +71,7 @@
         <label for="">旅客</label>
         <input type='button' value='-' class='qtyminus' field='quantity' />
         {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-        <input type='text' readonly="readonly" name='quantity' value="{{old('quantity') ?? '2'}}" class='qty' />
+        <input type='text' readonly="readonly" name='quantity' value="{{old('quantity') ?? '1'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity' />
     
         <br>

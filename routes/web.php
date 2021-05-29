@@ -66,7 +66,7 @@ Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 
 
 Route::resource('homepage', be_homepage::class)->only('index','store');
-Route::resource('choose', be_choose::class)->only('index','edit');
+Route::resource('choose', be_choose::class)->only('index','edit','store');
 Route::resource('order', be_order::class)->only('index');
 Route::resource('pay', be_pay::class)->only('index');
 Route::resource('finish', be_finish::class)->only('index');

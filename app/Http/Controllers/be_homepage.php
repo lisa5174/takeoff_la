@@ -45,33 +45,9 @@ class be_homepage extends Controller
             'quantity2' => 'required|integer|between:0,4|lte:quantity'
         ]);
 
-        if(isset($request->be_apfo)){
-            $to ="
-            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
-            from flight as a 
-            INNER JOIN airplane as b ON a.fName = b.airName
-            INNER JOIN location as c ON a.toPlace = c.loId
-            INNER JOIN location as d ON a.foPlace = d.loId 
-            where a.toPlace = '$request->be_apto' and  a.foPlace = '$request->be_apfo' and  
-            a.date = '$request->dateto'
-            order by `a`.`date` ASC,`a`.`time` asc
-            ";
-            //'2021-05-10' 記得加分號
-            //不要用重音符，有時會有錯
-
-            $toflights = DB::select( $to );
-            //$flights =$request->putdate; 
-
-            // return dd($searchflights);
-            // return view("be_choose.index",['toflights' => $toflights]);
-            $x = 'aaa';
-            return redirect()->route("choose.index",['id' => 1]);//router會帶參數
-        }
-        else{
-            return dd($searchflights);
-
-
-        }
+        return redirect()->route("choose.index",['apto' => $request->be_apto,'apfo' => $request->be_apfo,'dateto' => $request->dateto,
+        'datefo' => $request->datefo,'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
+        // return dd($searchflights);
         
     }
 
