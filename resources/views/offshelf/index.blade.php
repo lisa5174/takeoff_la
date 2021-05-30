@@ -162,7 +162,7 @@
                                         <td>{{ $off->airSeat}}</td>
                                         <td>{{ $off->unboughtSeat}}</td>
                                         <td>{{ $off->fprice}}</td>
-                                        <td><input class="form-check-input" type="checkbox" name="checkbox{{$off->fId}}" value="{{$off->fId}}">刪除</td>
+                                        <td><input class="form-check-input" type="checkbox" name="checkbox[]" value="{{$off->fId}}">刪除</td>
                                     @endif
                                 @else
                                 <td>{{ $off->fName}}</td>

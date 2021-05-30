@@ -28,72 +28,112 @@
         起飛時間:{{$toflight->Ltime}}
         全額票價:{{$toflight->fprice}}
         <br>
-        <label for="">全額</label>
+        <label for="">全額</label>${{$toflight->fprice}}
         <input type='button' value='-' class='qtyminus' field='quantity' />
         {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity' value="{{old('quantity') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity' />
+
         <label for="">孩童</label>
+        @foreach ($ticket1 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity2' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity2' value="{{old('quantity2') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity2' />
+
         <label for="">敬老</label>
+        @foreach ($ticket2 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
         <br>
+        
         <label for="">軍人</label>
+        @foreach ($ticket3 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity4' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity4' value="{{old('quantity4') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity4' />
+
         <label for="">愛心</label>
+        @foreach ($ticket4 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity5' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity5' value="{{old('quantity5') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity5' />
+
         <label for="">愛心陪同</label>
+        @foreach ($ticket5 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
         <br>
-        <label for="">促銷(早鳥)優惠</label>
-        <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-        <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
-        <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
+        @if ($ticket11 -> isNotEmpty())
+            <label for="">促銷(早鳥)優惠</label>
+            @foreach ($ticket6 as $t1)
+                ${{round(($t1->tPrice) * ($toflight->fprice))}}
+            @endforeach
+            <input type='button' value='-' class='qtyminus' field='quantity3' />
+            <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
+            <input type='button' value='+' class='qtyplus' field='quantity3' />
+        @endif
 
         <hr>
 
         <label for="">離島居民</label>
+        @foreach ($ticket7 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
         <label for="">離島居民敬老</label>
+        @foreach ($ticket8 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
         <label for="">離島居民愛心</label>
+        @foreach ($ticket9 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
         <br>
+        
         <label for="">離島居民愛陪</label>
+        @foreach ($ticket10 as $t1)
+            ${{round(($t1->tPrice) * ($toflight->fprice))}}
+        @endforeach
         <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
         <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
         <input type='button' value='+' class='qtyplus' field='quantity3' />
-        <label for="">離島居民促銷優惠</label>
-        <input type='button' value='-' class='qtyminus' field='quantity3' />
-        {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-        <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
-        <input type='button' value='+' class='qtyplus' field='quantity3' />
+        
+        @if ($ticket11 -> isNotEmpty())
+            <label for="">離島居民促銷優惠</label>
+            @foreach ($ticket11 as $t1)
+                ${{round(($t1->tPrice) * ($toflight->fprice))}}
+            @endforeach
+            <input type='button' value='-' class='qtyminus' field='quantity3' />
+            <input type='text' readonly="readonly" name='quantity3' value="{{old('quantity3') ?? '0'}}" class='qty' />
+            <input type='button' value='+' class='qtyplus' field='quantity3' />
+        @endif
+        
 
     @endforeach
 
@@ -119,9 +159,15 @@
         全額票價:{{$foflight->fprice}}
     @endforeach
     
+    <br>
+    <form action="{{ route('choose.store')}} " method="POST">
+        @csrf
+    <button type="submit">搜尋</button>
+
+    </form>
+    
     旅客人數不符， 總人數應為3人。您現選擇5人
-    
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
         $(function() {
