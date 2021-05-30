@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-    {{-- <a href="{{ route('putshelfs.create')}}">新增上架</a> --}}
+    {{-- <a href="{{ route('putshelfs.create')}}">新增</a> --}}
     
     @if (session()->has('notice')) 
         <div class="m-2 bg-green-300 px-3 py-2 rounded">
