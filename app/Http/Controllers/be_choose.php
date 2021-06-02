@@ -17,11 +17,11 @@ class be_choose extends Controller
         $apto = $_GET["apto"];
         $apfo = $_GET["apfo"];
         $dateto = $_GET["dateto"];
-        $quantity = $_GET["quantity"];
-        $quantity2 = $_GET["quantity2"];
-        $differto = round(((strtotime($dateto) - strtotime("now"))/(60*60*24)),1);
-        $earlybirdto = 0;
-        $localearlybirdto = 0;
+        $quantity = $_GET["quantity"]; //成人
+        $quantity2 = $_GET["quantity2"]; //嬰兒
+        $differto = round(((strtotime($dateto) - strtotime("now"))/(60*60*24)),1); //相差去程時間
+        $earlybirdto = 0; //早鳥
+        $localearlybirdto = 0; //居民早鳥，提早15天
 
         if($differto > 10) $earlybirdto = 3;
         elseif($differto > 15) {$earlybirdto = 4; $localearlybirdto = 12;}
@@ -51,14 +51,14 @@ class be_choose extends Controller
         }
         else{
             $datefo = $_GET["datefo"];
-            $differfo =round(((strtotime($datefo) - strtotime("now"))/(60*60*24)),1);
+            $differfo =round(((strtotime($datefo) - strtotime("now"))/(60*60*24)),1); //相差回程時間
             $earlybirdfo = 0;
             $localearlybirdfo = 0;
 
-            if($differto > 10) $earlybirdfo = 3;
-            elseif($differto > 15) {$earlybirdfo = 4; $localearlybirdfo = 12;}
-            elseif($differto > 20) {$earlybirdfo = 5; $localearlybirdfo = 12;}
-            elseif($differto > 30) {$earlybirdfo = 6; $localearlybirdfo = 12;}
+            if($differfo > 10) $earlybirdfo = 3;
+            elseif($differfo > 15) {$earlybirdfo = 4; $localearlybirdfo = 12;}
+            elseif($differfo > 20) {$earlybirdfo = 5; $localearlybirdfo = 12;}
+            elseif($differfo > 30) {$earlybirdfo = 6; $localearlybirdfo = 12;}
 
             $to ="
             select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
@@ -97,15 +97,59 @@ class be_choose extends Controller
             $ticket8 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民敬老')->get();
             $ticket9 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛心')->get();
             $ticket10 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛陪')->get();
-            // if($localearlybirdfo != 0)
             $ticket11 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdfo)->get();
             
-            return view("be_choose.index",['toflights' => $toflights,'foflights' => $foflights,
-            'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,'datefo' => $datefo,'ticket1' => $ticket1,
-            'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,'ticket6' => $ticket6,
-            'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,'ticket11' => $ticket11]);
+            return view("be_choose.index",['toflights' => $toflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,
+            'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+            'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+            'ticket11' => $ticket11]
+            ,['quantity' => $quantity,'quantity2' => $quantity2,'apfo' => $apto,'apto' => $apfo,'datefo' => $datefo]);
         }
     }
+
+
+
+    public function index2(Request $request)
+    {
+        $choose = $request->all();
+        $put = $request->validate([
+            'apId' => 'required|integer',
+            'ticket1' => 'required|integer|between:0,4',
+            'ticket2' => 'required|integer|between:0,4',
+            'ticket3' => 'required|integer|between:0,4',
+            'ticket4' => 'required|integer|between:0,4',
+            'ticket5' => 'required|integer|between:0,4',
+            'ticket6' => 'required|integer|between:0,4',
+            'ticket7' => 'nullable|integer|between:0,4',
+            'ticket8' => 'required|integer|between:0,4',
+            'ticket9' => 'required|integer|between:0,4',
+            'ticket10' => 'required|integer|between:0,4',
+            'ticket11' => 'required|integer|between:0,4',
+            'ticket12' => 'nullable|integer|between:0,4',
+            'quantity' => 'required|integer|between:1,4', //成人
+            'quantity2' => 'required|integer|between:0,4|lte:quantity' //嬰兒
+        ]);
+
+        // return redirect()->route("choose.index",['apto' => $request->be_apto,'apfo' => $request->be_apfo,'dateto' => $request->dateto,
+        // 'datefo' => $request->datefo,'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
+
+        $i = 1;
+        $cnt = 0;
+        for($i = 1; $i <= 12; $i++) {
+            $t = "ticket";
+            $x = $t.$i;
+            $cnt += $request->$x;
+        }
+
+        if ($cnt != $request->quantity) {
+            return back()->withErrors(['旅客人數不符， 總人數應為'.$request->quantity.'人。您現選擇'.$cnt.'人']);
+            return redirect()->route('choose.index')
+            ->with('no','旅客人數不符， 總人數應為'.$request->quantity.'人。您現選擇5人');
+        }
+        // return dd($request->ticket + $request->ticket2);
+        // return dd($choose);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -126,9 +170,7 @@ class be_choose extends Controller
     public function store(Request $request)
     {
         $choose = $request->all();
-        // return redirect()->route("order.index",['apto' => $request->be_apto,'apfo' => $request->be_apfo,'dateto' => $request->dateto,
-        // 'datefo' => $request->datefo,'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
-        // return "store";
+        
         return dd($choose);
     }
 

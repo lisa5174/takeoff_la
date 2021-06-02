@@ -30,7 +30,7 @@ class updateflight extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(Request $request)//查詢的結果
     {
         $put = $request->validate([
             'editname' => 'max:15',
@@ -83,7 +83,7 @@ class updateflight extends Controller
         }
 
     }
-    public function edit($id)
+    public function edit($id)//航班詳細資訊，以這個跳轉畫面onclick="location.href='{{route('updateflight.edit',$flight->fId)}}'"
     {
         $sql ="
         select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
@@ -101,7 +101,7 @@ class updateflight extends Controller
 
         return view("updateflight.edit",['flights' => $flights]);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)//edit頁面，更新航班詳細資訊，可更改日期和時間
     {
         $put = $request->validate([
             'updatedate' => 'required|date|after_or_equal:today',//nullable 可為空

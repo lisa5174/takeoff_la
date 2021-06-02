@@ -103,7 +103,8 @@
                                         <td>{{ $flight->fprice}}</td>
                                         <td>
                                             <div>
-                                                <button type="button" class="btn btn-primary" onclick="location.href='{{route('updateflight.edit',$flight->fId)}}'">修改</button>
+                                                <button type="button" class="btn btn-primary" 
+                                                onclick="location.href='{{route('updateflight.edit',$flight->fId)}}'">修改</button>
                                                 {{-- <a href=" ">修改</a> --}}
                                             </div>
                                         </td>
