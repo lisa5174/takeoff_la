@@ -13,6 +13,13 @@ class be_order extends Controller
      */
     public function index()
     {
+        $toId = $_GET["toId"];
+        $toticket1 = $_GET["toticket1"];
+        $toticket2 = $_GET["toticket2"];
+        $toticket3 = $_GET["toticket3"];
+        $toticket4 = $_GET["toticket4"];
+        // if(empty($toticket2))   
+        return dd($toId,$toticket1,$toticket2,$toticket3,$toticket4);
         return view("be_order.index");
     }
 

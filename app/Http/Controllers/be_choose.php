@@ -23,82 +23,49 @@ class be_choose extends Controller
         $earlybirdto = 0; //早鳥
         $localearlybirdto = 0; //居民早鳥，提早15天
 
-        if($differto > 10) $earlybirdto = 3;
-        elseif($differto > 15) {$earlybirdto = 4; $localearlybirdto = 12;}
+        if($differto > 30) {$earlybirdto = 6; $localearlybirdto = 12;}
         elseif($differto > 20) {$earlybirdto = 5; $localearlybirdto = 12;}
-        elseif($differto > 30) {$earlybirdto = 6; $localearlybirdto = 12;}
-
-        // return dd($earlybirdto,$localearlybirdto);
+        elseif($differto > 15) {$earlybirdto = 4; $localearlybirdto = 12;}
+        elseif($differto > 10) $earlybirdto = 3;
         
+        $to ="
+        select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.toPlace = '$apto' and  a.foPlace = '$apfo' and  
+        a.date = '$dateto'
+        order by `a`.`date` ASC,`a`.`time` asc
+        ";
+        //'2021-05-10' 記得加分號
+        //不要用重音符，有時會有錯
+
+        $toflights = DB::select( $to );
+        $toplace = DB::table('location')->select('loName')->where('loId',$apto)->get();
+        $foplace = DB::table('location')->select('loName')->where('loId',$apfo)->get();
+        $ticket1 = DB::table('tickettype')->select('tPrice')->where('tName','兒童')->get();// ->where('tId',16)
+        $ticket2 = DB::table('tickettype')->select('tPrice')->where('tName','敬老')->get();
+        $ticket3 = DB::table('tickettype')->select('tPrice')->where('tName','軍人')->get();
+        $ticket4 = DB::table('tickettype')->select('tPrice')->where('tName','愛心')->get();
+        $ticket5 = DB::table('tickettype')->select('tPrice')->where('tName','愛心陪同')->get();
+        $ticket6 = DB::table('tickettype')->select('tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdto)->get();
+        $ticket7 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民')->get();
+        $ticket8 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民敬老')->get();
+        $ticket9 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛心')->get();
+        $ticket10 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛陪')->get();
+        $ticket11 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdto)->get();
+
         if(!isset($_GET["datefo"])){  //如果回程日期不存在
-            $to ="
-            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
-            from flight as a 
-            INNER JOIN airplane as b ON a.fName = b.airName
-            INNER JOIN location as c ON a.toPlace = c.loId
-            INNER JOIN location as d ON a.foPlace = d.loId 
-            where a.toPlace = '$apto' and  a.foPlace = '$apfo' and  
-            a.date = '$dateto'
-            order by `a`.`date` ASC,`a`.`time` asc
-            ";
-            //'2021-05-10' 記得加分號
-            //不要用重音符，有時會有錯
-
-            $toflights = DB::select( $to );
-
-            // return dd($toflights);
-            return view("be_choose.index",['toflights' => $toflights]);
+            return view("be_choose.index",['toflights' => $toflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,
+            'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+            'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+            'ticket11' => $ticket11]
+            ,['quantity' => $quantity,'quantity2' => $quantity2]);
         }
         else{
             $datefo = $_GET["datefo"];
-            $differfo =round(((strtotime($datefo) - strtotime("now"))/(60*60*24)),1); //相差回程時間
-            $earlybirdfo = 0;
-            $localearlybirdfo = 0;
 
-            if($differfo > 10) $earlybirdfo = 3;
-            elseif($differfo > 15) {$earlybirdfo = 4; $localearlybirdfo = 12;}
-            elseif($differfo > 20) {$earlybirdfo = 5; $localearlybirdfo = 12;}
-            elseif($differfo > 30) {$earlybirdfo = 6; $localearlybirdfo = 12;}
-
-            $to ="
-            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
-            from flight as a 
-            INNER JOIN airplane as b ON a.fName = b.airName
-            INNER JOIN location as c ON a.toPlace = c.loId
-            INNER JOIN location as d ON a.foPlace = d.loId 
-            where a.toPlace = '$apto' and  a.foPlace = '$apfo' and  
-            a.date = '$dateto'
-            order by `a`.`date` ASC,`a`.`time` asc
-            ";
-            $fo ="
-            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
-            from flight as a 
-            INNER JOIN airplane as b ON a.fName = b.airName
-            INNER JOIN location as c ON a.toPlace = c.loId
-            INNER JOIN location as d ON a.foPlace = d.loId 
-            where a.toPlace = '$apfo' and  a.foPlace = '$apto' and  
-            a.date = '$datefo'
-            order by `a`.`date` ASC,`a`.`time` asc
-            ";
-            //'2021-05-10' 記得加分號
-            //不要用重音符，有時會有錯
-
-            $toflights = DB::select( $to );
-            $foflights = DB::select( $fo );
-            $toplace = DB::table('location')->select('loName')->where('loId',$apto)->get();
-            $foplace = DB::table('location')->select('loName')->where('loId',$apfo)->get();
-            $ticket1 = DB::table('tickettype')->select('tPrice')->where('tName','兒童')->get();// ->where('tId',16)
-            $ticket2 = DB::table('tickettype')->select('tPrice')->where('tName','敬老')->get();
-            $ticket3 = DB::table('tickettype')->select('tPrice')->where('tName','軍人')->get();
-            $ticket4 = DB::table('tickettype')->select('tPrice')->where('tName','愛心')->get();
-            $ticket5 = DB::table('tickettype')->select('tPrice')->where('tName','愛心陪同')->get();
-            $ticket6 = DB::table('tickettype')->select('tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdfo)->get();
-            $ticket7 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民')->get();
-            $ticket8 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民敬老')->get();
-            $ticket9 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛心')->get();
-            $ticket10 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛陪')->get();
-            $ticket11 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdfo)->get();
-            
             return view("be_choose.index",['toflights' => $toflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,
             'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
             'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
@@ -113,41 +80,151 @@ class be_choose extends Controller
     {
         $choose = $request->all();
         $put = $request->validate([
-            'apId' => 'required|integer',
+            'apId' => 'required|integer',//去程航班
+            'apto' => 'nullable|integer', //回程出發地點
+            'apfo' => 'nullable|integer', //回程目的地點
+            'datefo' => 'nullable|date|after:today', //回程日期
             'ticket1' => 'required|integer|between:0,4',
             'ticket2' => 'required|integer|between:0,4',
             'ticket3' => 'required|integer|between:0,4',
             'ticket4' => 'required|integer|between:0,4',
-            'ticket5' => 'required|integer|between:0,4',
-            'ticket6' => 'required|integer|between:0,4',
+            'ticket5' => 'required|integer|between:0,4', //愛心
+            'ticket6' => 'required|integer|between:0,4', //愛陪
             'ticket7' => 'nullable|integer|between:0,4',
             'ticket8' => 'required|integer|between:0,4',
             'ticket9' => 'required|integer|between:0,4',
-            'ticket10' => 'required|integer|between:0,4',
-            'ticket11' => 'required|integer|between:0,4',
+            'ticket10' => 'required|integer|between:0,4', //愛心
+            'ticket11' => 'required|integer|between:0,4', //愛陪
             'ticket12' => 'nullable|integer|between:0,4',
             'quantity' => 'required|integer|between:1,4', //成人
             'quantity2' => 'required|integer|between:0,4|lte:quantity' //嬰兒
         ]);
 
-        // return redirect()->route("choose.index",['apto' => $request->be_apto,'apfo' => $request->be_apfo,'dateto' => $request->dateto,
-        // 'datefo' => $request->datefo,'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
-
         $i = 1;
         $cnt = 0;
+        $hasnumto = 0;
+        $haspeopleto = [];
         for($i = 1; $i <= 12; $i++) {
             $t = "ticket";
             $x = $t.$i;
-            $cnt += $request->$x;
+            $cnt += $request->$x; //計算總人數
+            if(($request->$x) != 0){
+                $haspeopleto[$hasnumto] = $x; //統計哪些票種有訂購
+                $hasnumto += 1;
+            }
         }
 
         if ($cnt != $request->quantity) {
             return back()->withErrors(['旅客人數不符， 總人數應為'.$request->quantity.'人。您現選擇'.$cnt.'人']);
-            return redirect()->route('choose.index')
-            ->with('no','旅客人數不符， 總人數應為'.$request->quantity.'人。您現選擇5人');
         }
+        if($request->ticket6 != 0){
+            if($request->ticket5 == 0) return back()->withErrors(['愛心陪同票必須與愛心票同時訂購']);
+            elseif($request->ticket6 > $request->ticket5) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
+        }
+        if($request->ticket11 != 0){
+            if($request->ticket10 == 0) return back()->withErrors(['愛心陪同票必須與愛心票同時訂購']);
+            elseif($request->ticket11 > $request->ticket10) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
+        }
+
+        // return dd($haspeopleto);
         // return dd($request->ticket + $request->ticket2);
         // return dd($choose);
+
+        $numto = count($haspeopleto);//數陣列內容
+
+        if((!isset( $request->datefo)) && (!isset( $request->apto)) && (!isset( $request->apfo))){  //如果回程日期不存在
+            switch($numto)
+            {
+                case 1:
+                    $a = $haspeopleto[0];
+                    return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>'','toticket3' =>'','toticket4' =>'','quantity2' => $request->quantity2]);//router會帶參數
+                case 2:
+                    $a = $haspeopleto[0];
+                    $b = $haspeopleto[1];
+                    return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>'','toticket4' =>'',
+                    'quantity2' => $request->quantity2]);//router會帶參數
+                case 3:
+                    $a = $haspeopleto[0];
+                    $b = $haspeopleto[1];
+                    $c = $haspeopleto[2];
+                    return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>'',
+                    'quantity2' => $request->quantity2]);//router會帶參數
+                case 4:
+                    $a = $haspeopleto[0];
+                    $b = $haspeopleto[1];
+                    $c = $haspeopleto[2];
+                    $d = $haspeopleto[3];
+                    return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],
+                    'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2]);//router會帶參數
+            }
+            
+            // return dd($request->$a);
+            // return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+            // 'toticket2' =>[$haspeopleto[1],$request->$b],'quantity2' => $request->quantity2]);//router會帶參數
+            // return "不存在";
+            
+        }
+        elseif((isset( $request->datefo)) && (isset( $request->apto)) && (isset( $request->apfo))){
+            
+            $differfo =round(((strtotime($request->datefo) - strtotime("now"))/(60*60*24)),1); //相差回程時間
+            $earlybirdfo = 0;
+            $localearlybirdfo = 0;
+            
+            if($differfo > 30) {$earlybirdfo = 6; $localearlybirdfo = 12;}
+            elseif($differfo > 20) {$earlybirdfo = 5; $localearlybirdfo = 12;}
+            elseif($differfo > 15) {$earlybirdfo = 4; $localearlybirdfo = 12;}
+            elseif($differfo > 10) $earlybirdfo = 3;
+
+            // return dd($differfo);
+            // return dd($differfo,$earlybirdfo,$localearlybirdfo);
+
+            $fo ="
+            select `a`.`fId`,`a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `b`.`airSeat`, `a`.`unboughtSeat`, `a`.`status`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+            from flight as a 
+            INNER JOIN airplane as b ON a.fName = b.airName
+            INNER JOIN location as c ON a.toPlace = c.loId
+            INNER JOIN location as d ON a.foPlace = d.loId 
+            where a.toPlace = '$request->apto' and  a.foPlace = '$request->apfo' and  
+            a.date = '$request->datefo'
+            order by `a`.`date` ASC,`a`.`time` asc
+            ";
+            // //'2021-05-10' 記得加分號
+            // //不要用重音符，有時會有錯
+
+            $foflights = DB::select( $fo );
+            $toplace = DB::table('location')->select('loName')->where('loId',$request->apto)->get();
+            $foplace = DB::table('location')->select('loName')->where('loId',$request->apfo)->get();
+            $ticket1 = DB::table('tickettype')->select('tPrice')->where('tName','兒童')->get();// ->where('tId',16)
+            $ticket2 = DB::table('tickettype')->select('tPrice')->where('tName','敬老')->get();
+            $ticket3 = DB::table('tickettype')->select('tPrice')->where('tName','軍人')->get();
+            $ticket4 = DB::table('tickettype')->select('tPrice')->where('tName','愛心')->get();
+            $ticket5 = DB::table('tickettype')->select('tPrice')->where('tName','愛心陪同')->get();
+            $ticket6 = DB::table('tickettype')->select('tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdfo)->get();
+            $ticket7 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民')->get();
+            $ticket8 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民敬老')->get();
+            $ticket9 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛心')->get();
+            $ticket10 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛陪')->get();
+            $ticket11 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdfo)->get();
+            
+            // return view("be_choose.index",['toflights' => $toflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,
+            // 'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+            // 'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+            // 'ticket11' => $ticket11]
+            // ,['quantity' => $quantity,'quantity2' => $quantity2,'apfo' => $apto,'apto' => $apfo,'datefo' => $datefo]);
+
+            // return redirect()->route("order.index",['toId' => $request->apId,'apfo' => $request->be_apfo,'dateto' => $request->dateto,
+            // 'datefo' => $request->datefo,'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
+
+            //to用hidden傳，fo到login.blade.php(order)判斷，並以hidden傳
+        }
+        else{
+            return "抱歉，出現不可預期的錯誤，請返回上一頁或關閉網頁重新進入";
+        }
+
     }
 
 

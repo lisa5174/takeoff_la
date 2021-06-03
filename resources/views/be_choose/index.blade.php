@@ -37,15 +37,23 @@
         飛機名稱:{{$toflight->fName}}
         起飛時間:{{$toflight->Ltime}}
         全額票價:{{$toflight->fprice}}
+        旅客人數:{{$quantity}}
+        @if ($quantity2 != 0)
+            嬰兒人數:{{$quantity2}}
+        @endif
         <br>
         <form action="{{ route('choose.index2')}}" method="GET">
             @csrf 
+            {{-- 去程航班id --}}
             <input type="hidden" name="apId" value="{{$toflight->fId}}">
             <input type="hidden" name="quantity" value="{{$quantity}}">
             <input type="hidden" name="quantity2" value="{{$quantity2}}">
-            <input type="hidden" name="apfo" value="{{$apto}}">
-            <input type="hidden" name="apfo" value="{{$apfo}}">
-            <input type="hidden" name="datefo" value="{{$datefo}}">
+            
+            @if (isset($datefo))
+                <input type="hidden" name="apto" value="{{$apto}}">
+                <input type="hidden" name="apfo" value="{{$apfo}}">
+                <input type="hidden" name="datefo" value="{{$datefo}}">
+            @endif
 
             <label for="">全額</label>${{$toflight->fprice}}
             <input type='button' value='-' class='qtyminus' field='ticket1' />
