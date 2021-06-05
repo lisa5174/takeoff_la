@@ -1,7 +1,7 @@
 @extends('layouts.flights')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/p2.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/b_offshelf.css')}}"/>
 @endsection
 
 @section('title')
@@ -18,19 +18,36 @@
             </ul>
         </div>
     @endif  
-
+    <span class="col-10" id="g1">
+        <nav>    
+          <div class="nav nav-tabs col-md-10" id="nav-tab" role="tablist">
+            <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-home" aria-selected="true">查詢</a>
+         </div>
+        </nav>
+        
+       <div class="tab-content" id="nav-tabContent">
+           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--查詢-->
     <form action="{{ url('/search') }} " method="POST">
         {{-- @method('GET') --}}
         @csrf
-        <label for="inputPassword4" class="form-label ">飛機名稱：</label>
-        <select name="putname" class="form-select" aria-label="Default select example">
-            <option selected></option>
-            @foreach($airplanes as $airplane)
-                <option>{{ $airplane->airName}}</option>
-            @endforeach
-        </select>
-        <input type="date" value="{{ old('putdate') }}" name="putdate" class="form-control">
-        <button type="submit" class="m-2 bg-blue-300 px-3 py-2 rounded" >搜尋</button>
+        <div class="row offset-md-1">
+          <div class="col-5">
+            <label for="inputPassword4" class="col-form-label ">航班名稱：</label>
+            <select name="putname" class="form-select" aria-label="Default select example">
+                <option selected></option>
+                @foreach($airplanes as $airplane)
+                    <option>{{ $airplane->airName}}</option>
+                @endforeach
+            </select>
+          </div>
+          <div class="col-6">
+              <label for="inputPassword6" class="col-form-label"><span style="color: red;">*</span>起飛日期：</label>
+              <input type="date" value="{{ old('putdate') }}" name="putdate" class="form-control"></div>
+        </div><br>
+            <div class="d-grid gap-2 col-2 mx-auto">
+                <!-- Button trigger modal -->               
+                <button type="submit" class="m-2 bg-blue-300 px-3 py-2 rounded" >搜尋</button>
+            </div><br>
     </form>               
 
 
@@ -57,7 +74,7 @@
                 </tr>
                 </thead>
             </div>
-            <div class="tbl-content ">
+            <div class="tbl-content">
                 <tbody>
                     @foreach($flights as $flight)
                     <tr>

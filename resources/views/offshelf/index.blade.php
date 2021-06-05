@@ -32,7 +32,7 @@
             </ul>
         </div>
     @endif  
-
+    <span class="col-10" id="g1"> <br>
     <nav>
         <div class="nav nav-tabs col-md-10" id="nav-tab" role="tablist" >
             <a class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">下架</a>
@@ -40,66 +40,13 @@
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--已下架-->
-            <div id=h1></div>
-
-            <section class="table table-hover">
-                <div > <!--時間表-->
-                <table cellpadding="0" cellspacing="0" >
-                    <thead>
-                    <tr class="tbl-header">
-                    <th><h6><b> 飛機名稱</th>
-                    <th><h6><b> 起飛日期</th>    
-                    <th><h6><b> 起飛時間</th>
-                    <th><h6><b> 起飛地點</th>
-                    <th><h6><b> 降落地點</th>
-                    <th><h6><b> 座位數量</th>
-                    <th><h6><b> 已售座位</th>
-                    <th><h6><b> 機票價格</th>
-                    </tr>
-                    </thead>
-                </div>
-                <div class="tbl-content ">
-                    <tbody>
-                    @foreach($alreadyoffs as $alreadyoff)
-                    <tr>
-                        @if ($alreadyoff->date == date('Y-m-d', strtotime('+8HOUR') ))
-                            @if ($alreadyoff->Ltime < date('H:i', strtotime('+8HOUR') ))
-                                <td>{{ $alreadyoff->fName}}</td>
-                                <td>{{ $alreadyoff->date }}</td>
-                                <td>{{ $alreadyoff->Ltime }}</td>  
-                                <td>{{ $alreadyoff->toplace}}</td>
-                                <td>{{ $alreadyoff->foplace}}</td>
-                                <td>{{ $alreadyoff->airSeat}}</td>
-                                <td>{{ $alreadyoff->unboughtSeat}}</td>
-                                <td>{{ $alreadyoff->fprice}}</td>
-                            @endif
-                        @else
-                            <td>{{ $alreadyoff->fName}}</td>
-                            <td>{{ $alreadyoff->date }}</td>
-                            <td>{{ $alreadyoff->Ltime }}</td>  
-                            <td>{{ $alreadyoff->toplace}}</td>
-                            <td>{{ $alreadyoff->foplace}}</td>
-                            <td>{{ $alreadyoff->airSeat}}</td>
-                            <td>{{ $alreadyoff->unboughtSeat}}</td>
-                            <td>{{ $alreadyoff->fprice}}</td>
-                        @endif
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                </div>
-            </section>
-            {{-- {{ $alreadyoffs->links() }} --}}
-        </div>
-        
-
         <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--下架-->
             <form action="{{ route('offshelfs.store') }} " method="POST">
                 {{-- @method('GET') --}}
                 @csrf
+              <div class="row g-3 col-8 align-items-center float-right" style="padding: 0px;">
                 <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label">飛機名稱：</label>
+                    <label for="inputPassword6" class="col-form-label">航班名稱：</label>
                 </div>
                 <div class="col-auto">
                     <select name="editname" class="form-select" aria-label="Default select example">
@@ -112,7 +59,7 @@
                 </div>
 
                 <div class="col-auto">
-                    <label for="inputAddress" class="form-label">起飛日期：</label>
+                    <label for="inputAddress" class="col-form-label"><span style="color: red;">*</span>起飛日期：</label>
                 </div>
                 <div class="col-auto">
                     <input type="date" value="{{ old('editdate') }}" name="editdate" class="form-control">
@@ -121,6 +68,7 @@
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary">搜尋</button>
                 </div>
+              </div><br>
             </form>
 
             @if(!isset($offs))
@@ -148,7 +96,7 @@
                             </thead>
                         </div>
                     
-                        <div class="tbl-content ">
+                        <div class="tbl-content">
                             <tbody>
                             @foreach($offs as $off)
                             <tr>
@@ -227,7 +175,58 @@
                     })
                 </script> --}}
             
-        </div>    
+        </div>  
+        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--已下架-->
+            
+            <section class="table table-hover">
+                <div > <!--時間表-->
+                <table cellpadding="0" cellspacing="0" >
+                    <thead>
+                    <tr class="tbl-header">
+                    <th><h6><b> 飛機名稱</th>
+                    <th><h6><b> 起飛日期</th>    
+                    <th><h6><b> 起飛時間</th>
+                    <th><h6><b> 起飛地點</th>
+                    <th><h6><b> 降落地點</th>
+                    <th><h6><b> 座位數量</th>
+                    <th><h6><b> 已售座位</th>
+                    <th><h6><b> 機票價格</th>
+                    </tr>
+                    </thead>
+                </div>
+                <div class="tbl-content ">
+                    <tbody>
+                    @foreach($alreadyoffs as $alreadyoff)
+                    <tr>
+                        @if ($alreadyoff->date == date('Y-m-d', strtotime('+8HOUR') ))
+                            @if ($alreadyoff->Ltime < date('H:i', strtotime('+8HOUR') ))
+                                <td>{{ $alreadyoff->fName}}</td>
+                                <td>{{ $alreadyoff->date }}</td>
+                                <td>{{ $alreadyoff->Ltime }}</td>  
+                                <td>{{ $alreadyoff->toplace}}</td>
+                                <td>{{ $alreadyoff->foplace}}</td>
+                                <td>{{ $alreadyoff->airSeat}}</td>
+                                <td>{{ $alreadyoff->unboughtSeat}}</td>
+                                <td>{{ $alreadyoff->fprice}}</td>
+                            @endif
+                        @else
+                            <td>{{ $alreadyoff->fName}}</td>
+                            <td>{{ $alreadyoff->date }}</td>
+                            <td>{{ $alreadyoff->Ltime }}</td>  
+                            <td>{{ $alreadyoff->toplace}}</td>
+                            <td>{{ $alreadyoff->foplace}}</td>
+                            <td>{{ $alreadyoff->airSeat}}</td>
+                            <td>{{ $alreadyoff->unboughtSeat}}</td>
+                            <td>{{ $alreadyoff->fprice}}</td>
+                        @endif
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                </div>
+            </section>
+            {{-- {{ $alreadyoffs->links() }} --}}
+        </div>  
     </div>    
-    
+    </span>
 @endsection

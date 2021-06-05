@@ -11,11 +11,82 @@
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous"
     />
+    <style>
+       #body-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+#sidebar-container {
+    min-height: 100vh;
+    background-color: #fdd85d;
+    padding: 0;
+}
 
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+    width: 230px;
+}
+.sidebar-collapsed {
+    width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+    height: 50px;
+    color: black;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+    height: 45px;
+    padding-left: 30px;
+}
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
+
+/* Separators */
+.sidebar-separator-title {
+    background-color: #fdd85d;
+    height: 35px;
+}
+.sidebar-separator {
+    background-color: #fdd85d;
+    height: 25px;
+}
+.logo-separator {
+    background-color: #fdd85d;
+    height: 60px;
+}
+
+/* Closed submenu icon */
+#sidebar-container
+    .list-group
+    .list-group-item[aria-expanded="false"]
+    .submenu-icon::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+}
+/* Opened submenu icon */
+#sidebar-container
+    .list-group
+    .list-group-item[aria-expanded="true"]
+    .submenu-icon::after {
+    content: " \f0da";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+}
+    </style>
     @yield('css')
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
+    
     @yield('title')
 </head>
 <body>
@@ -28,6 +99,27 @@
         <div class="container">
             <a class="navbar-brand" href="homePage.html"> Take off 空 </a>
             <div id="Date"> </div>
+            <div>
+                <!-- Bootstrap NavBar -->
+                <nav class="navbar navbar-expand-md ">
+                  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">                    
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">                           
+                      <!-- This menu is hidden in bigger devices with d-sm-none. -->
+                      <li class="nav-item dropdown d-sm-block d-md-none">
+                            <a class="dropdown-item" href="today">今日航班</a>
+                            <a class="dropdown-item" href="putshelf">上架</a>
+                            <a class="dropdown-item" href="offshelf">下架</a>
+                            <a class="dropdown-item" href="updateflights">修改</a>
+                            <a class="dropdown-item" href="search">查詢</a>                                                                      
+                      </li><!-- Smaller devices menu END -->
+                    </ul>
+                  </div>
+                </nav><!-- NavBar END -->        
+                  </div>
         </a></div></a></div>
 
         <div mv-app="clock" mv-bar="none">
@@ -47,11 +139,84 @@
             d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
         </div>
 
-    <div>
+        <div class="row" id="body-row">
+            <!-- Sidebar -->
+            <div id="sidebar-container" class="sidebar-expanded d-none d-md-block" style="width: 230px;"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                <!-- Bootstrap List Group -->
+                <ul class="list-group">
+                    <!-- Separator with title -->
+                    
+                    <!-- /END Separator -->
+                    <!-- Menu with submenu -->
+                    <a href="today" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-plane fa-fw mr-3"></span> 
+                            <span class="menu-collapsed">今日航班</span>
+                        </div>
+                    </a>
+                    <a href="putshelf" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-upload fa-fw mr-3"></span>
+                            <span class="menu-collapsed">上架</span>
+                        </div>
+                    </a>
+                    <a href="offshelf" class="bg-transparent list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-download fa-fw mr-3"></span>
+                            <span class="menu-collapsed">下架</span>    
+                        </div>
+                    </a>
+                    <a href="updateflights" class="bg-transparent list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-pencil fa-fw mr-3"></span>
+                            <span class="menu-collapsed">修改</span>    
+                        </div>
+                    </a>
+                    <a href="search" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-search fa-fw mr-3"></span>
+                            <span class="menu-collapsed">查詢</span>    
+                        </div>
+                  </a>
+          </div><!-- sidebar-container END -->
+
+  <div class="col"  style="padding-right:50px;">                     
+   <div class="container" style="padding-left:5px;">
+    <div class="container">
         @yield('main')
-    </div>
+    </div>    
+   </div>
+  </div>
 
-
+  <script>// Hide submenus
+    $('#body-row .collapse').collapse('hide'); 
+    
+    // Collapse/Expand icon
+    $('#collapse-icon').addClass('fa-angle-double-left'); 
+    
+    // Collapse click
+    $('[data-toggle=sidebar-colapse]').click(function() {
+        SidebarCollapse();
+    });
+    
+    function SidebarCollapse () {
+        $('.menu-collapsed').toggleClass('d-none');
+        $('.sidebar-submenu').toggleClass('d-none');
+        $('.submenu-icon').toggleClass('d-none');
+        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+        
+        // Treating d-flex/d-none on separators with title
+        var SeparatorTitle = $('.sidebar-separator-title');
+        if ( SeparatorTitle.hasClass('d-flex') ) {
+            SeparatorTitle.removeClass('d-flex');
+        } else {
+            SeparatorTitle.addClass('d-flex');
+        }
+        
+        // Collapse/Expand icon
+        $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+    }</script>
+    
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script

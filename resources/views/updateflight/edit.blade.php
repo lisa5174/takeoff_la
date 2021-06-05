@@ -19,7 +19,7 @@
         </ul>
     </div>
     @endif  
-
+    <span class="col-10" id="g1">
     <div class="container">
         <br><div class="row"><h4>航班資訊</h4></div><br>
         @if(!isset($flights))
@@ -35,26 +35,36 @@
                     <form action="{{ route('updateflight.update',$flight->fId)}} " method="POST">
                         @csrf
                         @method('PUT')
-                        
-                            飛機名稱：{{ $flight->fName}}<br>
-                            起飛日期：<input type="date" value="{{ $flight->date }}" name="updatedate" class="form-control"><br>
-                            起飛時間：<input type="time" value="{{ $flight->Ltime }}" name="updatetime" class="form-control"><br>
-                            起飛地點：{{ $flight->toplace}}<br>
-                            降落地點：{{ $flight->foplace}}<br>
-                            座位數量：{{ $flight->airSeat}}<br>
-                            已售座位：{{ $flight->unboughtSeat}}<br>
-                            機票價格：{{ $flight->fprice}}<br>
-                        
+                        <div class="row offset-md-1">
+                            <div class="col-5">飛機名稱：{{ $flight->fName}}</div>
+                          </div><br>
+                          <div class="row offset-md-1">
+                            <div class="col-5">起飛日期：<input type="date" value="{{ $flight->date }}" name="updatedate" class="form-control"></div>
+                            <div class="col-5">起飛時間：<input type="time" value="{{ $flight->Ltime }}" name="updatetime" class="form-control"></div>
+                          </div><br>
+                          <div class="row offset-md-1">
+                            <div class="col-5">起飛地點：{{ $flight->toplace}}</div>
+                            <div class="col-5">降落地點：{{ $flight->foplace}}</div>
+                          </div><br>
+                          <div class="row offset-md-1">
+                            <div class="col-5">座位數量：{{ $flight->airSeat}}</div>
+                            <div class="col-5">已售座位：{{ $flight->unboughtSeat}}</div>
+                          </div><br>
+                          <div class="row offset-md-1">
+                            <div class="col-5">機票價格：{{ $flight->fprice}}</div>
+                          </div>
+                        </div>
                         <div class="d-grid gap-2 col-2 mx-auto">
                             <!-- Button trigger modal -->
                             <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">修改航班</button>
                         </div>
+                        </div><br>
                     </form>
                 @endif    
             @endforeach
         @endif
     </div>
-    
+    </span>
     
 
     

@@ -35,12 +35,13 @@
     </nav>
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><!--航班-->
-            <div class="row g-3 align-items-center float-right">
+            
                 <form action="{{ url('/updateflights') }} " method="POST">
                   {{-- @method('GET') --}}
                     @csrf
+                  <div class="row g-3 align-items-center float-right" style="padding: 0px;">
                     <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">飛機名稱：</label>
+                        <label for="inputPassword6" class="col-form-label">航班名稱：</label>
                     </div>
                     <div class="col-auto">
                         <select name="editname" class="form-select" aria-label="Default select example">
@@ -53,7 +54,7 @@
                     </div>
 
                     <div class="col-auto">
-                        <label for="inputAddress" class="form-label">起飛日期：</label>
+                        <label for="inputAddress" class="col-form-label"><span style="color: red;">*</span>起飛日期：</label>
                     </div>
                     <div class="col-auto">
                         <input type="date" value="{{ old('editdate') }}" name="editdate" class="form-control">
@@ -62,8 +63,8 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary">搜尋</button>
                     </div>
+                  </div><br>
                 </form>
-            </div><br>
 
             @if(!isset($flights))
                 請搜尋欲修改的航班
@@ -140,6 +141,7 @@
         
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--旅客-->
           <div class="row g-3 align-items-center float-right">
+
             <div class="col-auto">
               <label for="inputPassword6" class="col-form-label">訂單編號：</label>
             </div>
