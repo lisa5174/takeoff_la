@@ -35,7 +35,7 @@ class be_choose extends Controller
         INNER JOIN location as c ON a.toPlace = c.loId
         INNER JOIN location as d ON a.foPlace = d.loId 
         where a.toPlace = '$apto' and  a.foPlace = '$apfo' and  
-        a.date = '$dateto'
+        a.date = '$dateto' AND a.status = 1
         order by `a`.`date` ASC,`a`.`time` asc
         ";
         //'2021-05-10' 記得加分號
@@ -49,12 +49,12 @@ class be_choose extends Controller
         $ticket3 = DB::table('tickettype')->select('tPrice')->where('tName','軍人')->get();
         $ticket4 = DB::table('tickettype')->select('tPrice')->where('tName','愛心')->get();
         $ticket5 = DB::table('tickettype')->select('tPrice')->where('tName','愛心陪同')->get();
-        $ticket6 = DB::table('tickettype')->select('tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdto)->get();
+        $ticket6 = DB::table('tickettype')->select('tName','tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdto)->get();
         $ticket7 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民')->get();
         $ticket8 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民敬老')->get();
         $ticket9 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛心')->get();
         $ticket10 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛陪')->get();
-        $ticket11 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdto)->get();
+        $ticket11 = DB::table('tickettype')->select('tName','tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdto)->get();
 
         if(!isset($_GET["datefo"])){  //如果回程日期不存在
             return view("be_choose.index",['toflights' => $toflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,
@@ -84,18 +84,21 @@ class be_choose extends Controller
             'apto' => 'nullable|integer', //回程出發地點
             'apfo' => 'nullable|integer', //回程目的地點
             'datefo' => 'nullable|date|after:today', //回程日期
-            'ticket1' => 'required|integer|between:0,4',
             'ticket2' => 'required|integer|between:0,4',
-            'ticket3' => 'required|integer|between:0,4',
-            'ticket4' => 'required|integer|between:0,4',
-            'ticket5' => 'required|integer|between:0,4', //愛心
-            'ticket6' => 'required|integer|between:0,4', //愛陪
-            'ticket7' => 'nullable|integer|between:0,4',
+            'ticket3' => 'nullable|integer|between:0,4',
+            'ticket4' => 'nullable|integer|between:0,4',
+            'ticket5' => 'nullable|integer|between:0,4', 
+            'ticket6' => 'nullable|integer|between:0,4', 
+            'ticket7' => 'required|integer|between:0,4',
             'ticket8' => 'required|integer|between:0,4',
-            'ticket9' => 'required|integer|between:0,4',
-            'ticket10' => 'required|integer|between:0,4', //愛心
-            'ticket11' => 'required|integer|between:0,4', //愛陪
+            'ticket9' => 'required|integer|between:0,4',//愛心
+            'ticket10' => 'required|integer|between:0,4', //愛陪
+            'ticket11' => 'required|integer|between:0,4', 
             'ticket12' => 'nullable|integer|between:0,4',
+            'ticket13' => 'required|integer|between:0,4',
+            'ticket14' => 'required|integer|between:0,4',//愛心
+            'ticket15' => 'required|integer|between:0,4',//愛陪
+            'ticket16' => 'required|integer|between:0,4',
             'quantity' => 'required|integer|between:1,4', //成人
             'quantity2' => 'required|integer|between:0,4|lte:quantity' //嬰兒
         ]);
@@ -104,12 +107,12 @@ class be_choose extends Controller
         $cnt = 0;
         $hasnumto = 0;
         $haspeopleto = [];
-        for($i = 1; $i <= 12; $i++) {
+        for($i = 2; $i <= 16; $i++) {
             $t = "ticket";
             $x = $t.$i;
             $cnt += $request->$x; //計算總人數
             if(($request->$x) != 0){
-                $haspeopleto[$hasnumto] = $x; //統計哪些票種有訂購
+                $haspeopleto[$hasnumto] = $i; //統計哪些票種有訂購
                 $hasnumto += 1;
             }
         }
@@ -117,13 +120,13 @@ class be_choose extends Controller
         if ($cnt != $request->quantity) {
             return back()->withErrors(['旅客人數不符， 總人數應為'.$request->quantity.'人。您現選擇'.$cnt.'人']);
         }
-        if($request->ticket6 != 0){
-            if($request->ticket5 == 0) return back()->withErrors(['愛心陪同票必須與愛心票同時訂購']);
-            elseif($request->ticket6 > $request->ticket5) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
+        if($request->ticket10 != 0){
+            if($request->ticket9 == 0) return back()->withErrors(['愛心陪同票必須與愛心票同時訂購']);
+            elseif($request->ticket10 > $request->ticket9) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
         }
-        if($request->ticket11 != 0){
-            if($request->ticket10 == 0) return back()->withErrors(['愛心陪同票必須與愛心票同時訂購']);
-            elseif($request->ticket11 > $request->ticket10) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
+        if($request->ticket15 != 0){
+            if($request->ticket14 == 0) return back()->withErrors(['愛心陪同票必須與愛心票同時訂購']);
+            elseif($request->ticket15 > $request->ticket14) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
         }
 
         // return dd($haspeopleto);
@@ -132,31 +135,32 @@ class be_choose extends Controller
 
         $numto = count($haspeopleto);//數陣列內容
 
-        if((!isset( $request->datefo)) && (!isset( $request->apto)) && (!isset( $request->apfo))){  //如果回程日期不存在
+        // return dd($numto);
+        if((!isset( $request->datefo)) && (!isset( $request->apto)) && (!isset( $request->apfo))){  //如果回程不存在
             switch($numto)
             {
                 case 1:
-                    $a = $haspeopleto[0];
+                    $a = "ticket".$haspeopleto[0];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
-                    'toticket2' =>'','toticket3' =>'','toticket4' =>'','quantity2' => $request->quantity2]);//router會帶參數
+                    'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity2' => $request->quantity2]);//router會帶參數
                 case 2:
-                    $a = $haspeopleto[0];
-                    $b = $haspeopleto[1];
+                    $a = "ticket".$haspeopleto[0];
+                    $b = "ticket".$haspeopleto[1];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
-                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>'','toticket4' =>'',
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>['',''],'toticket4' =>['',''],
                     'quantity2' => $request->quantity2]);//router會帶參數
                 case 3:
-                    $a = $haspeopleto[0];
-                    $b = $haspeopleto[1];
-                    $c = $haspeopleto[2];
+                    $a = "ticket".$haspeopleto[0];
+                    $b = "ticket".$haspeopleto[1];
+                    $c = "ticket".$haspeopleto[2];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
-                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>'',
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>['',''],
                     'quantity2' => $request->quantity2]);//router會帶參數
                 case 4:
-                    $a = $haspeopleto[0];
-                    $b = $haspeopleto[1];
-                    $c = $haspeopleto[2];
-                    $d = $haspeopleto[3];
+                    $a = "ticket".$haspeopleto[0];
+                    $b = "ticket".$haspeopleto[1];
+                    $c = "ticket".$haspeopleto[2];
+                    $d = "ticket".$haspeopleto[3];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],
                     'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2]);//router會帶參數
@@ -168,7 +172,7 @@ class be_choose extends Controller
             // return "不存在";
             
         }
-        elseif((isset( $request->datefo)) && (isset( $request->apto)) && (isset( $request->apfo))){
+        elseif((isset( $request->datefo)) && (isset( $request->apto)) && (isset( $request->apfo))){ //如果回程存在
             
             $differfo =round(((strtotime($request->datefo) - strtotime("now"))/(60*60*24)),1); //相差回程時間
             $earlybirdfo = 0;
@@ -189,7 +193,7 @@ class be_choose extends Controller
             INNER JOIN location as c ON a.toPlace = c.loId
             INNER JOIN location as d ON a.foPlace = d.loId 
             where a.toPlace = '$request->apto' and  a.foPlace = '$request->apfo' and  
-            a.date = '$request->datefo'
+            a.date = '$request->datefo' AND a.status = 1
             order by `a`.`date` ASC,`a`.`time` asc
             ";
             // //'2021-05-10' 記得加分號
@@ -203,30 +207,69 @@ class be_choose extends Controller
             $ticket3 = DB::table('tickettype')->select('tPrice')->where('tName','軍人')->get();
             $ticket4 = DB::table('tickettype')->select('tPrice')->where('tName','愛心')->get();
             $ticket5 = DB::table('tickettype')->select('tPrice')->where('tName','愛心陪同')->get();
-            $ticket6 = DB::table('tickettype')->select('tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdfo)->get();
+            $ticket6 = DB::table('tickettype')->select('tName','tPrice')->where('tName','促銷(早鳥)優惠')->where('tId',$earlybirdfo)->get();
             $ticket7 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民')->get();
             $ticket8 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民敬老')->get();
             $ticket9 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛心')->get();
             $ticket10 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民愛陪')->get();
-            $ticket11 = DB::table('tickettype')->select('tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdfo)->get();
-            
-            // return view("be_choose.index",['toflights' => $toflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $dateto,
-            // 'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
-            // 'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
-            // 'ticket11' => $ticket11]
-            // ,['quantity' => $quantity,'quantity2' => $quantity2,'apfo' => $apto,'apto' => $apfo,'datefo' => $datefo]);
-
-            // return redirect()->route("order.index",['toId' => $request->apId,'apfo' => $request->be_apfo,'dateto' => $request->dateto,
-            // 'datefo' => $request->datefo,'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
+            $ticket11 = DB::table('tickettype')->select('tName','tPrice')->where('tName','離島居民促銷優惠')->where('tId',$localearlybirdfo)->get();
 
             //to用hidden傳，fo到login.blade.php(order)判斷，並以hidden傳
+
+            switch($numto)
+            {
+                case 1:
+                    $a = "ticket".$haspeopleto[0];
+                    return view("be_choose.index2",['foflights' => $foflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $request->datefo,
+                    'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+                    'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+                    'ticket11' => $ticket11]
+                    ,['quantity' => $request->quantity,
+                    'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity2' => $request->quantity2]);//router會帶參數
+                case 2:
+                    $a = "ticket".$haspeopleto[0];
+                    $b = "ticket".$haspeopleto[1];
+                    return view("be_choose.index2",['foflights' => $foflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $request->datefo,
+                    'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+                    'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+                    'ticket11' => $ticket11]
+                    ,['quantity' => $request->quantity,
+                    'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>['',''],'toticket4' =>['',''],
+                    'quantity2' => $request->quantity2]);
+                case 3:
+                    $a = "ticket".$haspeopleto[0];
+                    $b = "ticket".$haspeopleto[1];
+                    $c = "ticket".$haspeopleto[2];
+                    return view("be_choose.index2",['foflights' => $foflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $request->datefo,
+                    'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+                    'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+                    'ticket11' => $ticket11]
+                    ,['quantity' => $request->quantity,
+                    'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>['',''],
+                    'quantity2' => $request->quantity2]);
+                case 4:
+                    $a = "ticket".$haspeopleto[0];
+                    $b = "ticket".$haspeopleto[1];
+                    $c = "ticket".$haspeopleto[2];
+                    $d = "ticket".$haspeopleto[3];
+                    return view("be_choose.index2",['foflights' => $foflights,'toplace' => $toplace,'foplace' => $foplace,'dateto' => $request->datefo,
+                    'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
+                    'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
+                    'ticket11' => $ticket11]
+                    ,['quantity' => $request->quantity,
+                    'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
+                    'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],
+                    'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2]);
+            }
         }
         else{
             return "抱歉，出現不可預期的錯誤，請返回上一頁或關閉網頁重新進入";
         }
 
     }
-
 
     /**
      * Show the form for creating a new resource.

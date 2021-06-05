@@ -40,7 +40,7 @@ class be_homepage extends Controller
             'be_apto' => 'required|integer|between:1,7',
             'be_apfo' => 'required|integer|between:1,7',
             'dateto' => 'required|date|after_or_equal:today',
-            'datefo' => 'nullable|date|after_or_equal:today|after_or_equal:dateto',
+            'datefo' => 'nullable|date|after_or_equal:dateto',
             'quantity' => 'required|integer|between:1,4',
             'quantity2' => 'required|integer|between:0,4|lte:quantity'
         ]);

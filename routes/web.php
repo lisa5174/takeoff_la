@@ -66,12 +66,13 @@ Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);
 
 
 Route::resource('homepage', be_homepage::class)->only('index','store');
-Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2');
-// Route::get('/choose2/{chooseflight}',[be_choose::class,'index2'])
-// ->where('chooseflight', '[0-9]+')->name('choose.index2');
+Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2'); //有回程
+// Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2'); //有回程
 
 Route::resource('choose', be_choose::class)->only('index','index2','edit','store');
-Route::resource('order', be_order::class)->only('index');
+Route::get('/order2',[be_order::class,'index2'])->name('order.index2'); //有回程
+
+Route::resource('order', be_order::class)->only('index','index2');
 Route::resource('pay', be_pay::class)->only('index');
 Route::resource('finish', be_finish::class)->only('index');
 Route::resource('register', be_register::class)->only('index');
