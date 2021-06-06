@@ -1,7 +1,7 @@
 @extends('layouts.flights')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/b_offshelf.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/b_today.css')}}"/>
 @endsection
 
 @section('title')
@@ -44,7 +44,7 @@
             <form action="{{ route('offshelfs.store') }} " method="POST">
                 {{-- @method('GET') --}}
                 @csrf
-              <div class="row g-3 col-8 align-items-center float-right" style="padding: 0px;">
+              <div class="row g-3 align-items-center float-right" style="padding: 0px;">
                 <div class="col-auto">
                     <label for="inputPassword6" class="col-form-label">航班名稱：</label>
                 </div>
@@ -121,7 +121,7 @@
                                 <td>{{ $off->airSeat}}</td>
                                 <td>{{ $off->unboughtSeat}}</td>
                                 <td>{{ $off->fprice}}</td>
-                                <td><input class="form-check-input" type="checkbox" name="checkbox[]" value="{{$off->fId}}"></td>
+                                <td><input class="form-check-input" type="checkbox" name="checkbox[]" value="{{$off->fId}}">刪除</td>
                                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
                                     data-bs-whatever="{{$off->fName}}" data-bs-whatever2="{{$off->fId}}">刪除</button> --}}
 
@@ -133,7 +133,7 @@
                         </div>
                     </section>
 
-                    <div class="d-grid gap-2 col-2 mx-auto">
+                    <div class="d-grid gap-2 col-md-2 mx-auto">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

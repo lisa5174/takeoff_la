@@ -207,9 +207,11 @@ table {
     width: 100%;
     table-layout: fixed;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: solid 1px rgb(0, 0, 0);
 }
 .tbl-header {
     background-color: #99d6ea;
+    text-align: center;
 }
 .tbl-content {
     overflow-x: auto;
@@ -218,7 +220,7 @@ table {
 }
 th {
     padding: 20px 15px;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
     font-weight: 500;
     font-size: 12px;
@@ -227,7 +229,7 @@ th {
 }
 td {
     padding: 15px;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
     font-weight: 300;
     font-size: 12px;

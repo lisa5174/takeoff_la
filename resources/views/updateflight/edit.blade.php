@@ -1,7 +1,7 @@
 @extends('layouts.flights')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/b_offshelf.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/b_today.css')}}"/>
 @endsection
 
 @section('title')
