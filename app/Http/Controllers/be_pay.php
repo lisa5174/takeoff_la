@@ -28,7 +28,8 @@ class be_pay extends Controller
             'foticket4' => 'nullable|array',
             'pname' => 'required|string|max:15',
             'pgender' => 'required',
-            'pid' => 'required',
+            // ['required','regex:/[m]{1}|[f]{1}/'],
+            'pid' => 'required|tw_id',
             'pbirth' => 'required|date', 
             'cname' => 'required|string|max:15', 
             'cphone' => 'required|numeric|regex:/(09)[0-9]/|digits:10',
@@ -36,8 +37,14 @@ class be_pay extends Controller
             'quantity2' => 'required|integer|between:0,4' //嬰兒
         ]);
 
-
-        return view("be_pay.index");
+        return view("be_pay.index",
+        ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
+        'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
+        'foticket1' =>$request->foticket1,
+        'foticket2' =>$request->foticket2,'foticket3' =>$request->foticket3,
+        'foticket4' =>$request->foticket4,'quantity2' => $request->quantity2]
+        ,['pname' => $request->pname,'pgender' => $request->pgender,'pid' => $request->pid,'pbirth' => $request->pbirth,
+        'cname' => $request->cname,'cphone' => $request->cphone,'cemail' => $request->cemail]);
     }
 
     /**

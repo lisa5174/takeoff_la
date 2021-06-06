@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97cebff9ad6d6704b31aa56517d1765d",
+    "content-hash": "e933f9eaa2bc5206205e711e712e0b03",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2261,6 +2261,71 @@
                 }
             ],
             "time": "2021-04-28T15:31:15+00:00"
+        },
+        {
+            "name": "meditate/twid",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-dojo/twid.git",
+                "reference": "770bb3d27b945c95edd92b9f25303a7409b51d80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-dojo/twid/zipball/770bb3d27b945c95edd92b9f25303a7409b51d80",
+                "reference": "770bb3d27b945c95edd92b9f25303a7409b51d80",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "illuminate/support": "^5.3",
+                "phpunit/phpunit": "^7.2",
+                "squizlabs/php_codesniffer": "^3.3"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Meditate\\IdentityCard\\IdentityCardServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Meditate\\IdentityCard\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wei-Cheng Shi",
+                    "email": "tentail10@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Taiwan ID Number validation and maker.",
+            "keywords": [
+                "ID number",
+                "Taiwan",
+                "identity card",
+                "laravel",
+                "laravel-dojo",
+                "meditate",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-dojo/twid/issues",
+                "source": "https://github.com/laravel-dojo/twid/tree/0.1.0"
+            },
+            "time": "2018-07-07T16:51:28+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

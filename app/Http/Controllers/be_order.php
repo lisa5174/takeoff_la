@@ -23,8 +23,8 @@ class be_order extends Controller
         return view("be_order.index",
         ['toId' => $toId,'toticket1' => $toticket1,'toticket2' => $toticket2,
         'toticket3' => $toticket3,'toticket4' => $toticket4,'quantity2' => $quantity2]);
-        return dd($toId,$toticket1,$toticket2,$toticket3,$toticket4);
-        return view("be_order.index");
+        // return dd($toId,$toticket1,$toticket2,$toticket3,$toticket4);
+        // return view("be_order.index");
     }
 
     public function index2(Request $request) //來回
@@ -98,7 +98,7 @@ class be_order extends Controller
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
                 return view("be_order.index",
-                ['toId' => $request->apId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
+                ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>['',''],'foticket4' =>['',''],
@@ -108,7 +108,7 @@ class be_order extends Controller
                 $b = "ticket".$haspeopleto[1];
                 $c = "ticket".$haspeopleto[2];
                 return view("be_order.index",
-                ['toId' => $request->apId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
+                ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],'foticket4' =>['',''],
@@ -119,7 +119,7 @@ class be_order extends Controller
                 $c = "ticket".$haspeopleto[2];
                 $d = "ticket".$haspeopleto[3];
                 return view("be_order.index",
-                ['toId' => $request->apId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
+                ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],
@@ -129,7 +129,7 @@ class be_order extends Controller
         // return dd($choose);
         // if(empty($toticket2))   
 
-        return view("be_order.index");
+        // return view("be_order.index");
     }
 
     /**
