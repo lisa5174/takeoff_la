@@ -81,7 +81,7 @@
         <br>
         
         <label >檢查碼：</label><br>   
-        <input class="col-4" type="text"  id="check" name="cacheckcode"  maxlength="3" oninput = "value=value.replace(/[^\d]/g,'')"/>
+        <input class="col-4" type="text"  id="check" name="cacheckcode"  maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"/>
 
         <br>
 

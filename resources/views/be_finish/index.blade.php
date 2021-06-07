@@ -72,33 +72,37 @@
         @endforeach  
         @foreach ($totickets[4] as $toticket)
             {{$toticket->tName}}票種{{$toticket4[1]}}張<br>
-        @endforeach    
+        @endforeach
+        嬰兒票種{{$quantity2}}張<br>    
         機票價格：{{$price[1]}}<br>
         
         <br>
-        回程<br>
-        @foreach ($foflights as $foflight)
-            飛機名稱：{{$foflight->fName}}<br>
-            出發機場：{{$foflight->toplace}}<br>
-            目的機場：{{$foflight->foplace}}<br>
-            起飛日期：{{$foflight->date}}<br>
-            起飛時間：{{$foflight->Ltime}}<br>
-        @endforeach
-        人數票種：<br>
-        @foreach ($fotickets[1] as $foticket)
-            {{$foticket->tName}}票種{{$foticket1[1]}}張<br>
-        @endforeach  
-        @foreach ($fotickets[2] as $foticket)
-            {{$foticket->tName}}票種{{$foticket2[1]}}張<br>
-        @endforeach  
-        @foreach ($fotickets[3] as $foticket)
-            {{$foticket->tName}}票種{{$foticket3[1]}}張<br>
-        @endforeach  
-        @foreach ($fotickets[4] as $foticket)
-            {{$foticket->tName}}票種{{$foticket4[1]}}張<br>
-        @endforeach
-        機票價格：{{$price[2]}}<br>
-        共：{{$price[0]}}元
+        @if(isset($foId))
+            回程<br>
+            @foreach ($foflights as $foflight)
+                飛機名稱：{{$foflight->fName}}<br>
+                出發機場：{{$foflight->toplace}}<br>
+                目的機場：{{$foflight->foplace}}<br>
+                起飛日期：{{$foflight->date}}<br>
+                起飛時間：{{$foflight->Ltime}}<br>
+            @endforeach
+            人數票種：<br>
+            @foreach ($fotickets[1] as $foticket)
+                {{$foticket->tName}}票種{{$foticket1[1]}}張<br>
+            @endforeach  
+            @foreach ($fotickets[2] as $foticket)
+                {{$foticket->tName}}票種{{$foticket2[1]}}張<br>
+            @endforeach  
+            @foreach ($fotickets[3] as $foticket)
+                {{$foticket->tName}}票種{{$foticket3[1]}}張<br>
+            @endforeach  
+            @foreach ($fotickets[4] as $foticket)
+                {{$foticket->tName}}票種{{$foticket4[1]}}張<br>
+            @endforeach
+            嬰兒票種{{$quantity2}}張<br>
+            機票價格：{{$price[2]}}<br>
+        @endif
+        共：{{$price[0]}}元<br> 
         <br>
         旅客<br>
         姓名：{{$pname}}<br>

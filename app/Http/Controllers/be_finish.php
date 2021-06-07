@@ -45,8 +45,13 @@ class be_finish extends Controller
             'id2' => 'required|size:4', 
             'id3' => 'required|size:4', 
             'id4' => 'required|size:4', 
-            'cacheckcode' => 'required|size:3'
+            'cacheckcode' => 'required|between:3,4'
         ]);
+
+        // return dd(strlen($request->cacheckcode));
+        if ($request->cretype == 3 && strlen($request->cacheckcode) != 4) {
+            return back()->withErrors(['檢查碼必須是 4 個字元。']);
+        }
 
         $to ="
         select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
@@ -90,25 +95,30 @@ class be_finish extends Controller
             if(!empty($totickets[$i])) $tprice += round(($totickets[$i][0]->tPrice)*($toprice));
         }
 
-        $fotic1 = $request->foticket1[0];
-        $fotic2 = $request->foticket2[0];
-        $fotic3 = $request->foticket3[0];
-        $fotic4 = $request->foticket4[0];
-        $foticsql1 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic1'";
-        $foticsql2 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic2'";
-        $foticsql3 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic3'";
-        $foticsql4 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic4'";
-        $fotickets[1] = DB::select( $foticsql1 );
-        $fotickets[2] = DB::select( $foticsql2 );
-        $fotickets[3] = DB::select( $foticsql3 );
-        $fotickets[4] = DB::select( $foticsql4 );
 
-        $foprice = $foflights[0]->fprice;
         $fprice = 0;
-        for($i = 1; $i <= 4; $i++){
-            if(!empty($totickets[$i])) $fprice = round(($fotickets[$i][0]->tPrice)*($foprice));
-        }
+        $fotickets = [];
+        if(isset($request->foId)){
+            $fotic1 = $request->foticket1[0];
+            $fotic2 = $request->foticket2[0];
+            $fotic3 = $request->foticket3[0];
+            $fotic4 = $request->foticket4[0];
+            $foticsql1 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic1'";
+            $foticsql2 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic2'";
+            $foticsql3 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic3'";
+            $foticsql4 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic4'";
+            $fotickets[1] = DB::select( $foticsql1 );
+            $fotickets[2] = DB::select( $foticsql2 );
+            $fotickets[3] = DB::select( $foticsql3 );
+            $fotickets[4] = DB::select( $foticsql4 );
 
+            $foprice = $foflights[0]->fprice;
+            for($i = 1; $i <= 4; $i++){
+                if(!empty($fotickets[$i])) $fprice += round(($fotickets[$i][0]->tPrice)*($foprice));
+            }
+
+        }
+        
         $price[0] = $tprice + $fprice;
         $price[1] = $tprice;
         $price[2] = $fprice;

@@ -33,13 +33,13 @@ use \App\Http\Controllers\be_team_introdution;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 
 Route::get('/today',[todayflight::class,'index'])->name('today');
@@ -82,17 +82,13 @@ Route::resource('order', be_order::class)->only('index','index2');
 Route::resource('pay', be_pay::class)->only('index');
 Route::resource('finish', be_finish::class)->only('index');
 Route::resource('register', be_register::class)->only('index');
-Route::resource('login', be_login::class)->only('index');
-Route::resource('member', be_member::class)->only('index');
+
+Route::resource('login', be_login::class)->only('index','login','logout');
+Route::post('/login',[be_login::class,'login'])->name('login.login');
+Route::get('/logout',[be_login::class,'logout'])->name('login.logout');
+
+Route::resource('member', be_member::class)->only('index')->middleware('userAuth');
 Route::resource('membersearch', be_membersearch::class)->only('index');
 Route::resource('resetpw', be_resetpw::class)->only('index');
 Route::resource('serviceIntroduction', be_service_introdution::class)->only('index');
 Route::resource('teamIntroduction', be_team_introdution::class)->only('index');
-
-
-// Route::get($uri, $callback);
-// Route::post($uri, $callback);
-// Route::put($uri, $callback);
-// Route::patch($uri, $callback);
-// Route::delete($uri, $callback);
-// Route::options($uri, $callback);

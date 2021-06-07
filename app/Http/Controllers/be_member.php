@@ -11,8 +11,12 @@ class be_member extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $choose = $request->all();
+        // return dd($choose);
+        $username = session('username');
+        return view('be_member.index', ['username' => $username]);
         return view("be_member.index");
     }
 
