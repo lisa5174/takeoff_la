@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class be_finish extends Controller
 {
@@ -47,7 +48,81 @@ class be_finish extends Controller
             'cacheckcode' => 'required|size:3'
         ]);
 
-        
+        $to ="
+        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.fId = '$request->toId'
+        ";
+
+        $fo ="
+        select `a`.`date`,`a`.`fName`, `a`.`time`, `c`.`loName` as `toplace`, `d`.`loName` as `foplace`, `a`.`fprice`, LEFT(a.time,5) AS Ltime 
+        from flight as a 
+        INNER JOIN airplane as b ON a.fName = b.airName
+        INNER JOIN location as c ON a.toPlace = c.loId
+        INNER JOIN location as d ON a.foPlace = d.loId 
+        where a.fId = '$request->foId'
+        ";
+        // //'2021-05-10' 記得加分號
+        // //不要用重音符，有時會有錯
+
+        $toflights = DB::select( $to );
+        $foflights = DB::select( $fo );
+
+        $totic1 = $request->toticket1[0];
+        $totic2 = $request->toticket2[0];
+        $totic3 = $request->toticket3[0];
+        $totic4 = $request->toticket4[0];
+        $toticsql1 ="SELECT tName,tPrice FROM tickettype where tId = '$totic1'";
+        $toticsql2 ="SELECT tName,tPrice FROM tickettype where tId = '$totic2'";
+        $toticsql3 ="SELECT tName,tPrice FROM tickettype where tId = '$totic3'";
+        $toticsql4 ="SELECT tName,tPrice FROM tickettype where tId = '$totic4'";
+        $totickets[1] = DB::select( $toticsql1 );
+        $totickets[2] = DB::select( $toticsql2 );
+        $totickets[3] = DB::select( $toticsql3 );
+        $totickets[4] = DB::select( $toticsql4 );
+
+        $toprice = $toflights[0]->fprice;
+        $tprice = 0;
+        for($i = 1; $i <= 4; $i++){
+            if(!empty($totickets[$i])) $tprice += round(($totickets[$i][0]->tPrice)*($toprice));
+        }
+
+        $fotic1 = $request->foticket1[0];
+        $fotic2 = $request->foticket2[0];
+        $fotic3 = $request->foticket3[0];
+        $fotic4 = $request->foticket4[0];
+        $foticsql1 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic1'";
+        $foticsql2 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic2'";
+        $foticsql3 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic3'";
+        $foticsql4 ="SELECT tName,tPrice FROM tickettype where tId = '$fotic4'";
+        $fotickets[1] = DB::select( $foticsql1 );
+        $fotickets[2] = DB::select( $foticsql2 );
+        $fotickets[3] = DB::select( $foticsql3 );
+        $fotickets[4] = DB::select( $foticsql4 );
+
+        $foprice = $foflights[0]->fprice;
+        $fprice = 0;
+        for($i = 1; $i <= 4; $i++){
+            if(!empty($totickets[$i])) $fprice = round(($fotickets[$i][0]->tPrice)*($foprice));
+        }
+
+        $price[0] = $tprice + $fprice;
+        $price[1] = $tprice;
+        $price[2] = $fprice;
+        // return dd($price);
+
+        $showgender = '';
+        if ($request->pgender == 1) $showgender = '男';
+        elseif ($request->pgender == 0) $showgender = '女';
+
+        $cretype ="
+        select creName from creditcard 
+        where creType = '$request->cretype'
+        ";
+        $showcretypes = DB::select( $cretype );
 
         $caid[0] = $request->id1.$request->id2.$request->id3.$request->id4;
         $caid[1] = $request->id1;
@@ -56,14 +131,19 @@ class be_finish extends Controller
         $caid[4] = $request->id4;
 
         return view("be_finish.index",
-        ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
+        ['toflights' => $toflights,'totickets' => $totickets,
+        'foflights' => $foflights,'fotickets' => $fotickets,'price' => $price,
+        'toId' => $request->toId,'foId' => $request->foId,
+        'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
         'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
-        'foticket1' =>$request->foticket1,
-        'foticket2' =>$request->foticket2,'foticket3' =>$request->foticket3,
-        'foticket4' =>$request->foticket4,'quantity2' => $request->quantity2]
-        ,['pname' => $request->pname,'pgender' => $request->pgender,'pid' => $request->pid,'pbirth' => $request->pbirth,
+        'foticket1' =>$request->foticket1,'foticket2' =>$request->foticket2,
+        'foticket3' =>$request->foticket3,'foticket4' =>$request->foticket4]
+        ,['quantity2' => $request->quantity2,
+        'pname' => $request->pname,'pgender' => $request->pgender,'showgender' => $showgender,
+        'pid' => $request->pid,'pbirth' => $request->pbirth,
         'cname' => $request->cname,'cphone' => $request->cphone,'cemail' => $request->cemail,
-        'cretype' => $request->cretype,'camonth' => $request->camonth,'cayear' => $request->cayear,'caid' => $caid,
+        'cretype' => $request->cretype,'showcretypes' => $showcretypes,
+        'camonth' => $request->camonth,'cayear' => $request->cayear,'caid' => $caid,
         'cacheckcode' => $request->cacheckcode]);
         // return view("be_finish.index");
     }

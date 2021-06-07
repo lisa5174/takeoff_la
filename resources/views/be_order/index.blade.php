@@ -51,8 +51,8 @@
         性別：
         <select name="pgender"> 
             <option selected></option>
-            <option value="m">男</option>
-            <option value="f">女</option>
+            <option value="1">男</option>
+            <option value="0">女</option>
         </select><br>
         身分證字號：<input type="text" name="pid" value="{{ old('pid') }}"><br>
         生日：<input type="date" name="pbirth" value="{{ old('pbirth') }}"><br>
