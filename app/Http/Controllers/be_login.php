@@ -14,7 +14,9 @@ class be_login extends Controller
      */
     public function index()
     {
-        return view("be_login.index");
+        $mId = session('mId');
+        if(!isset($mId)) return view('be_login.index');
+        else return back();//如果已經登入，就返回上一頁
     }
 
     public function login(Request $request)
@@ -26,25 +28,30 @@ class be_login extends Controller
             'mpw' => 'nullable|between:8,15', 
         ]);
 
-        $userData = DB::select("SELECT * FROM member WHERE mPhone=?", [$request->macount]);
+        $userDataPhone = DB::select("SELECT * FROM member WHERE mPhone=?", [$request->macount]);
+        $userDataEmail = DB::select("SELECT * FROM member WHERE mEmail=?", [$request->macount]);
         // return dd($userData);
-        if(!isset($userData[0]->mId)){
-            
+        if(!isset($userDataPhone[0]->mId) && !isset($userDataEmail[0]->mId)){
             return back()->withErrors(['出現錯誤!該用戶不存在']);
-
-        }elseif($request->mpw == $userData[0]->password){
-
-            session(['username' => $userData[0]->mId]);
+        }
+        elseif(isset($userDataPhone[0]->mId) && ($request->mpw == $userDataPhone[0]->password)){
+            session(['mId' => $userDataPhone[0]->mId]);
             return redirect('/homepage');
-
-        }else{
+        }
+        elseif(isset($userDataEmail[0]->mId) && ($request->mpw == $userDataEmail[0]->password))
+        {
+            session(['mId' => $userDataEmail[0]->mId]);
+            return redirect('/homepage');
+        }
+        else
+        {
             return back()->withErrors(['帳號或密碼錯誤']);
         }
     }
 
     public function logout()
     {
-        session()->forget('username');
+        session()->forget('mId');
         return redirect('/homepage');
     }
 

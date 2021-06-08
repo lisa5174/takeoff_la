@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,5 +27,8 @@
         <button type="submit">登入</button>
 
     </form>
+    @if(isset($mId)) 
+        'dmjklsfklsdjlf';
+    @endif
 </body>
 </html>

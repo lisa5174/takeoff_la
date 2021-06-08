@@ -13,7 +13,9 @@ class be_team_introdution extends Controller
      */
     public function index()
     {
-        return view("be_team_introduction.index");
+        $mId = session('mId');
+        return view('be_team_introduction.index', ['mId' => $mId]);
+        // return view("be_team_introduction.index");
     }
 
     /**

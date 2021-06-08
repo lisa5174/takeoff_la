@@ -14,6 +14,8 @@ class be_choose extends Controller
      */
     public function index()
     {
+        $mId = session('mId');
+
         $apto = $_GET["apto"];
         $apfo = $_GET["apfo"];
         $dateto = $_GET["dateto"];
@@ -61,7 +63,7 @@ class be_choose extends Controller
             'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
             'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
             'ticket11' => $ticket11]
-            ,['quantity' => $quantity,'quantity2' => $quantity2]);
+            ,['quantity' => $quantity,'quantity2' => $quantity,'mId' => $mId]);
         }
         else{
             $datefo = $_GET["datefo"];
@@ -70,7 +72,7 @@ class be_choose extends Controller
             'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
             'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
             'ticket11' => $ticket11]
-            ,['quantity' => $quantity,'quantity2' => $quantity2,'apfo' => $apto,'apto' => $apfo,'datefo' => $datefo]);
+            ,['quantity' => $quantity,'quantity2' => $quantity2,'apfo' => $apto,'apto' => $apfo,'datefo' => $datefo,'mId' => $mId]);
         }
     }
 
@@ -78,6 +80,8 @@ class be_choose extends Controller
 
     public function index2(Request $request)
     {
+        $mId = session('mId');
+
         $choose = $request->all();
         $put = $request->validate([
             'apId' => 'required|integer',//去程航班
@@ -226,7 +230,7 @@ class be_choose extends Controller
                     'ticket11' => $ticket11]
                     ,['quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
-                    'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity2' => $request->quantity2]);//router會帶參數
+                    'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity2' => $request->quantity2,'mId' => $mId]);//router會帶參數
                 case 2:
                     $a = "ticket".$haspeopleto[0];
                     $b = "ticket".$haspeopleto[1];
@@ -237,7 +241,7 @@ class be_choose extends Controller
                     ,['quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>['',''],'toticket4' =>['',''],
-                    'quantity2' => $request->quantity2]);
+                    'quantity2' => $request->quantity2,'mId' => $mId]);
                 case 3:
                     $a = "ticket".$haspeopleto[0];
                     $b = "ticket".$haspeopleto[1];
@@ -249,7 +253,7 @@ class be_choose extends Controller
                     ,['quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>['',''],
-                    'quantity2' => $request->quantity2]);
+                    'quantity2' => $request->quantity2,'mId' => $mId]);
                 case 4:
                     $a = "ticket".$haspeopleto[0];
                     $b = "ticket".$haspeopleto[1];
@@ -262,7 +266,7 @@ class be_choose extends Controller
                     ,['quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],
-                    'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2]);
+                    'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2,'mId' => $mId]);
             }
         }
         else{

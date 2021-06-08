@@ -14,7 +14,9 @@ class be_homepage extends Controller
      */
     public function index()
     {
-        return view("be_homepage.index");
+        $mId = session('mId');
+        return view('be_homepage.index', ['mId' => $mId]);
+        // return view("be_homepage.index");
     }
 
     /**

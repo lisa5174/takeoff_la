@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class be_member extends Controller
 {
@@ -15,9 +16,50 @@ class be_member extends Controller
     {
         $choose = $request->all();
         // return dd($choose);
-        $username = session('username');
-        return view('be_member.index', ['username' => $username]);
-        return view("be_member.index");
+        $mId = session('mId');
+
+        $members = DB::select("select * from member where mId = '$mId'");
+        $passengers = DB::select("select * from passenger where mId = '$mId'");
+        $contacts = DB::select("select * from contactperson where mId = '$mId'");
+        $pays = DB::select(
+        "select * from payment as a 
+        INNER JOIN creditcard as b ON a.creType = b.creType
+        where mId = '$mId'");
+
+        // return dd($member);
+        
+        //'2021-05-10' 記得加分號
+        //不要用重音符，有時會有錯
+
+        $gender = '';
+        if ($passengers[0]->gender == 1) {
+            $gender = '男';
+        }
+        elseif($passengers[0]->gender == 0){
+            $gender = '女';
+        }
+        
+
+        return view('be_member.index', 
+        ['mId' => $mId,'members' => $members,'passengers' => $passengers,
+        'contacts' => $contacts,'pays' => $pays,
+        'gender' => $gender]);
+    }
+    
+    public function editmember(Request $request)
+    {
+        $choose = $request->all();
+        // return dd($choose);
+        $mId = session('mId');
+        return view('be_member.index', ['mId' => $mId]);
+    }
+
+    public function updatemember(Request $request)
+    {
+        $choose = $request->all();
+        // return dd($choose);
+        $mId = session('mId');
+        return view('be_member.index', ['mId' => $mId]);
     }
 
     /**

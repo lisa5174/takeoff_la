@@ -13,7 +13,9 @@ class be_service_introdution extends Controller
      */
     public function index()
     {
-        return view("be_service_introduction.index");
+        $mId = session('mId');
+        return view('be_service_introduction.index', ['mId' => $mId]);
+        // return view("be_service_introduction.index");
     }
 
     /**
