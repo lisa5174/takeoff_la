@@ -30,11 +30,13 @@ class be_member extends Controller
         //不要用重音符，有時會有錯
 
         $gender = '';
-        if ($passengers[0]->gender == 1) {
-            $gender = '男';
-        }
-        elseif($passengers[0]->gender == 0){
-            $gender = '女';
+        if(isset($passengers[0]->gender)){    
+            if ($passengers[0]->gender == 1) {
+                $gender = '男';
+            }
+            elseif($passengers[0]->gender == 0){
+                $gender = '女';
+            }
         }
         
 
@@ -84,6 +86,7 @@ class be_member extends Controller
         $choose = $request->all();
         // return dd($choose);
         $mId = session('mId');
+        // return dd($mId);
 
         $put = $request->validate([
             'pName' => 'required|string|max:15',
@@ -92,7 +95,10 @@ class be_member extends Controller
             'birthday' => 'required|date',
         ]);
 
-        DB::table('passenger')->where('mId', $mId)->update(
+        DB::table('passenger')->updateOrInsert(
+            [
+                'mId' => $mId,
+            ],
             [
                 'pName' => $request->pName,
                 'pId' => $request->pId,
@@ -122,7 +128,10 @@ class be_member extends Controller
             'cEmail' => 'required|email|max:35',
         ]);
 
-        DB::table('contactperson')->where('mId', $mId)->update(
+        DB::table('contactperson')->updateOrInsert(
+            [
+                'mId' => $mId,
+            ],
             [
                 'cName' => $request->cName,
                 'cPhone' => $request->cPhone,
@@ -163,15 +172,32 @@ class be_member extends Controller
         if ($request->cretype == 3 && strlen($request->cacheckcode) != 4) {
             return back()->withErrors(['檢查碼必須是 4 個字元。']);
         }
+        elseif($request->cretype != 3 && strlen($request->cacheckcode) == 4){
+            return back()->withErrors(['檢查碼必須是 3 個字元。']);
+        }
 
-        // DB::table('payment')->where('mId', $mId)->update(
-        //     [
-        //         'cName' => $request->cName,
-        //         'cPhone' => $request->cPhone,
-        //         'cEmail' => $request->cEmail,
-        //     ]
-        // );
-        return redirect()->route('member.index')->with('notice','聯絡人資料修改成功!');
+        if (substr("$request->cayear",0,2) != '20') {
+            return back()->withErrors(['有效日期(年)格式有誤。']);
+        }
+
+        $cadate = '';
+        if(strlen($request->camonth)==1) $cadate = '0'.$request->camonth.substr($request->cayear,-2);
+        else $cadate = $request->camonth.substr($request->cayear,-2);
+
+        $caid = $request->id1.$request->id2.$request->id3.$request->id4;
+
+        DB::table('payment')->updateOrInsert(
+            [
+                'mId' => $mId,
+            ],
+            [
+                'caNumber' => $caid,
+                'creType' => $request->cretype,
+                'validityPeriod' => $cadate,
+                'checkCode' => $request->cacheckcode,
+            ]
+        );
+        return redirect()->route('member.index')->with('notice','信用卡資料修改成功!');
     }
 
     /**

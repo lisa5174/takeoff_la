@@ -22,12 +22,18 @@
         @csrf
 
         聯絡人資料<br>
-        @foreach ($contacts as $contact)
-        姓名：<input type="text" name="cName" value="{{$contact->cName}}"><br>
-        行動電話：<input type="text" name="cPhone" value="{{$contact->cPhone}}"><br>
-        電子信箱：<input type="text" name="cEmail" value="{{$contact->cEmail}}"><br>
-        @endforeach
-
+        @if(empty($contacts))
+            姓名：<input type="text" name="cName"><br>
+            行動電話：<input type="text" name="cPhone"><br>
+            電子信箱：<input type="text" name="cEmail"><br>
+        @else
+            @foreach ($contacts as $contact)
+            姓名：<input type="text" name="cName" value="{{$contact->cName}}"><br>
+            行動電話：<input type="text" name="cPhone" value="{{$contact->cPhone}}"><br>
+            電子信箱：<input type="text" name="cEmail" value="{{$contact->cEmail}}"><br>
+            @endforeach
+        @endif
+        
         <button type="button" onclick="location.href='{{route('member.index')}}'">取消</button><br>
         <button type="submit">確定修改</button>
     </form>

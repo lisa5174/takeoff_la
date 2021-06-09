@@ -13,6 +13,8 @@ class be_register extends Controller
      */
     public function index()
     {
+        $mId = session('mId');
+        if(isset($mId)) return back();//如果已經登入，就返回上一頁
         return view("be_register.index");
     }
 

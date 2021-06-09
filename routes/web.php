@@ -72,15 +72,17 @@ Route::resource('updateticket', updateticket::class)->only('index');
 
 
 Route::resource('homepage', be_homepage::class)->only('index','store');
-Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2'); //有回程
+
 // Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2'); //有回程
-
 Route::resource('choose', be_choose::class)->only('index','index2');
-Route::get('/order2',[be_order::class,'index2'])->name('order.index2'); //有回程
+Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2'); //有回程
 
-Route::resource('order', be_order::class)->only('index','index2');
-Route::resource('pay', be_pay::class)->only('index');
-Route::resource('finish', be_finish::class)->only('index');
+Route::resource('order', be_order::class)->only('index','index2')->middleware('userAuth');
+Route::get('/order2',[be_order::class,'index2'])->name('order.index2')->middleware('userAuth'); //有回程
+
+Route::resource('pay', be_pay::class)->only('index')->middleware('userAuth');
+Route::resource('finish', be_finish::class)->only('index')->middleware('userAuth');
+
 Route::resource('register', be_register::class)->only('index');
 
 Route::resource('login', be_login::class)->only('index','login','logout');
@@ -91,17 +93,20 @@ Route::get('/logout',[be_login::class,'logout'])->name('login.logout');
 Route::resource('member', be_member::class)->only('index','editmember','editpassenger','editcontact','editpay',
 'updatemember','updatepassenger','updatecontact','updatepay')->middleware('userAuth');
 
-Route::get('/editmember',[be_member::class,'editmember'])->name('member.editmember');
-Route::get('/editpassenger',[be_member::class,'editpassenger'])->name('member.editpassenger');
-Route::get('/editcontact',[be_member::class,'editcontact'])->name('member.editcontact');
-Route::get('/editpay',[be_member::class,'editpay'])->name('member.editpay');
-Route::post('/updatemember',[be_member::class,'updatemember'])->name('member.updatemember');
-Route::post('/updatepassenger',[be_member::class,'updatepassenger'])->name('member.updatepassenger');
-Route::post('/updatecontact',[be_member::class,'updatecontact'])->name('member.updatecontact');
-Route::post('/updatepay',[be_member::class,'updatepay'])->name('member.updatepay');
+Route::get('/editmember',[be_member::class,'editmember'])->name('member.editmember')->middleware('userAuth');
+Route::get('/editpassenger',[be_member::class,'editpassenger'])->name('member.editpassenger')->middleware('userAuth');
+Route::get('/editcontact',[be_member::class,'editcontact'])->name('member.editcontact')->middleware('userAuth');
+Route::get('/editpay',[be_member::class,'editpay'])->name('member.editpay')->middleware('userAuth');
+Route::post('/updatemember',[be_member::class,'updatemember'])->name('member.updatemember')->middleware('userAuth');
+Route::post('/updatepassenger',[be_member::class,'updatepassenger'])->name('member.updatepassenger')->middleware('userAuth');
+Route::post('/updatecontact',[be_member::class,'updatecontact'])->name('member.updatecontact')->middleware('userAuth');
+Route::post('/updatepay',[be_member::class,'updatepay'])->name('member.updatepay')->middleware('userAuth');
 
 
-Route::resource('membersearch', be_membersearch::class)->only('index');
-Route::resource('resetpw', be_resetpw::class)->only('index');
+Route::resource('membersearch', be_membersearch::class)->only('index')->middleware('userAuth');
+
+Route::resource('resetpw', be_resetpw::class)->only('index','updatepw')->middleware('userAuth');
+Route::post('/updatepw',[be_resetpw::class,'updatepw'])->name('resetpw.updatepw')->middleware('userAuth');
+
 Route::resource('serviceIntroduction', be_service_introdution::class)->only('index');
 Route::resource('teamIntroduction', be_team_introdution::class)->only('index');

@@ -34,11 +34,11 @@ class be_login extends Controller
         if(!isset($userDataPhone[0]->mId) && !isset($userDataEmail[0]->mId)){
             return back()->withErrors(['出現錯誤!該用戶不存在']);
         }
-        elseif(isset($userDataPhone[0]->mId) && ($request->mpw == $userDataPhone[0]->password)){
+        elseif(isset($userDataPhone[0]->mId) && ($request->mpw == $userDataPhone[0]->password)){ //電話登入
             session(['mId' => $userDataPhone[0]->mId]);
             return redirect('/homepage');
         }
-        elseif(isset($userDataEmail[0]->mId) && ($request->mpw == $userDataEmail[0]->password))
+        elseif(isset($userDataEmail[0]->mId) && ($request->mpw == $userDataEmail[0]->password)) //電子信箱登入
         {
             session(['mId' => $userDataEmail[0]->mId]);
             return redirect('/homepage');
