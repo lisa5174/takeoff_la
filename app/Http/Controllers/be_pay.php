@@ -28,7 +28,7 @@ class be_pay extends Controller
             'foticket4' => 'nullable|array',
             'pname' => 'required|string|max:15',
             'pgender' => 'required|boolean',
-            'pid' => 'required|tw_id',
+            'pid' => 'required|tw_id|max:10',
             'pbirth' => 'required|date', 
             'cname' => 'required|string|max:15', 
             'cphone' => 'required|numeric|regex:/(09)[0-9]/|digits:10',

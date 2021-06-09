@@ -8,19 +8,26 @@
     <title>Document</title>
 </head>
 <body>
+    @if (session()->has('notice')) 
+        <div class="m-2 bg-green-300 px-3 py-2 rounded">
+            {{ session()->get('notice')}}
+        </div>
+    @endif
+    
     會員基本資料
     
-    <button type="button" onclick="location.href='{{route('member.editmember')}}'">編輯</button>
     <button type="button" onclick="location.href='{{route('login.logout')}}'">登出</button>
     {{-- <a href="{{ route('login.logout')}}">登出</a> --}}
     <br>
     會員資料<br>
+    <button type="button" onclick="location.href='{{route('member.editmember')}}'">修改會員資料</button><br>
     @foreach ($members as $member)
     電子信箱：{{$member->mEmail}}<br>
     手機號碼：{{$member->mPhone}}<br>
     @endforeach
 
     旅客資料<br>
+    <button type="button" onclick="location.href='{{route('member.editpassenger')}}'">編輯旅客資料</button><br>
     @foreach ($passengers as $passenger)
     姓名：{{$passenger->pName}}<br>
     身分證字號：{{$passenger->pId}}<br>
@@ -29,6 +36,7 @@
     @endforeach
     
     聯絡人資料<br>
+    <button type="button" onclick="location.href='{{route('member.editcontact')}}'">編輯聯絡人資料</button><br>
     @foreach ($contacts as $contact)
     姓名：{{$contact->cName}}<br>
     行動電話：{{$contact->cPhone}}<br>
@@ -36,6 +44,7 @@
     @endforeach
     
     信用卡資料<br>
+    <button type="button" onclick="location.href='{{route('member.editpay')}}'">編輯信用卡資料</button><br>
     @foreach ($pays as $pay)
     卡別：{{$pay->creName}}<br>
     有效日期(月/年)：{{substr("$pay->validityPeriod",0,2)}}/{{substr("$pay->validityPeriod", -2)}}<br>

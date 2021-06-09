@@ -32,7 +32,6 @@
         <label for="inputAddress" class="form-label">出發機場：</label>
         <select name="be_apto" class="form-select" aria-label="Default select example">
             <option selected></option>
-            {{-- value不用好像也可以，但避免問題就先留著 --}}
             <option value="1" {{ (old("be_apto") == "1" ? "selected":"") }}>松山(TSA)</option>
             <option value="2" {{ (old("be_apto") == "2" ? "selected":"") }}>高雄(KHH)</option>
             <option value="3" {{ (old("be_apto") == "3" ? "selected":"") }}>台中(RMQ)</option>

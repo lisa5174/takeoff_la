@@ -16,14 +16,21 @@
                 @endforeach
             </ul>
         </div>
-    @endif  
+    @endif 
 
-    <form action="{{ route('login.login')}}" method="POST">
-        @csrf 
-        手機號碼或E-mail：<input type="text" name="macount" value="{{ old('macount') }}"><br> 
-        密碼：<input type="text" name="mpw" value="{{ old('mpw') }}"><br>
-        <button type="submit">登入</button>
+    <form action="{{ route('member.updatecontact')}}" method="POST">
+        @csrf
 
+        聯絡人資料<br>
+        @foreach ($contacts as $contact)
+        姓名：<input type="text" name="cName" value="{{$contact->cName}}"><br>
+        行動電話：<input type="text" name="cPhone" value="{{$contact->cPhone}}"><br>
+        電子信箱：<input type="text" name="cEmail" value="{{$contact->cEmail}}"><br>
+        @endforeach
+
+        <button type="button" onclick="location.href='{{route('member.index')}}'">取消</button><br>
+        <button type="submit">確定修改</button>
     </form>
+    
 </body>
 </html>

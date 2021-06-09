@@ -87,9 +87,18 @@ Route::resource('login', be_login::class)->only('index','login','logout');
 Route::post('/login',[be_login::class,'login'])->name('login.login');
 Route::get('/logout',[be_login::class,'logout'])->name('login.logout');
 
-Route::resource('member', be_member::class)->only('index','editmember','updatemember')->middleware('userAuth');
+
+Route::resource('member', be_member::class)->only('index','editmember','editpassenger','editcontact','editpay',
+'updatemember','updatepassenger','updatecontact','updatepay')->middleware('userAuth');
+
 Route::get('/editmember',[be_member::class,'editmember'])->name('member.editmember');
+Route::get('/editpassenger',[be_member::class,'editpassenger'])->name('member.editpassenger');
+Route::get('/editcontact',[be_member::class,'editcontact'])->name('member.editcontact');
+Route::get('/editpay',[be_member::class,'editpay'])->name('member.editpay');
 Route::post('/updatemember',[be_member::class,'updatemember'])->name('member.updatemember');
+Route::post('/updatepassenger',[be_member::class,'updatepassenger'])->name('member.updatepassenger');
+Route::post('/updatecontact',[be_member::class,'updatecontact'])->name('member.updatecontact');
+Route::post('/updatepay',[be_member::class,'updatepay'])->name('member.updatepay');
 
 
 Route::resource('membersearch', be_membersearch::class)->only('index');
