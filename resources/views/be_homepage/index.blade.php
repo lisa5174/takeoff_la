@@ -120,7 +120,7 @@
                       <br>
                    <div class="col-md-5">
                       <label for="inputAddress" class="form-label">目的機場：</label>
-                      <select name="be_apfo" class="form-select" aria-label="Default select example">
+                      {{-- <select name="be_apfo" class="form-select" aria-label="Default select example" id="be_apfo2">
                           <option selected></option>
                           {{-- <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
                           <option value="2" {{ (old("be_apfo") == "2" ? "selected":"") }}>高雄(KHH)</option>
@@ -129,7 +129,7 @@
                           <option value="5" {{ (old("be_apfo") == "5" ? "selected":"") }}>台東(TTT)</option>
                           <option value="6" {{ (old("be_apfo") == "6" ? "selected":"") }}>澎湖(MZG)</option>
                           <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option> --}}
-                      </select>
+                      </select> --}}
                    </div>
                 </div>
                       <br>
@@ -171,7 +171,7 @@
                 </div>
             </div>
                 <div class="col justify-content-md-center">
-                      <button type="submit"  class="next action-button">搜尋</button>
+                      <button  type="submit"  class="next action-button">搜尋</button>
                 </div>
                   </form>
                 </div>
@@ -197,11 +197,11 @@
             document.myForm.be_apfo.options[i]=new Option(department[index][i], department[index][i]);	// 設定新選項
           document.myForm.be_apfo.length=department[index].length;	// 刪除多餘的選項
         }
-        function renew2(index){  //地點篩選2
-          for(var i=0;i<department[index].length;i++)
-            document.myForm.getElementById(#be_apfo).options[i]=new Option(department[index][i]);	// 設定新選項
-            document.myForm..getElementById(#be_apfo).length=department[index].length;	// 刪除多餘的選項
-          }
+        // function renew2(index){  //地點篩選2
+        //   for(var i=0;i<department[index].length;i++)
+        //     document.myForm.#be_apfo2.options[i]=new Option(department[index][i]);	// 設定新選項
+        //     document.myForm.#be_apfo2.length=department[index].length;	// 刪除多餘的選項
+        //   }
         </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
