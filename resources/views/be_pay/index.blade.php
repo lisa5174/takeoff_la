@@ -55,6 +55,8 @@
         <input type="hidden" name="cphone" value="{{$cphone}}">
         <input type="hidden" name="cemail" value="{{$cemail}}">
 
+
+        @if(empty($pays))
         <label >卡別：</label><br>
         <select class="list-dt" id="card" name="cretype"> 
             <option selected value=""></option>
@@ -66,7 +68,7 @@
         
         <br>
         
-        <label class="pay">有效日期(西元)：</label> <br><!--maxlength限定字數，oninput限定打數字-->
+        <label class="pay">有效日期(月/西元年)：</label> <br><!--maxlength限定字數，oninput限定打數字-->
         <input class="col-3" type="text" id="month" name="camonth" placeholder="月" maxlength="2" oninput = "value=value.replace(/[^\d]/g,'')"/>
         <input class="col-4" type="text"  id="year" name="cayear" placeholder="年" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"/> 
         
@@ -81,9 +83,40 @@
         <br>
         
         <label >檢查碼：</label><br>   
-        <input class="col-4" type="text"  id="check" name="cacheckcode"  maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"/>
-
-        <br>
+        <input class="col-4" type="text"  id="check" name="cacheckcode"  maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"/><br>
+        
+        @else
+            @foreach ($pays as $pay)
+            卡別：<br>
+            <select class="list-dt" id="card" name="cretype"> 
+                {{-- <option selected value=""></option> --}}
+                <option value="1" {{$pay->creType == '1' ? 'selected' : ''}}>Visa Card</option>
+                <option value="2" {{$pay->creType == '1' ? 'selected' : ''}}>Master Card</option>
+                <option value="3" {{$pay->creType == '1' ? 'selected' : ''}}>American Express</option>
+                <option value="4" {{$pay->creType == '1' ? 'selected' : ''}}>JCB Card</option>
+            </select>
+            <br>
+            有效日期(月/西元年)：<br>
+            <input class="col-3" type="text" id="month" name="camonth" placeholder="月" maxlength="2" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{substr("$pay->validityPeriod",0,2)}}"/>
+            <input class="col-4" type="text"  id="year" name="cayear" placeholder="年" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{substr("$pay->validityPeriod", -2)}}"/> 
+            <br>
+            卡號：<br>
+            <input class="col-2" type="text" id="id1" name="id1" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{substr("$pay->caNumber",0,4)}}"/>–
+            <input class="col-2" type="text" id="id2" name="id2" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{substr("$pay->caNumber",4,4)}}"/>–
+            <input class="col-2" type="text" id="id3" name="id3" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{substr("$pay->caNumber",8,4)}}"/>–
+            <input class="col-2" type="text" id="id4" name="id4" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{substr("$pay->caNumber",-4)}}"/>
+            <br>
+            檢查碼：<br>
+            <input class="col-4" type="text"  id="check" name="cacheckcode"  maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
+            value="{{$pay->checkCode}}"/><br>
+            @endforeach
+        @endif
 
         <button type="submit">下一步</button>
 

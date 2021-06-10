@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class be_pay extends Controller
 {
@@ -13,6 +14,11 @@ class be_pay extends Controller
      */
     public function index(Request $request)
     {
+        $mId = session('mId');
+
+        $pays = DB::select(
+        "select * from payment where mId = '$mId'");
+
         $choose = $request->all();
         // return dd($choose);
         $put = $request->validate([
@@ -43,7 +49,7 @@ class be_pay extends Controller
         'foticket2' =>$request->foticket2,'foticket3' =>$request->foticket3,
         'foticket4' =>$request->foticket4,'quantity2' => $request->quantity2]
         ,['pname' => $request->pname,'pgender' => $request->pgender,'pid' => $request->pid,'pbirth' => $request->pbirth,
-        'cname' => $request->cname,'cphone' => $request->cphone,'cemail' => $request->cemail]);
+        'cname' => $request->cname,'cphone' => $request->cphone,'cemail' => $request->cemail,'pays' => $pays]);
     }
 
     /**

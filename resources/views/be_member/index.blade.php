@@ -36,7 +36,7 @@
         生日：--<br>
     @else
         @foreach ($passengers as $passenger)
-        姓名：{{($passenger->pName == "") ? '--' : $passenger->pName}}<br>
+        姓名：{{$passenger->pName}}<br>
         身分證字號：{{$passenger->pId}}<br>
         性別：{{$gender}}<br>
         生日：{{$passenger->birthday}}<br>

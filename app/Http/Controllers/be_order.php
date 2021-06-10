@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class be_order extends Controller
 {
@@ -13,6 +14,11 @@ class be_order extends Controller
      */
     public function index() //單程
     {
+        $mId = session('mId');
+
+        $passengers = DB::select("select * from passenger where mId = '$mId'");
+        $contacts = DB::select("select * from contactperson where mId = '$mId'");
+
         $toId = $_GET["toId"];
         $toticket1 = $_GET["toticket1"];
         $toticket2 = $_GET["toticket2"];
@@ -22,13 +28,19 @@ class be_order extends Controller
         // if(empty($toticket2))   
         return view("be_order.index",
         ['toId' => $toId,'toticket1' => $toticket1,'toticket2' => $toticket2,
-        'toticket3' => $toticket3,'toticket4' => $toticket4,'quantity2' => $quantity2]);
+        'toticket3' => $toticket3,'toticket4' => $toticket4,'quantity2' => $quantity2,
+        'passengers' => $passengers,'contacts' => $contacts]);
         // return dd($toId,$toticket1,$toticket2,$toticket3,$toticket4);
         // return view("be_order.index");
     }
 
     public function index2(Request $request) //來回
     {
+        $mId = session('mId');
+
+        $passengers = DB::select("select * from passenger where mId = '$mId'");
+        $contacts = DB::select("select * from contactperson where mId = '$mId'");
+
         $choose = $request->all();
         // return dd($choose);
         $put = $request->validate([
@@ -93,7 +105,8 @@ class be_order extends Controller
                 ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
-                'foticket2' =>['',''],'foticket3' =>['',''],'foticket4' =>['',''],'quantity2' => $request->quantity2]);//router會帶參數
+                'foticket2' =>['',''],'foticket3' =>['',''],'foticket4' =>['',''],'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts]);//router會帶參數
             case 2:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -102,7 +115,8 @@ class be_order extends Controller
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>['',''],'foticket4' =>['',''],
-                'quantity2' => $request->quantity2]);
+                'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts]);
             case 3:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -112,7 +126,8 @@ class be_order extends Controller
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],'foticket4' =>['',''],
-                'quantity2' => $request->quantity2]);
+                'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts]);
             case 4:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -123,7 +138,8 @@ class be_order extends Controller
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],
-                'foticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2]);
+                'foticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts]);
         }
 
         // return dd($choose);

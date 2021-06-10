@@ -63,7 +63,7 @@ class be_choose extends Controller
             'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
             'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
             'ticket11' => $ticket11]
-            ,['quantity' => $quantity,'quantity2' => $quantity,'mId' => $mId]);
+            ,['quantity' => $quantity,'quantity2' => $quantity2,'mId' => $mId]);
         }
         else{
             $datefo = $_GET["datefo"];
