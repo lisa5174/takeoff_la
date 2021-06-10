@@ -40,11 +40,11 @@
                     <ul class="navbar-nav">                           
                       <!-- This menu is hidden in bigger devices with d-sm-none. -->
                       <li class="nav-item dropdown d-sm-block d-md-none">
-                            <button class="dropdown-item" onclick="location.href='{{route('today.index')}}'">今日航班</button>
+                            <button class="dropdown-item" onclick="location.href='{{route('today')}}'">今日航班</button>
                             <button class="dropdown-item" onclick="location.href='{{route('putshelf')}}'">上架</button>
-                            <button class="dropdown-item" onclick="location.href='{{route('offshelf.index')}}'">下架</button>
-                            <button class="dropdown-item" onclick="location.href='{{route('updateflights.index')}}'">修改</button>
-                            <button class="dropdown-item" onclick="location.href='{{route('search.index')}}'">查詢</button>                                                                      
+                            <button class="dropdown-item" onclick="location.href='{{route('offshelf')}}'">下架</button>
+                            <button class="dropdown-item" onclick="location.href='{{route('updateflight.index')}}'">修改</button>
+                            <button class="dropdown-item" onclick="location.href='{{route('search')}}'">查詢</button>                                                                      
                       </li><!-- Smaller devices menu END -->
                     </ul>
                   </div>

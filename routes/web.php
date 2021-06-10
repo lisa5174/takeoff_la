@@ -49,7 +49,7 @@ Route::post('/offshelf',[offshelf::class,'off'])->name('offshelfs.off');
 // Route::post('/putshelf/date',[putshelf::class,'date']);
 // Route::get('/putshelf/date',[putshelf::class,'date']);
 
-Route::get('/search',[search::class,'index']);
+Route::get('/search',[search::class,'index'])->name('search');
 Route::post('/search',[search::class,'store']);
 
 Route::get('/updateflights',[updateflight::class,'index'])->name('updateflight.index');
