@@ -25,7 +25,7 @@ class be_login extends Controller
         // return dd($choose);
         $put = $request->validate([
             'macount' => 'required',
-            'mpw' => 'nullable|between:8,15', 
+            'mpw' => 'between:8,15', 
         ]);
 
         $userDataPhone = DB::select("SELECT * FROM member WHERE mPhone=?", [$request->macount]);

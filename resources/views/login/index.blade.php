@@ -49,13 +49,23 @@
         d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
     </div>
 
+    @if ($errors->any())
+        <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li  style="color:red;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif 
     
 <div id="boxForm"> <!--登入-->
     <h2 id="title">登入</h2>
-    <form>
-      <input class='text' type='user' name='user' placeholder='帳號' required>
+    <form  action="{{ route('aflogin.aflogin')}}" method="POST">
+      @csrf 
+      <input class='text' type='user' name='adAccount' placeholder='帳號' required>
       <br>
-      <input class='text' id='pwd'  type='password' placeholder='密碼' required>
+      <input class='text' id='pwd' name='adPassword' type='password' placeholder='密碼' required>
       <br>
       <input class='button' type='submit' value='登入'>
     </form>
@@ -77,5 +87,5 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"
       ></script>
-    </body>
-  </html>
+  </body>
+</html>

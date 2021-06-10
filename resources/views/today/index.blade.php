@@ -9,6 +9,9 @@
 @endsection
 
 @section('main')
+
+<button type="button" onclick="location.href='{{route('aflogin.aflogout')}}'">登出</button>
+
   <span class="col-10" id="g1">
       <nav class="nav nav-tabs ">    
         <div  id="nav-tab " role="tablist" >

@@ -19,7 +19,9 @@
         </div>
     @endif  
   <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
-      <form id="msform" name="myForm">  
+      <form action="{{ route('homepage.store')}} " method="POST" id="msform" name="myForm">  
+        @csrf
+
         <!-- progressbar -->  
         <fieldset class="card"> 
             <div class="form-card">  
@@ -101,9 +103,9 @@
               <div id='aboard-credit-form'>
                 <div class="row">
                   <div class="col-md-5">
-                  <form action="{{ route('homepage.store')}} " method="POST">
+                  {{-- <form action="{{ route('homepage.store')}} " method="POST"> --}}
                       {{-- choose.index --}}
-                      @csrf
+                      {{-- @csrf --}}
                       <label for="inputAddress" class="form-label">出發機場：</label>
                       <select name="be_apto" class="form-select" aria-label="Default select example" id="sel11">
                           <option selected></option>
@@ -166,14 +168,15 @@
                       <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-1' field='quantity2' />
                       <div id='font' style='margin:0px;color:red;'></div>
                     </div>
-                   </div>
+                  </div>
+                  <button  type="submit"  class="next action-button">搜尋</button>
 
                 </div>
             </div>
                 <div class="col justify-content-md-center">
                       <button  type="submit"  class="next action-button">搜尋</button>
                 </div>
-                  </form>
+                  {{-- </form> --}}
                 </div>
             </fieldset>  
           </form>

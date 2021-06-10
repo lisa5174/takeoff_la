@@ -42,29 +42,32 @@ use \App\Http\Controllers\be_team_introdution;
 // })->name('dashboard');
 
 
-Route::get('/today',[todayflight::class,'index'])->name('today');
-Route::get('/putshelf',[putshelf::class,'index'])->name('putshelf');
-Route::get('/offshelf',[offshelf::class,'index'])->name('offshelf');
-Route::post('/offshelf',[offshelf::class,'off'])->name('offshelfs.off');
+Route::get('/today',[todayflight::class,'index'])->name('today')->middleware('afuserAuth');
+Route::get('/putshelf',[putshelf::class,'index'])->name('putshelf')->middleware('afuserAuth');
+Route::get('/offshelf',[offshelf::class,'index'])->name('offshelf')->middleware('afuserAuth');
+Route::post('/offshelf',[offshelf::class,'off'])->name('offshelfs.off')->middleware('afuserAuth');
 // Route::post('/putshelf/date',[putshelf::class,'date']);
 // Route::get('/putshelf/date',[putshelf::class,'date']);
 
-Route::get('/search',[search::class,'index'])->name('search');
-Route::post('/search',[search::class,'store']);
+Route::get('/search',[search::class,'index'])->name('search')->middleware('afuserAuth');
+Route::post('/search',[search::class,'store'])->middleware('afuserAuth');
 
-Route::get('/updateflights',[updateflight::class,'index'])->name('updateflight.index');
-Route::post('/updateflights',[updateflight::class,'store']);
+Route::get('/updateflights',[updateflight::class,'index'])->name('updateflight.index')->middleware('afuserAuth');
+Route::post('/updateflights',[updateflight::class,'store'])->middleware('afuserAuth');
 Route::get('/updateflights/{editflight}/edit',[updateflight::class,'edit'])
-->where('editflight', '[0-9]+')->name('updateflight.edit');
+->where('editflight', '[0-9]+')->name('updateflight.edit')->middleware('afuserAuth');
 Route::put('/updateflights/{updateflight}',[updateflight::class,'update'])
-->where('updateflight', '[0-9]+')->name('updateflight.update');
+->where('updateflight', '[0-9]+')->name('updateflight.update')->middleware('afuserAuth');
 //這裡有命名，就可以在view用route('updateflight.update',$aaa)
 
-Route::resource('aflogin', login::class)->only('index');
-Route::resource('flights', todayflight::class)->only('index');
-Route::resource('putshelfs', putshelf::class)->only('index','store');
-Route::resource('offshelfs', offshelf::class)->only('index','store','off');
-Route::resource('updateticket', updateticket::class)->only('index');
+Route::resource('aflogin', login::class)->only('index','aflogin','aflogout');
+Route::post('/aflogin',[login::class,'aflogin'])->name('aflogin.aflogin'); //.aflogin名稱不能有一樣的
+Route::get('/aflogout',[login::class,'aflogout'])->name('aflogin.aflogout');
+
+Route::resource('flights', todayflight::class)->only('index')->middleware('afuserAuth');
+Route::resource('putshelfs', putshelf::class)->only('index','store')->middleware('afuserAuth');
+Route::resource('offshelfs', offshelf::class)->only('index','store','off')->middleware('afuserAuth');
+Route::resource('updateticket', updateticket::class)->only('index')->middleware('afuserAuth');
 
 
 // Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);//沒用到
