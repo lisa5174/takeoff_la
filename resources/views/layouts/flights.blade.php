@@ -39,8 +39,8 @@
                   <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">                           
                       <!-- This menu is hidden in bigger devices with d-sm-none. -->
-                      <li class="nav-item dropdown d-sm-block d-md-none">
-                            <button class="dropdown-item" onclick="location.href='{{route('today')}}'">今日航班</button>
+                      <li class="nav-item dropdown d-sm-block d-md-none" >
+                            <button class="dropdown-item" style="color: white;.over{color:black}" onclick="location.href='{{route('today')}}'">今日航班</button>
                             <button class="dropdown-item" onclick="location.href='{{route('putshelf')}}'">上架</button>
                             <button class="dropdown-item" onclick="location.href='{{route('offshelf')}}'">下架</button>
                             <button class="dropdown-item" onclick="location.href='{{route('updateflight.index')}}'">修改</button>
@@ -48,9 +48,10 @@
                       </li><!-- Smaller devices menu END -->
                     </ul>
                   </div>
+                </a>
                 </nav><!-- NavBar END -->        
                   </div>
-        </a></div></a></div>
+                </div></a></div>
 
         <div mv-app="clock" mv-bar="none">
 
@@ -73,41 +74,41 @@
             <!-- Sidebar -->
             <div id="sidebar-container" class="sidebar-expanded d-none d-md-block" style="width: 230px;"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
                 <!-- Bootstrap List Group -->
-                <ul class="list-group">
+                <ul class="list-group" >
                     <!-- Separator with title -->
                     
                     <!-- /END Separator -->
                     <!-- Menu with submenu -->
-                    <a href="today" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                    <button  onclick="location.href='{{route('today')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-plane fa-fw mr-3"></span> 
                             <span class="menu-collapsed">今日航班</span>
                         </div>
-                    </a>
-                    <a href="putshelf" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                    </button>
+                    <button  onclick="location.href='{{route('putshelf')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-upload fa-fw mr-3"></span>
                             <span class="menu-collapsed">上架</span>
                         </div>
-                    </a>
-                    <a href="offshelf" class="bg-transparent list-group-item list-group-item-action">
+                    </button>
+                    <button  onclick="location.href='{{route('offshelf')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-download fa-fw mr-3"></span>
                             <span class="menu-collapsed">下架</span>    
                         </div>
-                    </a>
-                    <a href="updateflights" class="bg-transparent list-group-item list-group-item-action">
+                    </button>
+                    <button  onclick="location.href='{{route('updateflight.index')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-pencil fa-fw mr-3"></span>
                             <span class="menu-collapsed">修改</span>    
                         </div>
-                    </a>
-                    <a href="search" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                    </button>
+                    <button  onclick="location.href='{{route('search')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-search fa-fw mr-3"></span>
                             <span class="menu-collapsed">查詢</span>    
                         </div>
-                  </a>
+                    </button>
           </div><!-- sidebar-container END -->
 
   <div class="col"  style="padding-right:50px;">                     

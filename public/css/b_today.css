@@ -73,11 +73,6 @@ input:-moz-placeholder {
     font-size: 16px;
 }
 
-#rememberMe {
-    float: left;
-    margin-left: 40px;
-}
-
 #boxForm form label {
     float: left;
     margin-left: 5px;
@@ -134,7 +129,6 @@ input:-moz-placeholder {
     color: white;
     font-weight: bold;
     margin: 20px;
-    margin-left: -28px;
 } /*登入結束*/
 
 span {
@@ -172,7 +166,7 @@ ul.tabs li {
     border-left: none;
     background: #e1e1e1;
 }
-ul.tabs li a {
+ul.tabs li button {
     display: block;
     padding: 0 20px;
     color: #000;
