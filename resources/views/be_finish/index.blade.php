@@ -73,7 +73,9 @@
         @foreach ($totickets[4] as $toticket)
             {{$toticket->tName}}票種{{$toticket4[1]}}張<br>
         @endforeach
-        嬰兒票種{{$quantity2}}張<br>    
+        @if ($quantity2 != 0)
+            嬰兒票種{{$quantity2}}張<br>
+        @endif 
         機票價格：{{$price[1]}}<br>
         
         <br>
@@ -99,7 +101,9 @@
             @foreach ($fotickets[4] as $foticket)
                 {{$foticket->tName}}票種{{$foticket4[1]}}張<br>
             @endforeach
+            @if ($quantity2 != 0)
             嬰兒票種{{$quantity2}}張<br>
+            @endif 
             機票價格：{{$price[2]}}<br>
         @endif
         共：{{$price[0]}}元<br> 

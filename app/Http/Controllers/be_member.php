@@ -58,13 +58,16 @@ class be_member extends Controller
         $choose = $request->all();
         // return dd($choose);
         $put = $request->validate([
-            'mEmail' => 'required|email|max:35',
-            'mPhone' => 'required|numeric|regex:/(09)[0-9]/|digits:10',
+            'mEmail' => 'nullable|email|max:35',
+            'mPhone' => 'nullable|numeric|regex:/(09)[0-9]/|digits:10',
         ]);
 
         $mId = session('mId');
 
-        DB::table('member')->where('mId', $mId)->update(
+        DB::table('member')->updateOrInsert(
+            [
+                'mId' => $mId,
+            ],
             [
                 'mEmail' => $request->mEmail,
                 'mPhone' => $request->mPhone,
