@@ -74,7 +74,8 @@
                 <a class="nav-link"  href="signup.html">註冊</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="login.html">登入</a>
+                <a class="nav-link"  href="signup.html">登入</a>
+                {{-- <button class="nav-link"onclick="location.href='{{route('login')}}'">登入</button> --}}
               </li>
             </ul>
           </div>

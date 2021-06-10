@@ -124,13 +124,13 @@
                       <label for="inputAddress" class="form-label">目的機場：</label>
                       <select name="be_apfo" class="form-select" aria-label="Default select example" id="sel21">
                           <option selected></option>
-                          {{-- <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
+                          <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
                           <option value="2" {{ (old("be_apfo") == "2" ? "selected":"") }}>高雄(KHH)</option>
                           <option value="3" {{ (old("be_apfo") == "3" ? "selected":"") }}>台中(RMQ)</option>
                           <option value="4" {{ (old("be_apfo") == "4" ? "selected":"") }}>花蓮(HUN)</option>
                           <option value="5" {{ (old("be_apfo") == "5" ? "selected":"") }}>台東(TTT)</option>
                           <option value="6" {{ (old("be_apfo") == "6" ? "selected":"") }}>澎湖(MZG)</option>
-                          <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option>  --}}
+                          <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option>  
                       </select> 
                    </div>
                 </div>
@@ -169,7 +169,7 @@
                       <div id='font' style='margin:0px;color:red;'></div>
                     </div>
                   </div>
-                  <button  type="submit"  class="next action-button">搜尋</button>
+                  
 
                 </div>
             </div>
