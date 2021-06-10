@@ -18,6 +18,13 @@ class be_homepage extends Controller
         return view('be_homepage.index', ['mId' => $mId]);
         // return view("be_homepage.index");
     }
+    
+    public function index2()
+    {
+        $mId = session('mId');
+        return view('be_homepage.index2', ['mId' => $mId]);
+        // return view("be_homepage.index");
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,6 +45,7 @@ class be_homepage extends Controller
     public function store(Request $request)
     {
         $searchflights = $request->all();
+        // return dd($searchflights);
         $put = $request->validate([
             'be_apto' => 'required|integer|between:1,7',
             'be_apfo' => 'required|integer|between:1,7',

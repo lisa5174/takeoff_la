@@ -179,6 +179,8 @@
           </form>
       </div>
 
+      <button type="button" onclick="location.href='{{route('homepage.index2')}}'">來回</button><br>
+
       
       <script> //地點篩選
         department=new Array();

@@ -71,7 +71,8 @@ Route::resource('updateticket', updateticket::class)->only('index');
 
 
 
-Route::resource('homepage', be_homepage::class)->only('index','store');
+Route::resource('homepage', be_homepage::class)->only('index','index2','store');
+Route::get('/homepage2',[be_homepage::class,'index2'])->name('homepage.index2'); 
 
 // Route::get('/choose2',[be_choose::class,'index2'])->name('choose.index2'); //有回程
 Route::resource('choose', be_choose::class)->only('index','index2');
