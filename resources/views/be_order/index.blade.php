@@ -9,6 +9,7 @@
 @endsection
 
 @section('main')
+<div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">   
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -19,7 +20,7 @@
         </div>
     @endif  
 
-    <form action="{{ route('pay.index')}}" method="GET">
+    <form action="{{ route('pay.index')}}" method="GET" id="msform">
         @csrf 
         {{-- 去程航班id --}}
         <input type="hidden" name="toId" value="{{$toId}}">
@@ -47,8 +48,7 @@
         
         <input type="hidden" name="quantity2" value="{{$quantity2}}">
         
-        <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
-            <form id="msform">  
+        
                 <!-- progressbar -->  
                 <ul id="progressbar">  
                    <li class="active" id="account"><strong>選擇航班</strong></li>  
@@ -93,8 +93,8 @@
                           <div class="col-4">
                             生日：<input type="date" name="pbirth" value="{{$passenger->birthday}}"></div>
                             @endforeach
-                    </div>
                         @endif
+                        </div>
                           <div class="row">
                             <h4 class="fs-title2">聯絡人</h4> <br>
                              
@@ -105,7 +105,7 @@
                                 行動電話：<input type="text" name="cphone" value="{{ old('cphone') }}"></div>
                             <div class="col-3">
                                 電子信箱：<input type="text" name="cemail" value="{{ old('cemail') }}"></div>
-                            </div>
+
                               @else
                               <div class="row">
                                 @foreach ($contacts as $contact)
@@ -117,15 +117,18 @@
                                 電子信箱：<input type="text" name="cemail" value="{{$contact->cEmail}}"></div>
                             </div>
                                 @endforeach
-                            </div>
                             @endif
-                        <button type="submit" class="previous action-button-previous">上一步</button>
-                        <button type="submit" class="next action-button">下一步</button>
+                          </div>
+                        {{-- <button type="submit" class="previous action-button-previous">上一步</button> 
+                        <button type="submit" class="next action-button">下一步</button> --}}
                 </fieldset>
-            </form>  
-        </div>  
+                        <button type="submit" class="previous action-button-previous">上一步</button> 
+                        <button type="submit" class="next action-button">下一步</button>
+            </form>
+        </div> 
+   
                 <footer class="footer row ">
                     <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
-                   </footer>
-    </form>
+                </footer>
+    
     @endsection
