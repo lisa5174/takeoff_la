@@ -34,6 +34,9 @@
             <input type="hidden" name="foId" value="{{$foId}}">
         @endif
         
+        <input type="hidden" name="tprice" value="{{$price[1]}}">
+        <input type="hidden" name="fprice" value="{{$price[2]}}">
+
         <input type="hidden" name="quantity2" value="{{$quantity2}}">
 
         <input type="hidden" name="pname" value="{{$pname}}">
