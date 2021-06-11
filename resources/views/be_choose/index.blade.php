@@ -27,15 +27,16 @@
         <li id="payment"><strong>付款</strong></li>  
         <li id="confirm"><strong>完成訂單</strong></li>      
     </ul> <!-- fieldsets -->
+    <fieldset> 
+        <div class="form-card"> 
+            <h4 class="fs-title">選擇航班</h4>
     @if(empty($toflights))
         <h4>查無航班!</h4>
     @endif
-    <div class="form-card"> 
-        <h4 class="fs-title">選擇航班</h4>
     @foreach ($toflights as $toflight)
         @if ($toflight->date == date('Y-m-d', strtotime('+8HOUR') ))
             @if ($toflight->Ltime > date('H:i', strtotime('+8HOUR') ))
-            <div class="border border-secondary rounded-1 col-md-12">
+            <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
                 去程:
                 @foreach ($toplace as $tp)
                     {{$tp->loName}}
@@ -75,7 +76,7 @@
                         <input type="hidden" name="apfo" value="{{$apfo}}">
                         <input type="hidden" name="datefo" value="{{$datefo}}">
                     @endif
-                  <div class="row">
+                <div class="row">
                       <div class="col-xl-4" style="padding-right: 0%;">
                     <label for="">全額</label>
                     <div class="text-end">
@@ -85,7 +86,7 @@
                       <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                       <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2' />
                     </div>
-                  </div>
+                      </div>
                   <div class="col-xl-4"style="padding-right: 0%;">
                     <label for="">孩童</label>
                     <div class="text-end">
@@ -97,7 +98,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket16' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4" style="padding-right: 0%;">
                     <label for="">敬老</label>
                     <div class="text-end">
                     @foreach ($ticket2 as $t1)
@@ -108,7 +109,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket7' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4" style="padding-right: 0%;">
                     <label for="">軍人</label>
                     <div class="text-end">
                     @foreach ($ticket3 as $t1)
@@ -119,7 +120,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket8' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4" style="padding-right: 0%;">
                     <label for="">愛心</label>
                     <div class="text-end">
                     @foreach ($ticket4 as $t1)
@@ -130,7 +131,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket9' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4" style="padding-right: 0%;">
                     <label for="">愛心陪同</label>
                     <div class="text-end">
                     @foreach ($ticket5 as $t1)
@@ -141,12 +142,12 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4" style="padding-right: 0%;">
                     @if ($ticket11 -> isNotEmpty())
                         @foreach ($ticket6 as $t1)
                         <label for="">{{$t1->tName}}</label>
                             ${{round(($t1->tPrice) * ($toflight->fprice))}}
-                        <div class="text-end">
+                      <div class="text-end">
                         @if ($t1->tPrice == 0.93)
                             @php
                                 $x='ticket3'
@@ -169,12 +170,12 @@
                         <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
                         @endforeach
                     @endif
+                      </div>
+                  </div>
                 </div>
-              </div>
-            </div>
                     <hr>
                 <div class="row">
-                    <div class="col-xl-4">
+                    <div class="col-xl-4"style="padding-right: 0%;">
                     <label for="">離島居民</label>
                     <div class="text-end">
                     @foreach ($ticket7 as $t1)
@@ -185,7 +186,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket11' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4"style="padding-right: 0%;">
                     <label for="">離島居民敬老</label>
                     <div class="text-end">
                     @foreach ($ticket8 as $t1)
@@ -196,7 +197,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket13' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4"style="padding-right: 0%;">
                     <label for="">離島居民愛心</label>
                     <div class="text-end">
                     @foreach ($ticket9 as $t1)
@@ -207,7 +208,7 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket14' />
                     </div>
                   </div>
-                  <div class="col-xl-4">
+                  <div class="col-xl-4"style="padding-right: 0%;">
                     <label for="">離島居民愛陪</label>
                     <div class="text-end">
                     @foreach ($ticket10 as $t1)
@@ -219,7 +220,7 @@
                     </div>
                   </div>
                     @if ($ticket11 -> isNotEmpty())
-                    <div class="col-xl-4">
+                    <div class="col-xl-4"style="padding-right: 0%;">
                         <label for="">離島居民促銷優惠</label>
                         <div class="text-end">
                         @foreach ($ticket11 as $t1)
@@ -232,18 +233,18 @@
                       </div>
                     @endif
                 </div>
-
-                            
+       
             </div>
           </div>
-        </div>
+
                     <button type="submit" class="next action-button">確定</button>
                 </form>
+            </div>
             @else
                 <h4>查無航班!</h4>
             @endif
         @else
-        <div class="border border-secondary rounded-1 col-md-12">
+        <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
             去程:
             @foreach ($toplace as $tp)
                 {{$tp->loName}}
@@ -284,7 +285,7 @@
                     <input type="hidden" name="datefo" value="{{$datefo}}">
                 @endif
 
-                <div class="row">
+            <div class="row">
                     <div class="col-xl-4" style="padding-right: 0%;">
                   <label for="">全額</label>
                   <div class="text-end">
@@ -294,7 +295,7 @@
                     <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2' />
                   </div>
-                </div>
+                    </div>
                 <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">孩童</label>
                   <div class="text-end">
@@ -306,7 +307,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket16' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4" style="padding-right: 0%;">
                   <label for="">敬老</label>
                   <div class="text-end">
                   @foreach ($ticket2 as $t1)
@@ -317,7 +318,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket7' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">軍人</label>
                   <div class="text-end">
                   @foreach ($ticket3 as $t1)
@@ -328,7 +329,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket8' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">愛心</label>
                   <div class="text-end">
                   @foreach ($ticket4 as $t1)
@@ -339,7 +340,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket9' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">愛心陪同</label>
                   <div class="text-end">
                   @foreach ($ticket5 as $t1)
@@ -350,7 +351,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   @if ($ticket11 -> isNotEmpty())
                       @foreach ($ticket6 as $t1)
                       <label for="">{{$t1->tName}}</label>
@@ -380,10 +381,9 @@
                   @endif
               </div>
             </div>
-          </div>
                   <hr>
               <div class="row">
-                  <div class="col-xl-4">
+                  <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">離島居民</label>
                   <div class="text-end">
                   @foreach ($ticket7 as $t1)
@@ -394,7 +394,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket11' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">離島居民敬老</label>
                   <div class="text-end">
                   @foreach ($ticket8 as $t1)
@@ -405,7 +405,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket13' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">離島居民愛心</label>
                   <div class="text-end">
                   @foreach ($ticket9 as $t1)
@@ -416,7 +416,7 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket14' />
                   </div>
                 </div>
-                <div class="col-xl-4">
+                <div class="col-xl-4"style="padding-right: 0%;">
                   <label for="">離島居民愛陪</label>
                   <div class="text-end">
                   @foreach ($ticket10 as $t1)
@@ -428,7 +428,7 @@
                   </div>
                 </div>
                   @if ($ticket11 -> isNotEmpty())
-                  <div class="col-xl-4">
+                  <div class="col-xl-4"style="padding-right: 0%;">
                       <label for="">離島居民促銷優惠</label>
                       <div class="text-end">
                       @foreach ($ticket11 as $t1)
@@ -440,19 +440,18 @@
                       </div>
                     </div>
                   @endif
-              </div>
-
-                          
+              </div>  
           </div>
         </div>
-      </div>
+      </div></div>
                   <button type="submit" class="next action-button">確定</button>
             </form>
         @endif
     @endforeach
   </fieldset> 
   </form>  
-</div> </div>
+</div> 
+
 <footer class="footer row ">
     <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
 </footer>
