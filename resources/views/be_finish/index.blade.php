@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('member.index')}}" method="GET">
+    <form action="{{ route('membersearch.checkoutsuccess')}}" method="GET">
         @csrf 
         {{-- 去程航班id --}}
         <input type="hidden" name="toId" value="{{$toId}}">

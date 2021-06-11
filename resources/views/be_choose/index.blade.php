@@ -20,7 +20,7 @@
             </ul>
         </div>
     @endif  
-  <form id="msform">
+  <form id="msform" action="{{ route('choose.index2')}}" method="GET">
     <ul id="progressbar">  
         <li class="active" id="account"><strong>選擇航班</strong></li>  
         <li id="personal"><strong>填寫訂單</strong></li>  
@@ -62,10 +62,10 @@
                       @endif
                     </button>
                 </h2>
-                <form action="{{ route('choose.index2')}}" method="GET" >
+                {{-- <form action="{{ route('choose.index2')}}" method="GET" > --}}
                   <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                       <div class="accordion-body">
-                    @csrf 
+                    {{-- @csrf  --}}
                     {{-- 去程航班id --}}
                     <input type="hidden" name="apId" value="{{$toflight->fId}}">
                     <input type="hidden" name="quantity" value="{{$quantity}}">
@@ -238,7 +238,7 @@
           </div>
 
                     <button type="submit" class="next action-button">確定</button>
-                </form>
+                {{-- </form> --}}
             </div>
             @else
                 <h4>查無航班!</h4>
@@ -270,10 +270,10 @@
             @endif
         </button>
     </h2>
-            <form action="{{ route('choose.index2')}}" method="GET">
+            {{-- <form action="{{ route('choose.index2')}}" method="GET"> --}}
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                @csrf 
+                {{-- @csrf  --}}
                 {{-- 去程航班id --}}
                 <input type="hidden" name="apId" value="{{$toflight->fId}}">
                 <input type="hidden" name="quantity" value="{{$quantity}}">
@@ -445,7 +445,7 @@
         </div>
       </div></div>
                   <button type="submit" class="next action-button">確定</button>
-            </form>
+            {{-- </form> --}}
         @endif
     @endforeach
   </fieldset> 

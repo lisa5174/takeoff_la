@@ -83,6 +83,7 @@ class be_choose extends Controller
         $mId = session('mId');
 
         $choose = $request->all();
+        // return dd($choose);
         $put = $request->validate([
             'apId' => 'required|integer',//去程航班
             'apto' => 'nullable|integer', //回程出發地點

@@ -108,6 +108,8 @@ Route::post('/updatepay',[be_member::class,'updatepay'])->name('member.updatepay
 
 
 Route::resource('membersearch', be_membersearch::class)->only('index')->middleware('userAuth');
+Route::get('/checkoutsuccess',[be_membersearch::class,'checkoutsuccess'])->name('membersearch.checkoutsuccess')->middleware('userAuth');
+
 
 Route::resource('resetpw', be_resetpw::class)->only('index','updatepw')->middleware('userAuth');
 Route::post('/updatepw',[be_resetpw::class,'updatepw'])->name('resetpw.updatepw')->middleware('userAuth');
