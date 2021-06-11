@@ -77,15 +77,15 @@
                         <input type="hidden" name="datefo" value="{{$datefo}}">
                     @endif
                 <div class="row">
-                      <div class="col-xl-4" style="padding-right: 0%;">
+                  <div class="col-xl-4" style="padding-right: 0%;">
                     <label for="">全額</label>
-                    <div class="text-end">
+                  <div class="text-end">
                     ${{$toflight->fprice}}
                       <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket2' />
                       {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
                       <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                       <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2' />
-                    </div>
+                  </div>
                       </div>
                   <div class="col-xl-4"style="padding-right: 0%;">
                     <label for="">孩童</label>
@@ -142,9 +142,10 @@
                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' />
                     </div>
                   </div>
-                  <div class="col-xl-4" style="padding-right: 0%;">
+                  
                     @if ($ticket11 -> isNotEmpty())
                         @foreach ($ticket6 as $t1)
+                        <div class="col-xl-4" style="padding-right: 0%;">
                         <label for="">{{$t1->tName}}</label>
                             ${{round(($t1->tPrice) * ($toflight->fprice))}}
                       <div class="text-end">
@@ -231,15 +232,14 @@
                         <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket12' />
                         </div>
                       </div>
-                    @endif
+                   
                 </div>
-       
+                @endif
             </div>
           </div>
 
-                    <button type="submit" class="next action-button">確定</button>
                 {{-- </form> --}}
-            </div>
+            </div></div>
             @else
                 <h4>查無航班!</h4>
             @endif
@@ -381,6 +381,7 @@
                   @endif
               </div>
             </div>
+            </div>
                   <hr>
               <div class="row">
                   <div class="col-xl-4"style="padding-right: 0%;">
@@ -444,11 +445,11 @@
           </div>
         </div>
       </div></div>
-                  <button type="submit" class="next action-button">確定</button>
             {{-- </form> --}}
         @endif
     @endforeach
   </fieldset> 
+  <button type="submit" class="next action-button" >確定</button>
   </form>  
 </div> 
 
