@@ -1,11 +1,11 @@
-@extends('layouts.be_buy')
+@extends('layouts.be_member')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
 @endsection
 
 @section('title')
-    <title>Take off 空|後台_填寫訂單</title>
+    <title>Take off 空|填寫訂單</title>
 @endsection
 
 @section('main')
@@ -63,34 +63,34 @@
                           <h4 class="fs-title2">旅客</h4> <br>
                             
                         @if(empty($passengers))
-                          <div class="col-3"> 
+                          <div class="col-md-3"> 
                             姓名：<input type="text" name="pname" value="{{ old('pname') }}"></div>
-                          <div class="col-2">   
+                          <div class="col-md-2">   
                             性別：<br>
                             <select name="pgender" class="list-dt"> 
                                 <option selected></option>
                                 <option value="1">男</option>
                                 <option value="0">女</option>
                             </select></div>
-                          <div class="col-3">   
+                          <div class="col-md-3">   
                             身分證字號：<input type="text" name="pid" value="{{ old('pid') }}"></div>
-                          <div class="col-4"> 
+                          <div class="col-md-4"> 
                             生日：<input type="date" name="pbirth" value="{{ old('pbirth') }}"></div>
                         </div>
                         @else
-                          <div class="col-3"> 
+                          <div class="col-md-3"> 
                             @foreach ($passengers as $passenger)
                             姓名：<input type="text" name="pname" value="{{$passenger->pName}}"></div>
                             {{-- 性別：{{$gender}}<br> --}}
-                          <div class="col-2">
+                          <div class="col-md-2">
                             性別：
                             <select name="pgender"> 
                                 <option value="1" {{$passenger->pId == '1' ? 'selected' : ''}}>男</option>
                                 <option value="0" {{$passenger->pId == '0' ? 'selected' : ''}}>女</option>
                             </select></div>
-                          <div class="col-3">
+                          <div class="col-md-3">
                             身分證字號：<input type="text" name="pid" value="{{$passenger->pId}}"></div>
-                          <div class="col-4">
+                          <div class="col-md-4">
                             生日：<input type="date" name="pbirth" value="{{$passenger->birthday}}"></div>
                             @endforeach
                         @endif
@@ -99,21 +99,21 @@
                             <h4 class="fs-title2">聯絡人</h4> <br>
                              
                             @if(empty($contacts))
-                            <div class="col-3"> 
+                            <div class="col-md-3"> 
                                 姓名：<input type="text" name="cname" value="{{ old('cname') }}"></div>
-                            <div class="col-3">
+                            <div class="col-md-4">
                                 行動電話：<input type="text" name="cphone" value="{{ old('cphone') }}"></div>
-                            <div class="col-3">
+                            <div class="col-md-5">
                                 電子信箱：<input type="text" name="cemail" value="{{ old('cemail') }}"></div>
 
                               @else
                               <div class="row">
                                 @foreach ($contacts as $contact)
-                            <div class="col-3"> 
+                            <div class="col-md-3"> 
                                 姓名：<input type="text" name="cname" value="{{$contact->cName}}"></div>
-                            <div class="col-3">     
+                            <div class="col-md-4">     
                                 行動電話：<input type="text" name="cphone" value="{{$contact->cPhone}}"></div>
-                            <div class="col-3"> 
+                            <div class="col-md-5"> 
                                 電子信箱：<input type="text" name="cemail" value="{{$contact->cEmail}}"></div>
                             </div>
                                 @endforeach
@@ -122,7 +122,7 @@
                         {{-- <button type="submit" class="previous action-button-previous">上一步</button> 
                         <button type="submit" class="next action-button">下一步</button> --}}
                 </fieldset>
-                        <button type="submit" class="previous action-button-previous">上一步</button> 
+                        <button type="button" onclick="location.href='{{ url()->previous() }}'" class="previous action-button-previous">上一步</button>
                         <button type="submit" class="next action-button">下一步</button>
             </form>
         </div> 

@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-    <title>Take off 空|後台_首頁</title>
+    <title>Take off 空|選擇航班_回程</title>
 @endsection
 
 @section('main')
@@ -176,10 +176,10 @@
                                     <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
                                     <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
-                                    @endforeach
-                                    @endif
-                                  </div>
                                 </div>
+                                    @endforeach
+                                </div>
+                                    @endif 
                               </div>
 
                               <hr>
@@ -245,6 +245,7 @@
 
                               @if(isset($mId))
                                   {{-- 有登入 --}}
+                                  
                                   <button type="submit" class="next action-button">確定</button>
                               @else
                               {{-- 沒有登入 --}}
@@ -422,10 +423,10 @@
                                   <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
                                   <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
+                              </div>
                                   @endforeach
+                              </div>
                               @endif
-                              </div>
-                              </div>
                             </div>
                                 <hr>
                             <div class="row">
@@ -490,7 +491,7 @@
             
                             @if(isset($mId))
                                 {{-- 有登入 --}}
-                                <button type="submit">確定</button>
+                                <button type="submit" class="next action-button">確定</button>
                             @else
                             {{-- 沒有登入 --}}
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
@@ -525,9 +526,10 @@
                 @endforeach
                   </div>
                   </fieldset> 
+                  <button type="button" onclick="location.href='{{ url()->previous() }}'" class="previous action-button-previous">上一步</button>
             {{-- </form> --}}
           </form>
-         </div>
+         </div></div>
                     
     <footer class="footer row ">
       <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>

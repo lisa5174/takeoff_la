@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-    <title>Take off 空|後台_選擇航班</title>
+    <title>Take off 空|選擇航班_去程</title>
 @endsection
 
 @section('main')
@@ -169,10 +169,12 @@
                         <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
                         <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                         <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
+                    </div>
                         @endforeach
+                    </div>
                     @endif
-                      </div>
-                  </div>
+                      
+                 
                 </div>
                     <hr>
                 <div class="row">
@@ -232,14 +234,14 @@
                         <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket12' />
                         </div>
                       </div>
-                   
+                      @endif
                 </div>
-                @endif
+               
             </div>
           </div>
 
                 {{-- </form> --}}
-            </div></div>
+            </div>
             @else
                 <h4>查無航班!</h4>
             @endif
@@ -351,8 +353,9 @@
                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' />
                   </div>
                 </div>
-                <div class="col-xl-4"style="padding-right: 0%;">
+                
                   @if ($ticket11 -> isNotEmpty())
+                  <div class="col-xl-4"style="padding-right: 0%;">
                       @foreach ($ticket6 as $t1)
                       <label for="">{{$t1->tName}}</label>
                           ${{round(($t1->tPrice) * ($toflight->fprice))}}
@@ -377,10 +380,10 @@
                       <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
                       <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
                       <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
+                    </div>
                       @endforeach
+                    </div>
                   @endif
-              </div>
-            </div>
             </div>
                   <hr>
               <div class="row">
@@ -449,6 +452,7 @@
         @endif
     @endforeach
   </fieldset> 
+  {{-- <button type="button" onclick="location.href='{{ url()->previous() }}'" class="previous action-button-previous">上一頁</button> --}}
   <button type="submit" class="next action-button" >確定</button>
   </form>  
 </div> 
