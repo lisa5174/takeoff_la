@@ -14,6 +14,31 @@ class be_membersearch extends Controller
      */
     public function index()
     {
+        $mId = session('mId');
+
+        $airticket = DB::select("SELECT * FROM airtickets where mId = '$mId' order by aId asc");
+        $airticketnum = DB::select("SELECT COUNT(*) AS num FROM airtickets where mId = '$mId'");
+
+
+        $flight = '';
+        // $inum =0;
+        for ($i=0; $i <5; $i++) {
+            // return dd($i);            
+            // $inum = $i;
+            $fid = $airticket[$i]->fId;
+            $f ="
+            select `a`.`date`,`a`.`fName`,`c`.`loName` as `toplace`, `d`.`loName` as `foplace`,`a`.`fprice`, LEFT(a.time,5) AS Ltime 
+            from flight as a 
+            INNER JOIN airplane as b ON a.fName = b.airName
+            INNER JOIN location as c ON a.toPlace = c.loId
+            INNER JOIN location as d ON a.foPlace = d.loId 
+            where a.fId = '$fid'
+            ";
+            $flight = DB::select( $f );
+        }
+        
+
+        return dd($airticket,$airticketnum,$flight);//
         return view("be_membersearch.index");
     }
 
@@ -55,7 +80,7 @@ class be_membersearch extends Controller
         $cid = 0;
         $cardid = 0;
 
-        if ($p=1) {
+        if ($p==1) {
             DB::table('airpassenger')->Insert(
                 [
                     'apId' => $request->pid,
@@ -67,7 +92,7 @@ class be_membersearch extends Controller
             $pid = DB::select('SELECT LAST_INSERT_ID() as id;');
         }
 
-        if ($c=1) {
+        if ($c==1) {
             DB::table('aircontactperson')->Insert(
                 [
                     'acName' => $request->cname,
@@ -78,7 +103,7 @@ class be_membersearch extends Controller
             $cid = DB::select('SELECT LAST_INSERT_ID() as id;');
         }
 
-        if ($card=1) {
+        if ($card==1) {
             DB::table('airpayment')->Insert(
                 [
                     'apayNumber' => $request->caid,
@@ -113,9 +138,12 @@ class be_membersearch extends Controller
         }
         // return dd($zero2);
 
+        $aidto = $today.$zero.($date[0]->todaynum+1);
+        $aidfo = $today.$zero2.($date[0]->todaynum+2);
+
         DB::table('airtickets')->Insert(
             [
-                'aId' => $today.$zero.($date[0]->todaynum+1),
+                'aId' => $aidto,
                 'aprice' => $request->tprice,
                 'fId' => $request->toId,
                 'mId' => $mId,
@@ -125,7 +153,6 @@ class be_membersearch extends Controller
                 'date' => $today,
             ]
         );
-        $airticketidt = DB::select('SELECT LAST_INSERT_ID() as id;');
 
         for ($i=1; $i < 5; $i++) { 
             $t = 'toticket'.$i;
@@ -134,7 +161,7 @@ class be_membersearch extends Controller
                 // return dd($airticketidt[0]);
                 DB::table('atickettype')->Insert(
                     [
-                        'aId' => $today.$zero.($date[0]->todaynum+1),
+                        'aId' => $aidto,
                         'tId' => $request->$t[0],
                         'aNum' => $request->$t[1],
                     ]
@@ -142,10 +169,20 @@ class be_membersearch extends Controller
             }
         }
 
+        if (!empty($request->quantity2)) {
+            DB::table('atickettype')->Insert(
+                [
+                    'aId' => $aidto,
+                    'tId' => '1',
+                    'aNum' => $request->quantity2,
+                ]
+            );
+        }
+
         if (isset($request->foId)) {
             DB::table('airtickets')->Insert(
                 [
-                    'aId' => $today.$zero2.($date[0]->todaynum+2),
+                    'aId' => $aidfo,
                     'aprice' => $request->tprice,
                     'fId' => $request->foId,
                     'mId' => $mId,
@@ -155,26 +192,33 @@ class be_membersearch extends Controller
                     'date' => $today,
                 ]
             );
-            $airticketidf = DB::select('SELECT LAST_INSERT_ID() as id;');
     
             for ($i=1; $i < 5; $i++) { 
                 $t = 'foticket'.$i;
                 if (!empty($request->$t[0])) {
                     DB::table('atickettype')->Insert(
                         [
-                            'aId' => $today.$zero2.($date[0]->todaynum+2),
+                            'aId' => $aidfo,
                             'tId' => $request->$t[0],
                             'aNum' => $request->$t[1],
                         ]
                     );
                 }
             }
+
+            if (!empty($request->quantity2)) {
+                DB::table('atickettype')->Insert(
+                    [
+                        'aId' => $aidfo,
+                        'tId' => '1',
+                        'aNum' => $request->quantity2,
+                    ]
+                );
+            }
         }
 
-        // $tt=$today+1;
-        // return dd($today,$tt);
-
-        return view("be_membersearch.index");
+        // return view("be_membersearch.index");
+        return redirect()->route('membersearch.index')->with('notice','機票購買成功!');
     }
 
     /**

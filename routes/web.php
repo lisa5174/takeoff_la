@@ -107,7 +107,7 @@ Route::post('/updatecontact',[be_member::class,'updatecontact'])->name('member.u
 Route::post('/updatepay',[be_member::class,'updatepay'])->name('member.updatepay')->middleware('userAuth');
 
 
-Route::resource('membersearch', be_membersearch::class)->only('index')->middleware('userAuth');
+Route::resource('membersearch', be_membersearch::class)->only('index','checkoutsuccess')->middleware('userAuth');
 Route::get('/checkoutsuccess',[be_membersearch::class,'checkoutsuccess'])->name('membersearch.checkoutsuccess')->middleware('userAuth');
 
 

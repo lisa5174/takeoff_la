@@ -108,8 +108,9 @@
             嬰兒票種{{$quantity2}}張<br>
             @endif 
             機票價格：{{$price[2]}}<br>
+            共：{{$price[0]}}元<br> 
         @endif
-        共：{{$price[0]}}元<br> 
+        
         <br>
         旅客<br>
         姓名：{{$pname}}<br>
@@ -131,6 +132,7 @@
         卡號：{{$caid[1]}}-{{$caid[2]}}-{{$caid[3]}}-{{$caid[4]}}<br>
         檢查碼：{{$cacheckcode}}<br>
 
+        <button type="button" onclick="location.href='{{ url()->previous() }}'">上一步</button><br>
         <button type="submit">完成</button>
     </form>
 </body>
