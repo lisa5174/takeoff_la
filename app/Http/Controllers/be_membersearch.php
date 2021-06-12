@@ -18,13 +18,13 @@ class be_membersearch extends Controller
 
         $airticket = DB::select("SELECT * FROM airtickets where mId = '$mId' order by aId asc");
         $airticketnum = DB::select("SELECT COUNT(*) AS num FROM airtickets where mId = '$mId'");
-
-
-        $flight = '';
-        // $inum =0;
-        for ($i=0; $i <5; $i++) {
-            // return dd($i);            
-            // $inum = $i;
+        
+        $tickettypenum = [];
+        $flight = [];
+        $passengers = [];
+        $contacts = [];
+        $pays = [];
+        for ($i=0; $i < $airticketnum[0]->num; $i++) {
             $fid = $airticket[$i]->fId;
             $f ="
             select `a`.`date`,`a`.`fName`,`c`.`loName` as `toplace`, `d`.`loName` as `foplace`,`a`.`fprice`, LEFT(a.time,5) AS Ltime 
@@ -34,12 +34,61 @@ class be_membersearch extends Controller
             INNER JOIN location as d ON a.foPlace = d.loId 
             where a.fId = '$fid'
             ";
-            $flight = DB::select( $f );
-        }
-        
+            $ff = DB::select($f);
+            // $ff = array_map(function ($value) { //object轉array
+            //     return (array)$value;
+            // }, $ff);
+            $flight[$i] = $ff[0];//讀取航班資料
 
-        return dd($airticket,$airticketnum,$flight);//
-        return view("be_membersearch.index");
+            $aid = $airticket[$i]->aId;//讀取票種人數資料
+            $t = 
+            "SELECT b.tName,a.aNum
+            FROM atickettype AS a
+            INNER JOIN tickettype as b ON a.tId = b.tId
+            WHERE aId = '$aid'";
+            $tickettypenum[$i] = DB::select($t);
+
+
+            if (($airticket[$i]->airpId) == null){ //讀取旅客資料
+                $p = DB::select("select * from passenger where mId = '$mId'");
+                $passengers[$i]=$p[0];
+            }
+            else{
+                $pid = $airticket[$i]->airpId;
+                $p = DB::select("select apId as pId,apName as pName,apgender as gender,apbirthday as birthday  
+                from airpassenger where airpId = '$pid'");
+                $passengers[$i]=$p[0];
+            }
+
+            if (($airticket[$i]->acId) == null){ //讀取聯絡人資料
+                $p = DB::select("select * from contactperson where mId = '$mId'");
+                $contacts[$i]=$p[0];
+            }
+            else{
+                $pid = $airticket[$i]->acId;
+                $p = DB::select("select acName as cName,acPhone as cPhone,acEmail as cEmail  
+                from aircontactperson where acId = '$pid'");
+                $contacts[$i]=$p[0];
+            }
+
+            if (($airticket[$i]->apayId) == null){ //讀取付款資料
+                $p = DB::select("select * from payment where mId = '$mId'");
+                $pays[$i]=$p[0];
+            }
+            else{
+                $pid = $airticket[$i]->apayId;
+                $p = DB::select(
+                "select apayType as creType,apayNumber as caNumber,apayValidityPeriod as validityPeriod,apayCheckCode as checkCode
+                from airpayment where apayId = '$pid'");
+                $pays[$i]=$p[0];
+            }
+
+        }
+        // $airticketnum[0]->num
+        // return dd($airticketnum,$airticket,$flight,$tickettypenum,$passengers,$contacts,$pays);
+        return view("be_membersearch.index",['airticketnum' => $airticketnum,
+        'airticket' => $airticket,'flight' => $flight,'tickettypenum' => $tickettypenum,
+        'passengers' => $passengers,'contacts' => $contacts,'pays' => $pays]);
     }
 
     public function checkoutsuccess(Request $request)
