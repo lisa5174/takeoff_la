@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.member_center')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
+@endsection
+
+@section('title')
+    <title>Take off 空|會員中心_旅客資料更改</title>
+@endsection
+
+@section('main')
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -18,37 +19,64 @@
         </div>
     @endif 
 
-    <form action="{{ route('member.updatepassenger')}}" method="POST">
-        @csrf
-
-        旅客資料<br>
+    <form id="msform" action="{{ route('member.updatepassenger')}}" method="POST">
+      @csrf
+      <fieldset> 
+        <div class="form-card"> 
+          <h2 class="fs-title">旅客資料</h2>
         @if(empty($passengers))
-            姓名：<input type="text" name="pName" ><br>
-            身分證字號：<input type="text" name="pId" ><br>
-            性別：
-            <select name="gender"> 
+        <div class="row offset-md-1">
+          <div class="col-4">
+            姓名：<input type="text" name="pName" >
+          </div>
+          <div class="col-5">
+            身分證字號：<input type="text" name="pId" >
+          </div>
+        </div><br>
+        <div class="row offset-md-1">
+          <div class="col-4">
+            性別：<br>
+            <select  name="gender"> 
                 <option selected></option>
                 <option value="1" >男</option>
                 <option value="0" >女</option>
-            </select><br>
-            生日：<input type="date" name="birthday"><br>
+            </select>
+          </div>
+          <div class="col-6">
+            生日：<br><input type="date" name="birthday">
+          </div>
+        </div>
         @else
-            @foreach ($passengers as $passenger)
-            姓名：<input type="text" name="pName" value="{{$passenger->pName}}"><br>
-            身分證字號：<input type="text" name="pId" value="{{$passenger->pId}}"><br>
-            性別：
-            <select name="gender"> 
-                {{-- <option selected></option> --}}
-                <option value="1" {{ (($passenger->gender) == "1" ? "selected":"") }}>男</option>
-                <option value="0" {{ (($passenger->gender) == "0" ? "selected":"") }}>女</option>
-            </select><br>
-            生日：<input type="date" name="birthday" value="{{$passenger->birthday}}"><br>
+          @foreach ($passengers as $passenger)
+          <div class="row offset-md-1">
+            <div class="col-4">
+              姓名：<input type="text" name="pName" value="{{$passenger->pName}}">
+            </div>
+            <div class="col-5">
+              身分證字號：<input type="text" name="pId" value="{{$passenger->pId}}">
+            </div>
+          </div><br>
+          <div class="row offset-md-1">
+            <div class="col-4">
+              性別：<br>
+              <select  name="gender"> 
+                  {{-- <option selected></option> --}}
+                  <option value="1" {{ (($passenger->gender) == "1" ? "selected":"") }}>男</option>
+                  <option value="0" {{ (($passenger->gender) == "0" ? "selected":"") }}>女</option>
+              </select>
+            </div>
+            <div class="col-6">
+              生日：<br><input type="date" name="birthday" value="{{$passenger->birthday}}">
+            </div>
+          </div>
             @endforeach
         @endif
+        </div>
         
-        <button type="button" onclick="location.href='{{route('member.index')}}'">取消</button><br>
-        <button type="submit">確定修改</button>
+        <button type="button" class="previous action-button-previous" onclick="location.href='{{route('member.index')}}'">取消</button>
+        <button type="submit" class="next action-button">確定修改</button>
+      </fieldset>
     </form>
     
-</body>
-</html>
+    
+@endsection

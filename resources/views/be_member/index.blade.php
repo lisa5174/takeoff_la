@@ -1,80 +1,169 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.member_center')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
+@endsection
+
+@section('title')
+    <title>Take off 空|會員中心_會員基本資料</title>
+@endsection
+
+@section('main')
+<form id="msform">  
+  <fieldset> 
     @if (session()->has('notice')) 
         <div class="m-2 bg-green-300 px-3 py-2 rounded">
             {{ session()->get('notice')}}
         </div>
     @endif
     
-    會員基本資料
-    
-    <button type="button" onclick="location.href='{{route('login.logout')}}'">登出</button>
+    {{-- <button type="button" onclick="location.href='{{route('login.logout')}}'">登出</button> --}}
     {{-- <a href="{{ route('login.logout')}}">登出</a> --}}
-    <br>
-    會員資料<br>
-    <button type="button" onclick="location.href='{{route('member.editmember')}}'">修改會員資料</button><br>
-    @foreach ($members as $member)
-    電子信箱：{{($member->mEmail == "") ? '--' : $member->mEmail}}<br>
-    手機號碼：{{($member->mPhone == "") ? '--' : $member->mPhone}}<br>
-    @endforeach
+    <div class="form-card"> 
+      <h2 class="fs-title">會員基本資料</h2>    
+        <div class="container">
+          <div class="row">
+            <h5 class="fs col-2">會員資料</h5>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editmember')}}'">修改會員資料</button></div><br>
+            @foreach ($members as $member)
+            <div class="row offset-md-1">
+              <div class="col-6">
+                電子信箱：{{($member->mEmail == "") ? '--' : $member->mEmail}}
+              </div>
+              <div class="col-6">
+                手機號碼：{{($member->mPhone == "") ? '--' : $member->mPhone}}
+              </div>
+            </div>
+            @endforeach
+        </div><br>
 
-    旅客資料<br>
-    <button type="button" onclick="location.href='{{route('member.editpassenger')}}'">編輯旅客資料</button><br>
-    {{-- {{dd($passengers)}} --}}
-    @if(empty($passengers))
-        姓名：--<br>
-        身分證字號：--<br>
-        性別：--<br>
-        生日：--<br>
-    @else
-        @foreach ($passengers as $passenger)
-        姓名：{{$passenger->pName}}<br>
-        身分證字號：{{$passenger->pId}}<br>
-        性別：{{$gender}}<br>
-        生日：{{$passenger->birthday}}<br>
-        @endforeach
-    @endif
-    
-    
-    聯絡人資料<br>
-    <button type="button" onclick="location.href='{{route('member.editcontact')}}'">編輯聯絡人資料</button><br>
-    @if(empty($contacts))
-        姓名：--<br>
-        行動電話：--<br>
-        電子信箱：--<br>
-    @else
-        @foreach ($contacts as $contact)
-        姓名：{{$contact->cName}}<br>
-        行動電話：{{$contact->cPhone}}<br>
-        電子信箱：{{$contact->cEmail}}<br>
-        @endforeach
-    @endif
+        <div class="container">
+          <div class="row">
+            <h5 class="fs">旅客資料</h5></div> <br>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editpassenger')}}'">編輯旅客資料</button><br>
+            {{-- {{dd($passengers)}} --}}
+            @if(empty($passengers))
+            <div class="row offset-md-1">
+              <div class="col-6">
+                姓名：--
+              </div>
+              <div class="col-6">
+                身分證字號：--
+              </div>
+            </div><br>
+            <div class="row offset-md-1">
+              <div class="col-6">
+                性別：--
+              </div>
+              <div class="col-6">
+                生日：--
+              </div>
+            </div>
+            @else
+              @foreach ($passengers as $passenger)
+              <div class="row offset-md-1">
+                <div class="col-6">
+                  姓名：{{$passenger->pName}}
+                </div>
+                <div class="col-6">
+                  身分證字號：{{$passenger->pId}}
+                </div>
+              </div><br>
+              <div class="row offset-md-1">
+                <div class="col-6">
+                  性別：{{$gender}}
+                </div>
+                <div class="col-6">
+                  生日：{{$passenger->birthday}}
+                </div>
+              </div>
+              @endforeach
+            @endif
+        </div><br>
+            
+        <div class="container">
+          <div class="row">
+            <h5 class="fs">聯絡人資料</h5></div> <br>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editcontact')}}'">編輯聯絡人資料</button><br>
+            @if(empty($contacts))
+            <div class="row offset-md-1">
+              <div class="col-6">
+                姓名：--
+              </div>
+              <div class="col-6">
+                行動電話：--
+              </div>
+            </div><br>
+            <div class="row offset-md-1">
+              <div class="col-12">
+                電子信箱：--
+              </div>
+            </div>
+            @else
+              @foreach ($contacts as $contact)
+              <div class="row offset-md-1">
+                <div class="col-6">
+                  姓名：{{$contact->cName}}
+                </div>
+                <div class="col-6">
+                  行動電話：{{$contact->cPhone}}
+                </div>
+              </div><br>
+              <div class="row offset-md-1">
+                <div class="col-12">
+                  電子信箱：{{$contact->cEmail}}
+                </div>
+              </div>
+              @endforeach
+            @endif
+        </div><br>
+            
+        <div class="container">
+          <div class="row">
+            <h5 class="fs">信用卡資料</h5></div> <br>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editpay')}}'">編輯信用卡資料</button><br>
+            @if(empty($pays))
+            <div class="row offset-md-1">
+              <div class="col-6">
+                卡別：--
+              </div>
+              <div class="col-6">
+                有效日期(月/年)：--
+              </div>
+            </div><br>
+            <div class="row offset-md-1">
+              <div class="col-6">
+                卡號：--
+              </div>
+              <div class="col-6">
+                檢查碼：--
+              </div>
+            </div>
+            @else
+              @foreach ($pays as $pay)
+              <div class="row offset-md-1">
+                <div class="col-6">
+                  卡別：{{$pay->creName}}
+                </div>
+                <div class="col-6">
+                  有效日期(月/年)：{{substr("$pay->validityPeriod",0,2)}}/{{substr("$pay->validityPeriod", -2)}}
+                </div>
+              </div><br>
+              <div class="row offset-md-1">
+                <div class="col-6">
+                  卡號：{{substr("$pay->caNumber",0,4)}}-{{substr("$pay->caNumber",4,4)}}-{{substr("$pay->caNumber",8,4)}}-{{substr("$pay->caNumber",-4)}}
+                </div>
+                <div class="col-6">
+                  檢查碼：{{$pay->checkCode}}
+                </div>
+              </div>
+              @endforeach
+            @endif
+        </div>
+    </div>
+  </fieldset>
+</form>
+
 
     
-    信用卡資料<br>
-    <button type="button" onclick="location.href='{{route('member.editpay')}}'">編輯信用卡資料</button><br>
-    @if(empty($pays))
-        卡別：--<br>
-        有效日期(月/年)：--<br>
-        卡號：--<br>
-        檢查碼：--<br>
-    @else
-        @foreach ($pays as $pay)
-        卡別：{{$pay->creName}}<br>
-        有效日期(月/年)：{{substr("$pay->validityPeriod",0,2)}}/{{substr("$pay->validityPeriod", -2)}}<br>
-        卡號：{{substr("$pay->caNumber",0,4)}}-{{substr("$pay->caNumber",4,4)}}-{{substr("$pay->caNumber",8,4)}}-{{substr("$pay->caNumber",-4)}}<br>
-        檢查碼：{{$pay->checkCode}}<br>
-        @endforeach
-    @endif
-
-    
-</body>
-</html>
+@endsection

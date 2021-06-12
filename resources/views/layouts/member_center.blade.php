@@ -13,7 +13,7 @@
     />
 
     @yield('css')
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     
@@ -65,39 +65,90 @@
                 <button class="nav-link"  href="signup.html">會員中心</button>
               </li>
               <li class="nav-item">
-                <button class="nav-link"  href="signup.html">登出</button>
+                <button class="nav-link" onclick="location.href='{{route('login.logout')}}'">登出</button>
                 {{-- <button class="nav-link"onclick="location.href='{{route('login')}}'">登入</button> --}}
               </li>
+              
+              <li class="nav-item dropdown d-sm-block d-md-none">
+                <button class="dropdown-item" href="order_search.html">查看訂單</button>
+                <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdownPortfolio"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">管理帳戶</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio" >
+                    <button class="dropdown-item active" href="member_information.html">會員基本資料</button>
+                    <!-- active表示有底色 -->
+                    <button class="dropdown-item " href="member_resetpw.html">重設密碼</button>
+                    </div>                                                                
+              </li><!-- Smaller devices menu END -->
             </ul>
           </div>
         </div>
       </nav>
       <!-- /.container -->
     </div>
+    <div class="row" id="body-row">
+      <!-- Sidebar -->
+      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block" style="width: 230px;"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+          <!-- Bootstrap List Group -->
+          <ul class="list-group">
+              <!-- Separator with title -->
+              
+              <!-- /END Separator -->
+              <!-- Menu with submenu -->
+             <a href="order_search.html" class="bg-transparent list-group-item list-group-item-action">
+                 <div class="d-flex w-100 justify-content-start align-items-center">
+                     <span class="fas fa-search fa-fw mr-3"></span> 
+                     <span class="menu-collapsed">查看訂單</span>
+                 </div>
+             </a>
+             <a href="#submenu1" class="bg-transparent list-group-item list-group-item-action" data-toggle="collapse" aria-expanded="false">
+                 <div class="d-flex w-100 justify-content-start align-items-center">
+                     <span class="fas fa-user-edit fa-fw mr-3"></span>
+                     <span class="menu-collapsed">管理帳戶</span>
+                     <span class="submenu-icon ml-auto"></span>
+                 </div>
+             </a>
+             <!-- Submenu content -->
+             <div id='submenu1' class="collapse sidebar-submenu">
+                 <a href="member_information.html" class="bg-transparent list-group-item list-group-item-action ">
+                     <span class="menu-collapsed">會員基本資料</span>
+                 </a>
+                 <a href="member_resetpw.html" class="bg-transparent list-group-item list-group-item-action ">
+                     <span class="menu-collapsed">重設密碼</span>
+                 </a>
+                 
+           </div><!-- sidebar-container END -->
+    </div><!-- sidebar-container END -->
 
+<!-- MAIN -->
+        <div class="col">                     
+          <div class="row justify-content-center mt-0">
+            <div class="col-12 col-sm-9  text-center p-0 mt-5 mb-3"> 
+              @yield('main')
+            </div>
+            <footer class="footer row ">
+              <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
+            </footer>
+          </div>  
+        </div>   <!-- Main Col END -->   
+      </div>     <!-- body-row END -->        
         <div mv-app="clock" mv-bar="none">
 
-            <script type="text/javascript"> //現在時間
-            window.onload=function(){
-            setInterval(function(){
-            var date=new Date();
-            var year=date.getFullYear(); //獲取當前年份
-            var mon=date.getMonth()+1; //獲取當前月份
-            var da=date.getDate(); //獲取當前日
-            var day=date.getDay(); //獲取當前星期幾
-            var h=date.getHours(); //獲取小時
-            var m=date.getMinutes(); //獲取分鐘
-            var s=date.getSeconds(); //獲取秒
-            var d=document.getElementById('Date');
-            d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
-        </div>
-
-        @yield('main')
-      <footer class="footer row ">
-        <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
-      </footer>
-    </div></div>                
-
+          <script type="text/javascript"> //現在時間
+          window.onload=function(){
+          setInterval(function(){
+          var date=new Date();
+          var year=date.getFullYear(); //獲取當前年份
+          var mon=date.getMonth()+1; //獲取當前月份
+          var da=date.getDate(); //獲取當前日
+          var day=date.getDay(); //獲取當前星期幾
+          var h=date.getHours(); //獲取小時
+          var m=date.getMinutes(); //獲取分鐘
+          var s=date.getSeconds(); //獲取秒
+          var d=document.getElementById('Date');
+          d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
+      </div>
   <script>// Hide submenus
     $('#body-row .collapse').collapse('hide'); 
     

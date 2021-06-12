@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.member_center')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
+@endsection
+
+@section('title')
+    <title>Take off 空|會員中心_會員資料更改</title>
+@endsection
+
+@section('main')
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -29,5 +30,4 @@
         <button type="submit">確定修改</button>
     </form>
     
-</body>
-</html>
+@endsection

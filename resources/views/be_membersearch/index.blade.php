@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.member_center')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
+@endsection
+
+@section('title')
+    <title>Take off 空|會員中心_查看訂單</title>
+@endsection
+
+@section('main')
+<form id="msform">  
+    <fieldset> 
+      <div class="form-card"> 
     @if (session()->has('notice')) 
         <div class="m-2 bg-green-300 px-3 py-2 rounded">
             {{ session()->get('notice')}}
@@ -15,40 +19,71 @@
     @endif
 
     @for ($i = 0; $i < $airticketnum[0]->num; $i++)
-        訂單編號：{{$airticket[$i]->aId}}<br>
-        航班<br>
-        飛機名稱：{{$flight[$i]->fName}}<br>
-        出發機場：{{$flight[$i]->toplace}}<br>
-        目的機場：{{$flight[$i]->foplace}}<br>
-        起飛日期：{{$flight[$i]->date}}<br>
-        起飛時間：{{$flight[$i]->Ltime}}<br>
-        人數票種：<br>
+    <div class="container">
+      <div class="row">
+        <h5 class="fs">訂單編號：{{$airticket[$i]->aId}}</h5></div>
+      </div><br>
+      <div class="row">
+        <h5 class="fs">航班</h5></div> <br>
+      <div class="row offset-md-1">
+        <div class="col-6">飛機名稱：{{$flight[$i]->fName}}</div>
+      </div>
+        <div class="row offset-md-1">
+        <div class="col-6">出發機場：{{$flight[$i]->toplace}}</div>
+        <div class="col-6">目的機場：{{$flight[$i]->foplace}}</div>
+      </div><br>
+      <div class="row offset-md-1">
+        <div class="col-6">起飛日期：{{$flight[$i]->date}}</div>
+        <div class="col-6">起飛時間：{{$flight[$i]->Ltime}}</div>
+      </div><br>
+      <div class="row offset-md-1">
+        <div class="col-6">人數票種：</div><br>
         @foreach ($tickettypenum[$i] as $tn)
-            {{$tn->tName}}票種{{$tn->aNum}}張<br>
+        <div class="col-6">
+            {{$tn->tName}}票種{{$tn->aNum}}張</div><br>
         @endforeach
-        機票價格：{{$airticket[$i]->aprice}}<br>
-
-        旅客<br>
-        姓名：{{$passengers[$i]->pName}}<br>
-        身分證字號：{{$passengers[$i]->pId}}<br>
-        性別：{{$passengers[$i]->gender}}<br>
-        生日：{{$passengers[$i]->birthday}}<br>
-        
-        聯絡人<br>
-        姓名：{{$contacts[$i]->cName}}<br>
-        行動電話：{{$contacts[$i]->cPhone}}<br>
-        電子信箱：{{$contacts[$i]->cEmail}}<br>
-
-        信用卡<br>
-        卡別：{{$pays[$i]->creType}}<br>
-        有效日期(月/年)：{{$pays[$i]->validityPeriod}}/<br>
+        <div class="col-6">機票價格：{{$airticket[$i]->aprice}}</div><br>
+      </div><br>
+      <div class="container">
+        <div class="row">
+          <h5 class="fs">旅客</h5></div> <br>
+        <div class="row offset-md-1">
+          <div class="col-6">姓名：{{$passengers[$i]->pName}}</div>
+          <div class="col-6">身分證字號：{{$passengers[$i]->pId}}</div>
+        </div><br>
+        <div class="row offset-md-1">
+          <div class="col-6">性別：{{$passengers[$i]->gender}}</div>
+          <div class="col-6">生日：{{$passengers[$i]->birthday}}</div>
+        </div><br>
+      </div><br>
+      
+      <div class="container">
+        <div class="row">
+          <h5 class="fs">聯絡人</h5></div> <br>
+        <div class="row offset-md-1">
+          <div class="col-6">姓名：{{$contacts[$i]->cName}}</div>
+          <div class="col-6">行動電話：{{$contacts[$i]->cPhone}}</div>
+        </div><br>
+        <div class="row offset-md-1">
+          <div class="col-6">電子信箱：{{$contacts[$i]->cEmail}}</div>
+        </div><br>
+      </div><br>
+      <div class="container">
+        <div class="row">
+          <h5 class="fs">信用卡</h5></div> <br>
+        <div class="row offset-md-1">
+          <div class="col-6">卡別：{{$pays[$i]->creType}}</div>
+          <div class="col-4">有效日期(月/年)：{{$pays[$i]->validityPeriod}}/</div>
+        </div> <br>
+        <div class="row offset-md-1">
         {{-- $p = $pays[$i]->caNumber --}}
         {{-- 卡號：{{substr("",0,4)}}-{{substr("$pays[$i]->caNumber",4,4)}}-
-        {{substr("$pays[$i]->caNumber",8,4)}}-{{substr("$pays[$i]->caNumber",-4)}}<br> --}}
-        檢查碼：{{$pays[$i]->checkCode}}<br>
-        
-        <br><br><br>
+        <div class="col-6">{{substr("$pays[$i]->caNumber",8,4)}}-{{substr("$pays[$i]->caNumber",-4)}}</div> --}}
+        <div class="col-4">檢查碼：{{$pays[$i]->checkCode}}</div>
+      </div><br>
+    </div><br>
     @endfor
-
-</body>
-</html>
+    </div>
+  </fieldset>
+</form>
+@endsection
