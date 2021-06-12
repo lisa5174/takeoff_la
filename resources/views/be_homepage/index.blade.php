@@ -1,5 +1,11 @@
 @extends('layouts.be_buy')
-
+{{-- @if(isset($mId))
+  @extends('layouts.be_member')  
+    {{-- 有登入 --}}
+{{-- @else 
+  @extends('layouts.be_buy')
+  {{-- 沒有登入 --}}
+{{-- @endif --}} 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
 @endsection
@@ -9,6 +15,8 @@
 @endsection
 
 @section('main')
+<div class="container-fluid" id="grad1">
+  <div class="row justify-content-center mt-0">
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -19,7 +27,7 @@
         </div>
     @endif  
   <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
-      <form action="{{ route('homepage.store')}} " method="POST" id="msform" name="myForm">  
+      <form action="{{ route('homepage.store')}} " method="POST" id="msform">  
         @csrf
 
         <!-- progressbar -->  
@@ -27,21 +35,21 @@
             <div class="form-card">  
               <div  class="container">
                 <h4 class="fs-title">訂票購買
-                  {{-- <input type="radio" class="btn-check" name="type" id="btnradio1" value='domestic-credit' autocomplete="off" checked>
+                   <input type="radio" class="btn-check" name="type" id="btnradio1" value='domestic-credit' autocomplete="off" checked>
                   <label class="btn btn-outline-info btn-sm " for="btnradio1">單程</label>
                   <input type="radio" class="btn-check" name="type" id="btnradio2" value='aboard-credit' autocomplete="off">
-                  <label class="btn btn-outline-info btn-sm " for="btnradio2">來回</label> --}}
+                  <label class="btn btn-outline-info btn-sm " for="btnradio2">來回</label>
                 </h4>
               </div>
               <br>
-              {{-- <div id='domestic-credit-form'>
+               {{-- <div id='domestic-credit-form'>
                 <div class="row">
                   <div class="col-md-5">
-                  <form action="{{ route('homepage.store')}} " method="POST"> --}}
+                  <form action="{{ route('homepage.store')}} " method="POST">  --}}
                       {{-- choose.index --}}
-                      {{-- @csrf
+                       {{-- @csrf
                       <label for="inputAddress" class="form-label">出發機場：</label>
-                      <select name="be_apto" class="form-select" aria-label="Default select example" id="sel">
+                      <select name="be_apto" class="form-select" aria-label="Default select example" id="bigSelect" onchange="showNext()">
                           <option selected></option>
                           <option value="1" {{ (old("be_apto") == "1" ? "selected":"") }}>松山(TSA)</option>
                           <option value="2" {{ (old("be_apto") == "2" ? "selected":"") }}>高雄(KHH)</option>
@@ -56,8 +64,8 @@
                       <br>
                    <div class="col-md-5">
                       <label for="inputAddress" class="form-label">目的機場：</label>
-                      <select name="be_apfo" class="form-select" aria-label="Default select example" id="sel2">
-                          <option selected></option> --}}
+                      <select name="be_apfo" class="form-select" aria-label="Default select example" id="sonSelect">
+                          <option selected ></option>  --}}
                           {{-- <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
                           <option value="2" {{ (old("be_apfo") == "2" ? "selected":"") }}>高雄(KHH)</option>
                           <option value="3" {{ (old("be_apfo") == "3" ? "selected":"") }}>台中(RMQ)</option>
@@ -65,7 +73,7 @@
                           <option value="5" {{ (old("be_apfo") == "5" ? "selected":"") }}>台東(TTT)</option>
                           <option value="6" {{ (old("be_apfo") == "6" ? "selected":"") }}>澎湖(MZG)</option>
                           <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option> --}}
-                      {{-- </select>
+                       {{-- </select>
                    </div>
                 </div>
                       <br>
@@ -87,7 +95,7 @@
                       <label for="">旅客</label>
                       <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-1' field='quantity' /> --}}
                       {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-                      {{-- <input type='text' readonly="readonly" name='quantity' value="{{old('quantity') ?? '1'}}" class='qty col-md-2'  style="width: 15%;"/>
+                     {{-- <input type='text' readonly="readonly" name='quantity' value="{{old('quantity') ?? '1'}}" class='qty col-md-2'  style="width: 15%;"/>
                       <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-1' field='quantity' />
                     </div>
                     <div class="col-md-6">
@@ -100,14 +108,14 @@
                    </div>
                 </div> --}}
 
-              <div id='aboard-credit-form'>
+              {{-- <div id='aboard-credit-form' style="display: none"> --}}
                 <div class="row">
                   <div class="col-md-5">
                   {{-- <form action="{{ route('homepage.store')}} " method="POST"> --}}
                       {{-- choose.index --}}
-                      {{-- @csrf --}}
+                       @csrf 
                       <label for="inputAddress" class="form-label">出發機場：</label>
-                      <select name="be_apto" class="form-select" aria-label="Default select example" id="sel11">
+                      <select name="be_apto" class="form-select" aria-label="Default select example" id="bigSelect" onchange="showNext()">
                           <option selected></option>
                           <option value="1" {{ (old("be_apto") == "1" ? "selected":"") }}>松山(TSA)</option>
                           <option value="2" {{ (old("be_apto") == "2" ? "selected":"") }}>高雄(KHH)</option>
@@ -122,15 +130,15 @@
                       <br>
                    <div class="col-md-5">
                       <label for="inputAddress" class="form-label">目的機場：</label>
-                      <select name="be_apfo" class="form-select" aria-label="Default select example" id="sel21">
+                      <select name="be_apfo" class="form-select" aria-label="Default select example" id="sonSelect">
                           <option selected></option>
-                          <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
+                          {{-- <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
                           <option value="2" {{ (old("be_apfo") == "2" ? "selected":"") }}>高雄(KHH)</option>
                           <option value="3" {{ (old("be_apfo") == "3" ? "selected":"") }}>台中(RMQ)</option>
                           <option value="4" {{ (old("be_apfo") == "4" ? "selected":"") }}>花蓮(HUN)</option>
                           <option value="5" {{ (old("be_apfo") == "5" ? "selected":"") }}>台東(TTT)</option>
                           <option value="6" {{ (old("be_apfo") == "6" ? "selected":"") }}>澎湖(MZG)</option>
-                          <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option>  
+                          <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option>   --}}
                       </select> 
                    </div>
                 </div>
@@ -140,8 +148,8 @@
                       <label for="inputAddress" class="form-label">啟程日期：</label>
                       <input type="date" value="{{ old('dateto') }}" name="dateto" class="form-control" id="dateto2"  max="2030-12-31" min="">
                       </div>
-                    <div class="col-md-5">          
-                      <label for="inputAddress" class="form-label">回程日期：</label>
+                    <div class="col-md-5" id='aboard-credit-form' style="display: none">          
+                      <label for="inputAddress" class="form-label" >回程日期：</label>
                       <input type="date" value="{{ old('datefo') }}" name="datefo" class="form-control" id="apdate" >
                     </div>
                    </div>
@@ -171,18 +179,19 @@
                   </div>
                   
 
-                </div>
+                {{-- </div> --}}
             </div>
                 <div class="col justify-content-md-center">
                       <button  type="submit"  class="next action-button">搜尋</button>
                 </div>
                   {{-- </form> --}}
+                </fieldset>  
+              </form>
+    
                 </div>
-            </fieldset>  
-          </form>
-      </div>
-
-      <button type="button" onclick="location.href='{{route('homepage.index2')}}'">來回</button><br>
+           
+      
+      {{-- <button type="button" onclick="location.href='{{route('homepage.index2')}}'">來回</button><br> --}}
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -190,16 +199,16 @@
         $('input[type=radio][name="type"]').on('change', function() {
       switch($(this).val()) {
         case 'domestic-credit':
-          $("#domestic-credit-form").show()
           $("#aboard-credit-form").hide()
+          //$("#msform")[0].reset(); 清空
           break
         case 'aboard-credit':
-          $("#domestic-credit-form").hide()
           $("#aboard-credit-form").show()
           break
       }      
     })
       </script>
+
     <script>
         $(function(){
             //得到當前時間
@@ -316,153 +325,46 @@
         });
         });
     </script>
-    <script>
-        //當sel值改變時觸發事件
-    $("#sel").change(function(){
-      //此處用switch case來作為判斷式
-      //並以sel各個Option的Value作為判斷條件
-      //注意這邊有用parseInt將value值轉為整數型態否則會出現錯誤
-      switch (parseInt($(this).val())){
-      //默認行為，可以不寫
-      default:
-      //當value值為0時刪除sel2的Option Item
-      case 0: 
-          $("#sel2 option").remove();
-          break;
-      //當value值為1時刪除sel2的Option Item 
-      //並用陣列及each迴圈新增sel2的Option Item選項
-      case 1: 
-          $("#sel2 option").remove();
-          var array = ["台東(TTT)", "澎湖(MZG)", "金門(KNH)"];	// 松山(TSA)
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;
-      case 2: 
-          $("#sel2 option").remove();
-          var array = ["花蓮(HUN)", "澎湖(MZG)"];// 高雄(KHH)
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;
-      case 3: 
-          $("#sel2 option").remove();
-          var array = ["花蓮(HUN)", "澎湖(MZG)", "金門(KNH)"];// 台中(RMQ)
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;
-      case 4: 
-          $("#sel2 option").remove();
-          var array = ["高雄(KHH)", "台中(RMQ)"];	//花蓮(HUN)
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;
-      case 5: 
-          $("#sel2 option").remove();
-          var array = ["松山(TSA)"];	// 台東(TTT)	
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;
-      case 6: 
-          $("#sel2 option").remove();
-          var array =["松山(TSA)", "高雄(KHH)", "台中(RMQ)"];// 澎湖(MZG)
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;    
-      case 7: 
-          $("#sel2 option").remove();
-          var array =["松山(TSA)", "台中(RMQ)"];	//金門(KNH)
-          //利用each遍歷array中的值並將每個值新增到Select中
-          $.each(array, function(i, val) {
-            $("#sel2").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-          });      
-          break;
-     }
-    });
-      </script>
-        <script>
-            //當sel值改變時觸發事件
-        $("#sel11").change(function(){
-          //此處用switch case來作為判斷式
-          //並以sel各個Option的Value作為判斷條件
-          //注意這邊有用parseInt將value值轉為整數型態否則會出現錯誤
-          switch (parseInt($(this).val())){
-          //默認行為，可以不寫
-          default:
-          //當value值為0時刪除sel2的Option Item
-          case 0: 
-              $("#sel21 option").remove();
-              break;
-          //當value值為1時刪除sel2的Option Item 
-          //並用陣列及each迴圈新增sel2的Option Item選項
-          case 1: 
-              $("#sel21 option").remove();
-              var array = ["台東(TTT)", "澎湖(MZG)", "金門(KNH)"];	// 松山(TSA)
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;
-          case 2: 
-              $("#sel21 option").remove();
-              var array = ["花蓮(HUN)", "澎湖(MZG)"];// 高雄(KHH)
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;
-          case 3: 
-              $("#sel21 option").remove();
-              var array = ["花蓮(HUN)", "澎湖(MZG)", "金門(KNH)"];// 台中(RMQ)
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;
-          case 4: 
-              $("#sel21 option").remove();
-              var array = ["高雄(KHH)", "台中(RMQ)"];	//花蓮(HUN)
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;
-          case 5: 
-              $("#sel21 option").remove();
-              var array = ["松山(TSA)"];	// 台東(TTT)	
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;
-          case 6: 
-              $("#sel21 option").remove();
-              var array =["松山(TSA)", "高雄(KHH)", "台中(RMQ)"];// 澎湖(MZG)
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;    
-          case 7: 
-              $("#sel21 option").remove();
-              var array =["松山(TSA)", "台中(RMQ)"];	//金門(KNH)
-              //利用each遍歷array中的值並將每個值新增到Select中
-              $.each(array, function(i, val) {
-                $("#sel21").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
-              });      
-              break;
-         }
-        });
+   
+          <script>
+            var selectTool = new Array();
+          window.onload=function(){//省略簡寫
+            selectTool[0] = new Array();//陣列內分別為所屬省份的id，市名稱，市的id
+            selectTool[1] = new Array('1','台東(TTT)','5');
+            selectTool[2] = new Array('1','澎湖(MZG)','6');
+            selectTool[3] = new Array('1','金門(KNH)','7');
+            selectTool[4] = new Array('2','花蓮(HUN)','4');
+            selectTool[5] = new Array('2','澎湖(MZG)','6');
+            selectTool[6] = new Array('3','花蓮(HUN)','4');
+            selectTool[7] = new Array('3','澎湖(MZG)','6');
+            selectTool[8] = new Array('3','金門(KNH)','7');
+            selectTool[9] = new Array('4','高雄(KHH)','2');
+            selectTool[10] = new Array('4','台中(RMQ)','3');
+            selectTool[11] = new Array('5','松山(TSA)','1');
+            selectTool[12] = new Array('6','松山(TSA)','1');
+            selectTool[13] = new Array('6','高雄(KHH)','2');
+            selectTool[14] = new Array('6','台中(RMQ)','3');
+            selectTool[15] = new Array('7','松山(TSA)','1');
+            selectTool[16] = new Array('7','高雄(KHH)','2');
+          }
+          
+          function showNext(){
+          var big = document.getElementById("bigSelect").value;
+          document.getElementById("sonSelect").length = 0;
+          //document.getElementById("sonSelect").options.add(new Option("--請選擇--",""));
+          for (i=0;i<selectTool.length;i++){
+          if (selectTool[i][0] == big){
+          document.getElementById("sonSelect").options.add(new Option(selectTool[i][1],selectTool[i][2]));
+          }}}
+          
+          // function showNext2(){
+          // var big = document.getElementById("bigSelect2").value;
+          // document.getElementById("sonSelect2").length = 0;
+          // document.getElementById("sonSelect").options.add(new Option("--請選擇--",""));
+          // for (i=0;i<selectTool.length;i++){
+          // if (selectTool[i][0] == big){
+          // document.getElementById("sonSelect2").options.add(new Option(selectTool[i][1],selectTool[i][2]));
+          // }}}
           </script>
 <script src="{{ asset('js/app.js') }}"></script>
 @endsection

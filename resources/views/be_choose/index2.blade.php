@@ -1,5 +1,11 @@
 {{-- choose --}}
-@extends('layouts.be_buy')
+@if(isset($mId))
+  @extends('layouts.be_member')  
+    {{-- 有登入 --}}
+@else
+  @extends('layouts.be_buy')
+  {{-- 沒有登入 --}}
+@endif
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
@@ -10,6 +16,8 @@
 @endsection
 
 @section('main')
+<div class="container-fluid" id="grad1">
+  <div class="row justify-content-center mt-0">
 <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
@@ -531,10 +539,7 @@
           </form>
          </div></div>
                     
-    <footer class="footer row ">
-      <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
-    </footer>
-  
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
         $(function() {

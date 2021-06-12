@@ -13,9 +13,9 @@
     />
 
     @yield('css')
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     
     @yield('title')
 </head>
@@ -107,6 +107,12 @@
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-search fa-fw mr-3"></span>
                             <span class="menu-collapsed">查詢</span>    
+                        </div>
+                    </button>
+                    <button  onclick="location.href='{{route('aflogin.aflogout')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-sign-out-alt fa-fw mr-3"></span>
+                            <span class="menu-collapsed">登出</span>    
                         </div>
                     </button>
           </div><!-- sidebar-container END -->

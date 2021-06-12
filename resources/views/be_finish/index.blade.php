@@ -9,6 +9,8 @@
 @endsection
 
 @section('main')
+<div class="container-fluid" id="grad1">
+  <div class="row justify-content-center mt-0">
 <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
     <form id="msform" action="{{ route('membersearch.checkoutsuccess')}}" method="GET">
         @csrf 
@@ -188,7 +190,5 @@
         </fieldset>
     </form>
   </div>  
-  <footer class="footer row ">
-    <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
-  </footer>
+ 
 @endsection

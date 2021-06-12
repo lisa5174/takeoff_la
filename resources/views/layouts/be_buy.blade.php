@@ -42,10 +42,10 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="homePage.html"
+                <button class="nav-link" onclick="location.href='{{route('homepage.index')}}'"
                   >回首頁
                   <span class="sr-only">(current)</span>
-                </a>
+                </button>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -58,24 +58,16 @@
                 >
                   關於我們
                 </a>
-                <div
-                  class="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="navbarDropdownPortfolio"
-                >
-                  <a class="dropdown-item" href="service_introduction.html"
-                    >服務介紹</a
-                  >
-                  <a class="dropdown-item" href="team_introduction.html"
-                    >團隊介紹</a
-                  >
+                <div class="dropdown-menu dropdown-menu-right"aria-labelledby="navbarDropdownPortfolio">
+                  <button class="dropdown-item" onclick="location.href='{{route('serviceIntroduction.index')}}'">服務介紹</button>
+                  <button class="dropdown-item" onclick="location.href='{{route('teamIntroduction.index')}}'">團隊介紹</button>
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link"  href="signup.html">註冊</a>
+                <button class="nav-link"  onclick="location.href='{{route('login.index')}}'">註冊</button>
               </li>
               <li class="nav-item">
-                <a class="nav-link"  href="signup.html">登入</a>
-                {{-- <button class="nav-link"onclick="location.href='{{route('login')}}'">登入</button> --}}
+                 <button class="nav-link" onclick="location.href='{{route('login.index')}}'">登入</button> 
               </li>
             </ul>
           </div>
@@ -100,12 +92,12 @@
             var d=document.getElementById('Date');
             d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
         </div>
-
-    <div class="container-fluid" id="grad1">
-        <div class="row justify-content-center mt-0">
+    
         @yield('main')
-        </div>    
-    </div>
+        <footer class="footer row ">
+          <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
+        </footer>
+      </div></div>
 
   <script>// Hide submenus
     $('#body-row .collapse').collapse('hide'); 
