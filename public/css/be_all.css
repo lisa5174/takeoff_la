@@ -45,6 +45,8 @@ html {
     font-size: 14px;
     text-align: center;
     vertical-align: bottom;
+    padding: 0px;
+    margin: 0px;
 }
 .la {
     top: 50%;
@@ -404,7 +406,6 @@ select.list-dt:focus {
 #body-row {
     margin-left: 0;
     margin-right: 0;
-    font-size: 20px;
 }
 #sidebar-container {
     min-height: 100vh;
@@ -421,13 +422,23 @@ select.list-dt:focus {
 }
 
 /* Menu item*/
+#sidebar-container .list-group button {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+}
 #sidebar-container .list-group a {
     height: 50px;
     color: black;
+    font-size: 20px;
 }
 
-/* Submenu item*/
 #sidebar-container .list-group .sidebar-submenu a {
+    height: 45px;
+    padding-left: 30px;
+}
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu button {
     height: 45px;
     padding-left: 30px;
 }
@@ -470,5 +481,4 @@ select.list-dt:focus {
     display: inline;
     text-align: right;
     padding-left: 10px;
-    margin: center;
 }

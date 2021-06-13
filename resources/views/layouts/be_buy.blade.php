@@ -27,7 +27,7 @@
         class="navbar navbar-expand-lg navbar-dark static-top"
         style="background-color: #6798c0">
          <div class="container">
-          <a class="navbar-brand" href="homePage.html"> Take off 空 </a>
+          <button class="navbar-brand"  onclick="location.href='{{route('homepage.index')}}'"> Take off 空 </button>
           <button
             class="navbar-toggler"
             type="button"
@@ -64,7 +64,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <button class="nav-link"  onclick="location.href='{{route('login.index')}}'">註冊</button>
+                <button class="nav-link"  onclick="location.href='{{route('register.index')}}'">註冊</button>
               </li>
               <li class="nav-item">
                  <button class="nav-link" onclick="location.href='{{route('login.index')}}'">登入</button> 
@@ -94,11 +94,11 @@
         </div>
     
         @yield('main')
-        <footer class="footer row ">
-          <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
-        </footer>
-      </div></div>
 
+      </div></div>
+      <footer class="footer row mt-auto py-3">
+        <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
+      </footer>
   <script>// Hide submenus
     $('#body-row .collapse').collapse('hide'); 
     

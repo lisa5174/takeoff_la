@@ -19,24 +19,48 @@
         </div>
     @endif 
 
-    <form action="{{ route('member.updatecontact')}}" method="POST">
+    <form id="msform" action="{{ route('member.updatecontact')}}" method="POST">
         @csrf
-
-        聯絡人資料<br>
+      <fieldset> 
+        <div class="form-card"> 
+          <h5 class="fs-title">聯絡人資料</h5> <br>
         @if(empty($contacts))
-            姓名：<input type="text" name="cName"><br>
-            行動電話：<input type="text" name="cPhone"><br>
-            電子信箱：<input type="text" name="cEmail"><br>
+        <div class="row offset-md-1">
+          <div class="col-4">
+            姓名：<input type="text" name="cName">
+          </div>
+          <div class="col-4">
+            行動電話：<input type="text" name="cPhone">
+          </div>
+        </div><br>
+        <div class="row offset-md-1">
+          <div class="col-12">
+            電子信箱：<br><input type="text" name="cEmail">
+          </div>
+        </div>
         @else
             @foreach ($contacts as $contact)
+        <div class="row offset-md-1">
+          <div class="col-4">
             姓名：<input type="text" name="cName" value="{{$contact->cName}}"><br>
+          </div>
+          <div class="col-4">
             行動電話：<input type="text" name="cPhone" value="{{$contact->cPhone}}"><br>
-            電子信箱：<input type="text" name="cEmail" value="{{$contact->cEmail}}"><br>
+          </div>
+        </div><br>
+        <div class="row offset-md-1">
+          <div class="col-4">
+            電子信箱：</div>
+            <div class="col-12">
+            <input type="text" name="cEmail" value="{{$contact->cEmail}}"><br>
+          </div>
+        </div>
             @endforeach
         @endif
-        
-        <button type="button" onclick="location.href='{{route('member.index')}}'">取消</button><br>
-        <button type="submit">確定修改</button>
+      </div>
+        <button class="previous action-button-previous" type="button" onclick="location.href='{{route('member.index')}}'">取消</button>
+        <button class="next action-button" type="submit">確定修改</button>
+      </fieldset>
     </form>
     
 @endsection
