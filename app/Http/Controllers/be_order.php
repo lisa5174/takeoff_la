@@ -24,11 +24,27 @@ class be_order extends Controller
         $toticket2 = $_GET["toticket2"];
         $toticket3 = $_GET["toticket3"];
         $toticket4 = $_GET["toticket4"];
+        $quantity = $_GET['quantity'];
         $quantity2 = $_GET['quantity2'];
         // if(empty($toticket2))   
+
+        // return dd($toticket4);
+
+        for ($i=1; $i <= 4; $i++) { 
+            $t = 'toticket'.$i;
+            $num = $$t[0];
+            $tt = DB::select("select tName from tickettype where tId = '$num'");
+            // return dd($tt);
+            if ($tt == []) $tictype[$i] = [];
+            else $tictype[$i] = $tt[0];
+        }
+        // return dd($tictype);
+
         return view("be_order.index",
         ['toId' => $toId,'toticket1' => $toticket1,'toticket2' => $toticket2,
-        'toticket3' => $toticket3,'toticket4' => $toticket4,'quantity2' => $quantity2,
+        'toticket3' => $toticket3,'toticket4' => $toticket4,
+        'tictype' => $tictype,
+        'quantity' => $quantity,'quantity2' => $quantity2,
         'passengers' => $passengers,'contacts' => $contacts]);
         // return dd($toId,$toticket1,$toticket2,$toticket3,$toticket4);
         // return view("be_order.index");

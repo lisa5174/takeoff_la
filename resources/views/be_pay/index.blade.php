@@ -50,11 +50,13 @@
         
         <input type="hidden" name="quantity2" value="{{$quantity2}}">
 
-        <input type="hidden" name="pname" value="{{$pname}}">
-        <input type="hidden" name="pgender" value="{{$pgender}}">
-        <input type="hidden" name="pid" value="{{$pid}}">
-        <input type="hidden" name="pbirth" value="{{$pbirth}}">
-        
+        @for ($i = 0; $i < $quantity; $i++)
+          <input type="hidden" name="pname[]" value="{{$pname[$i]}}">
+          <input type="hidden" name="pgender[]" value="{{$pgender[$i]}}">
+          <input type="hidden" name="pid[]" value="{{$pid[$i]}}">
+          <input type="hidden" name="pbirth[]" value="{{$pbirth[$i]}}">
+        @endfor
+
         <input type="hidden" name="cname" value="{{$cname}}">
         <input type="hidden" name="cphone" value="{{$cphone}}">
         <input type="hidden" name="cemail" value="{{$cemail}}">

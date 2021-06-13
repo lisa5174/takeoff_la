@@ -147,20 +147,21 @@ class be_choose extends Controller
                 case 1:
                     $a = "ticket".$haspeopleto[0];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
-                    'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity2' => $request->quantity2]);//router會帶參數
+                    'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity' => $request->quantity,
+                    'quantity2' => $request->quantity2]);//router會帶參數
                 case 2:
                     $a = "ticket".$haspeopleto[0];
                     $b = "ticket".$haspeopleto[1];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>['',''],'toticket4' =>['',''],
-                    'quantity2' => $request->quantity2]);//router會帶參數
+                    'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
                 case 3:
                     $a = "ticket".$haspeopleto[0];
                     $b = "ticket".$haspeopleto[1];
                     $c = "ticket".$haspeopleto[2];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>['',''],
-                    'quantity2' => $request->quantity2]);//router會帶參數
+                    'quantity' => $request->quantity,'quantity2' => $request->quantity2]);//router會帶參數
                 case 4:
                     $a = "ticket".$haspeopleto[0];
                     $b = "ticket".$haspeopleto[1];
@@ -168,7 +169,8 @@ class be_choose extends Controller
                     $d = "ticket".$haspeopleto[3];
                     return redirect()->route("order.index",['toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],
-                    'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2]);//router會帶參數
+                    'toticket4' =>[$haspeopleto[3],$request->$d],'quantity' => $request->quantity,
+                    'quantity2' => $request->quantity2]);//router會帶參數
             }
             
             // return dd($request->$a);

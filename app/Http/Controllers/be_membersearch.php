@@ -96,6 +96,7 @@ class be_membersearch extends Controller
     public function checkoutsuccess(Request $request)
     {
         $choose = $request->all();
+        // return dd(count($request->pid));
         // return dd($choose);
         $today = date('Ymd',strtotime("+8HOUR"));
         // return dd($today);
@@ -107,11 +108,16 @@ class be_membersearch extends Controller
         $p=0;
         $c=0;
         $card=0;
-        if (($passengers[0]->pId == $request->pid)&&($passengers[0]->pName == $request->pname)&&
-        ($passengers[0]->gender == $request->pgender)&&($passengers[0]->birthday == $request->pbirth)) {
-            $p = 0;//沒變更會員儲存的旅客資料
+        if (($passengers[0]->pId == $request->pid[0])&&($passengers[0]->pName == $request->pname[0])&&
+        ($passengers[0]->gender == $request->pgender[0])&&($passengers[0]->birthday == $request->pbirth[0])) {
+            //旅客0沒變更會員儲存的旅客資料
+            if (count($request->pid)==1) {//且只有一位旅客
+                $p = 0;
+            }
+            else $p = 2; //不只有一位旅客
         }
-        else $p = 1;//有變更
+        else $p = 1;//全部有變更
+        // return dd($p);
 
         if (($contacts[0]->cName == $request->cname)&&($contacts[0]->cPhone == $request->cphone)&&
         ($contacts[0]->cEmail == $request->cemail)) {
@@ -127,21 +133,25 @@ class be_membersearch extends Controller
         else $card = 1;
         // return dd($p,$c,$card);
         
-        $pid = 0;
+        $pid = [];
         $cid = 0;
         $cardid = 0;
 
-        if ($p==1) {
-            DB::table('airpassenger')->Insert(
-                [
-                    'apId' => $request->pid,
-                    'apName' => $request->pname,
-                    'apgender' => $request->pgender,
-                    'apbirthday' => $request->pbirth,
-                ]
-            );
-            $pid = DB::select('SELECT LAST_INSERT_ID() as id;');
+        if ($p!=0) {
+            $p==1?$x=0:$x=1;
+            for ($i=$x; $i < count($request->pid); $i++) { 
+                DB::table('airpassenger')->Insert(
+                    [
+                        'apId' => $request->pid[$i],
+                        'apName' => $request->pname[$i],
+                        'apgender' => $request->pgender[$i],
+                        'apbirthday' => $request->pbirth[$i],
+                    ]
+                );
+                $pid[$i+1] = DB::select('SELECT LAST_INSERT_ID() as id;');
+            }
         }
+        // return dd($pid[2]);
 
         if ($c==1) {
             DB::table('aircontactperson')->Insert(
@@ -166,110 +176,110 @@ class be_membersearch extends Controller
             $cardid = DB::select('SELECT LAST_INSERT_ID() as id;');
         }
 
-        $d = "SELECT COUNT(*) as todaynum FROM airtickets WHERE date = CURRENT_DATE";
+        $d = "SELECT COUNT(*) as todaynum FROM airtickets WHERE date = CURRENT_DATE"; //todaynum今天已經有幾筆訂單
         $date = DB::select( $d );
 
         // return dd($today.($date[0]->todaynum+1));
 
-        $dlen = strlen($date[0]->todaynum+1);
+        // $dlen = strlen($date[0]->todaynum+1); //今天訂單長度+1
         // return dd($dlen);
         
-        $zero = '';
-        for ($i=0; $i < (7-$dlen); $i++) { 
-            $zero .= '0';
-        }
+        // $zero = '';
+        // for ($i=0; $i < (7-$dlen); $i++) { //7位元減今天訂單長度，要補幾個0
+        //     $zero .= '0';
+        // }
         // return dd($today.$zero.$date[0]->todaynum);
 
-        $dlen2 = strlen(($date[0]->todaynum)+2);
+        // $dlen2 = strlen(($date[0]->todaynum)+2);
         // return dd($dlen2);
         
-        $zero2 = '';
-        for ($i=0; $i < (7-$dlen2); $i++) { 
-            $zero2 .= '0';
-        }
+        // $zero2 = '';
+        // for ($i=0; $i < (7-$dlen2); $i++) { 
+        //     $zero2 .= '0';
+        // }
         // return dd($zero2);
 
-        $aidto = $today.$zero.($date[0]->todaynum+1);
-        $aidfo = $today.$zero2.($date[0]->todaynum+2);
+        // $aidto = $today.$zero.($date[0]->todaynum+1);
+        // $aidfo = $today.$zero2.($date[0]->todaynum+2);
+        // count($request->pid)
 
-        DB::table('airtickets')->Insert(
-            [
-                'aId' => $aidto,
-                'aprice' => $request->tprice,
-                'fId' => $request->toId,
-                'mId' => $mId,
-                'airpId'=> ($p==1 ? $pid[0]->id : null),
-                'acId' => ($c==1 ? $cid[0]->id : null),
-                'apayId' => ($card==1 ? $cardid[0]->id : null),
-                'date' => $today,
-            ]
-        );
-
-        for ($i=1; $i < 5; $i++) { 
+        $allnum=0;
+        for ($i=1; $i < 5; $i++) { //4圈ticket
             $t = 'toticket'.$i;
-            if (!empty($request->$t[0])) {
-                // return dd($request->$t[0]);
-                // return dd($airticketidt[0]);
-                DB::table('atickettype')->Insert(
+            if (isset($request->$t[0]) && ($request->$t[0]) != null) $num = $request->$t[1];
+            else $num=0;
+            // return dd($request->$t[0]);
+            // return dd($num);
+
+            for ($j=0; $j < $num; $j++) { //num是票種數量
+                $allnum += 1;
+                if (($i==1) && ($j==0) && ($p==2)) { //當旅客0沒變更會員儲存的旅客資料
+                    $apid = null;
+                }
+                elseif($p==0) $apid = null;
+                else {
+                    if (isset($pid[$i][0])) { //重要!!!否則會壞掉
+                        $apid = $pid[$i][0]->id;
+                    }
+                    else $apid = null;
+                }
+                // return dd($pid[2][0]);
+                // return dd($apid);
+                
+                if (($i==1) && ($j==0)) {
+                    $bb = $request->quantity2;
+                }
+                else $bb = null;
+                // return dd($bb);
+
+                $dlen = strlen(($date[0]->todaynum)+$allnum); //今天訂單長度+這次購買第幾張
+
+                $zero = '';
+                for ($qq=0; $qq < (7-$dlen); $qq++) { //7位元減訂單長度，要補幾個0
+                    $zero .= '0';
+                }
+
+                $aidto = $today.$zero.($date[0]->todaynum+$allnum); //訂單編號 = 今天+0+今天訂單長度+這次購買第幾張
+
+                DB::table('airtickets')->Insert(
                     [
                         'aId' => $aidto,
+                        'fId' => $request->toId,
                         'tId' => $request->$t[0],
-                        'aNum' => $request->$t[1],
+                        'baby' => $bb,
+                        'mId' => $mId,
+                        'airpId'=> $apid,
+                        'acId' => ($c==1 ? $cid[0]->id : null),
+                        'apayId' => ($card==1 ? $cardid[0]->id : null),
+                        'date' => $today,
                     ]
                 );
             }
         }
 
-        if (!empty($request->quantity2)) {
-            DB::table('atickettype')->Insert(
-                [
-                    'aId' => $aidto,
-                    'tId' => '1',
-                    'aNum' => $request->quantity2,
-                ]
-            );
-        }
-
         if (isset($request->foId)) {
-            DB::table('airtickets')->Insert(
-                [
-                    'aId' => $aidfo,
-                    'aprice' => $request->tprice,
-                    'fId' => $request->foId,
-                    'mId' => $mId,
-                    'airpId'=> ($p==1 ? $pid[0]->id : null),
-                    'acId' => ($c==1 ? $cid[0]->id : null),
-                    'apayId' => ($card==1 ? $cardid[0]->id : null),
-                    'date' => $today,
-                ]
-            );
-    
-            for ($i=1; $i < 5; $i++) { 
-                $t = 'foticket'.$i;
-                if (!empty($request->$t[0])) {
-                    DB::table('atickettype')->Insert(
-                        [
-                            'aId' => $aidfo,
-                            'tId' => $request->$t[0],
-                            'aNum' => $request->$t[1],
-                        ]
-                    );
+            for ($i=0; $i < count($request->pid); $i++) {
+                if (($i==0 ) && ($p==2)) {
+                    $apid = null;
                 }
-            }
-
-            if (!empty($request->quantity2)) {
-                DB::table('atickettype')->Insert(
+                else $apid = $pid[$i][0]->id;
+                DB::table('airtickets')->Insert(
                     [
                         'aId' => $aidfo,
-                        'tId' => '1',
-                        'aNum' => $request->quantity2,
+                        'fId' => $request->foId,
+                        'mId' => $mId,
+                        'airpId'=> ($p==1 ? $pid[0]->id : null),
+                        'acId' => ($c==1 ? $cid[0]->id : null),
+                        'apayId' => ($card==1 ? $cardid[0]->id : null),
+                        'date' => $today,
                     ]
                 );
             }
         }
 
         // return view("be_membersearch.index");
-        return redirect()->route('membersearch.index')->with('notice','機票購買成功!');
+        // return redirect()->route('membersearch.index')->with('notice','機票購買成功!');
+        return dd('機票購買成功');
     }
 
     /**

@@ -48,6 +48,7 @@
             <input type="hidden" name="foId" value="{{$foId}}">
         @endif
         
+        <input type="hidden" name="quantity" value="{{$quantity}}">
         <input type="hidden" name="quantity2" value="{{$quantity2}}">
         
         
@@ -62,41 +63,69 @@
                     <div class="form-card">  
                         <h4 class="fs-title">填寫訂單</h4>
                         <div class="row">
-                          <h4 class="fs-title2">旅客</h4> <br>
+
+                          @php
+                            $cnt = 0;
+                          @endphp
+
+                          @for ($i = 1; $i <= 4; $i++)
+                            @php
+                                $t = 'toticket'.$i;
+                                $num = $$t[1];
+                            @endphp
+                                {{-- {{dd($num)}} --}}
+                            @if (isset($num))
+                              @for ($j = 0; $j < $num; $j++)
+                                @php
+                                    $cnt += 1;
+                                @endphp
+                                
+                                <h4 class="fs-title2">旅客{{$cnt}}({{$tictype[$i]->tName}}票種)</h4> <br>
+
+                                @if(!empty($passengers) && $cnt==1)
+
+                                  <div class="col-md-3"> 
+                                    @foreach ($passengers as $passenger)
+                                    姓名：<input type="text" name="pname[]" value="{{$passenger->pName}}"></div>
+                                    {{-- 性別：{{$gender}}<br> --}}
+                                  <div class="col-md-2">
+                                    性別：
+                                    <select name="pgender[]" class="list-dt"> 
+                                        <option value="1" {{$passenger->pId == '1' ? 'selected' : ''}}>男</option>
+                                        <option value="0" {{$passenger->pId == '0' ? 'selected' : ''}}>女</option>
+                                    </select></div>
+                                  <div class="col-md-3">
+                                    身分證字號：<input type="text" name="pid[]" value="{{$passenger->pId}}"></div>
+                                  <div class="col-md-4">
+                                    生日：<input type="date" name="pbirth[]" value="{{$passenger->birthday}}"></div>
+                                    @endforeach
+
+                                @else
+
+                                    <div class="col-md-3"> 
+                                    姓名：<input type="text" name="pname[]"></div>
+                                    <div class="col-md-2">   
+                                      性別：<br>
+                                      <select name="pgender[]" class="list-dt"> 
+                                          <option selected></option>
+                                          <option value="1">男</option>
+                                          <option value="0">女</option>
+                                      </select></div>
+                                    <div class="col-md-3">   
+                                    身分證字號：<input type="text" name="pid[]"></div>
+                                    <div class="col-md-4"> 
+                                    生日：<input type="date" name="pbirth[]"></div>
+                                  
+                                @endif
+                              @endfor
+                            @endif
                             
-                        @if(empty($passengers))
-                          <div class="col-md-3"> 
-                            姓名：<input type="text" name="pname" value="{{ old('pname') }}"></div>
-                          <div class="col-md-2">   
-                            性別：<br>
-                            <select name="pgender" class="list-dt"> 
-                                <option selected></option>
-                                <option value="1">男</option>
-                                <option value="0">女</option>
-                            </select></div>
-                          <div class="col-md-3">   
-                            身分證字號：<input type="text" name="pid" value="{{ old('pid') }}"></div>
-                          <div class="col-md-4"> 
-                            生日：<input type="date" name="pbirth" value="{{ old('pbirth') }}"></div>
+                          @endfor
+                          
                         </div>
-                        @else
-                          <div class="col-md-3"> 
-                            @foreach ($passengers as $passenger)
-                            姓名：<input type="text" name="pname" value="{{$passenger->pName}}"></div>
-                            {{-- 性別：{{$gender}}<br> --}}
-                          <div class="col-md-2">
-                            性別：
-                            <select name="pgender"> 
-                                <option value="1" {{$passenger->pId == '1' ? 'selected' : ''}}>男</option>
-                                <option value="0" {{$passenger->pId == '0' ? 'selected' : ''}}>女</option>
-                            </select></div>
-                          <div class="col-md-3">
-                            身分證字號：<input type="text" name="pid" value="{{$passenger->pId}}"></div>
-                          <div class="col-md-4">
-                            生日：<input type="date" name="pbirth" value="{{$passenger->birthday}}"></div>
-                            @endforeach
-                        @endif
-                        </div>
+                          
+
+
                           <div class="row">
                             <h4 class="fs-title2">聯絡人</h4> <br>
                              

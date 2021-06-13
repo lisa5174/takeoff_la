@@ -31,11 +31,15 @@ class be_finish extends Controller
             'pname' => 'required|string|max:15',
             'pgender' => 'required',
             // ['required','regex:/[m]{1}|[f]{1}/'],
-            'pid' => 'required|tw_id',
-            'pbirth' => 'required|date', 
-            'cname' => 'required|string|max:15', 
-            'cphone' => 'required|numeric|regex:/(09)[0-9]/|digits:10',
-            'cemail' => 'required|email|max:35',
+            'pname' => 'required|array',
+            'pname.*' => 'required|string|distinct|max:15',
+            'pgender' => 'required|array',
+            'pgender.*' => 'required|boolean',
+            'pid' => 'required|array',
+            'pid.*' => 'required|tw_id|max:10',
+            'pbirth' => 'required|array', 
+            'pbirth.*' => 'required|date', 
+
             'quantity2' => 'required|integer|between:0,4', //嬰兒
 
             'cretype' => 'required|integer|between:1,4', 
@@ -94,12 +98,17 @@ class be_finish extends Controller
 
         $toprice = $toflights[0]->fprice;
         $tprice = 0;
+        $tticket = [];
         for($i = 1; $i <= 4; $i++){
-            if(!empty($totickets[$i])) $tprice += round(($totickets[$i][0]->tPrice)*($toprice));
+            if(!empty($totickets[$i])){
+                $tprice += round(($totickets[$i][0]->tPrice)*($toprice));
+                $tticket[$i] = $totickets[$i][0]->tName;
+            }
         }
 
 
         $fprice = 0;
+        $fticket = [];
         $fotickets = [];
         if(isset($request->foId)){
             $fotic1 = $request->foticket1[0];
@@ -117,7 +126,10 @@ class be_finish extends Controller
 
             $foprice = $foflights[0]->fprice;
             for($i = 1; $i <= 4; $i++){
-                if(!empty($fotickets[$i])) $fprice += round(($fotickets[$i][0]->tPrice)*($foprice));
+                if(!empty($fotickets[$i])){
+                    $fprice += round(($fotickets[$i][0]->tPrice)*($foprice));
+                    $fticket[$i] = $fotickets[$i][0]->tName;
+                } 
             }
 
         }
@@ -125,11 +137,14 @@ class be_finish extends Controller
         $price[0] = $tprice + $fprice;
         $price[1] = $tprice;
         $price[2] = $fprice;
+        $price[3] = $tticket;
+        $price[4] = $fticket;
         // return dd($price);
+        // return dd(count($price[3]));
 
-        $showgender = '';
-        if ($request->pgender == 1) $showgender = '男';
-        elseif ($request->pgender == 0) $showgender = '女';
+        // $showgender = '';
+        // if ($request->pgender == 1) $showgender = '男';
+        // elseif ($request->pgender == 0) $showgender = '女';
 
         $cretype ="
         select creName from creditcard 
@@ -152,7 +167,7 @@ class be_finish extends Controller
         'foticket1' =>$request->foticket1,'foticket2' =>$request->foticket2,
         'foticket3' =>$request->foticket3,'foticket4' =>$request->foticket4]
         ,['quantity2' => $request->quantity2,
-        'pname' => $request->pname,'pgender' => $request->pgender,'showgender' => $showgender,
+        'pname' => $request->pname,'pgender' => $request->pgender,//'showgender' => $showgender,
         'pid' => $request->pid,'pbirth' => $request->pbirth,
         'cname' => $request->cname,'cphone' => $request->cphone,'cemail' => $request->cemail,
         'cretype' => $request->cretype,'showcretypes' => $showcretypes,

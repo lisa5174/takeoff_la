@@ -32,22 +32,31 @@ class be_pay extends Controller
             'foticket2' => 'nullable|array',
             'foticket3' => 'nullable|array',
             'foticket4' => 'nullable|array',
-            'pname' => 'required|string|max:15',
-            'pgender' => 'required|boolean',
-            'pid' => 'required|tw_id|max:10',
-            'pbirth' => 'required|date', 
+
+            'pname' => 'required|array',
+            'pname.*' => 'required|string|distinct|max:15',
+            'pgender' => 'required|array',
+            'pgender.*' => 'required|boolean',
+            'pid' => 'required|array',
+            'pid.*' => 'required|tw_id|max:10',
+            'pbirth' => 'required|array', 
+            'pbirth.*' => 'required|date', 
+
             'cname' => 'required|string|max:15', 
             'cphone' => 'required|numeric|regex:/(09)[0-9]/|digits:10',
             'cemail' => 'required|email|max:35',
+            'quantity' => 'required|integer|between:1,4', //成人
             'quantity2' => 'required|integer|between:0,4' //嬰兒
         ]);
+
+        // return dd("YESSSSSSS");
 
         return view("be_pay.index",
         ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
         'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
-        'foticket1' =>$request->foticket1,
-        'foticket2' =>$request->foticket2,'foticket3' =>$request->foticket3,
-        'foticket4' =>$request->foticket4,'quantity2' => $request->quantity2]
+        'foticket1' =>$request->foticket1,'foticket2' =>$request->foticket2,
+        'foticket3' =>$request->foticket3,'foticket4' =>$request->foticket4,
+        'quantity' => $request->quantity,'quantity2' => $request->quantity2]
         ,['pname' => $request->pname,'pgender' => $request->pgender,'pid' => $request->pid,'pbirth' => $request->pbirth,
         'cname' => $request->cname,'cphone' => $request->cphone,'cemail' => $request->cemail,'pays' => $pays]);
     }

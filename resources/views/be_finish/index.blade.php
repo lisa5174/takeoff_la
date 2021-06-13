@@ -43,11 +43,13 @@
 
         <input type="hidden" name="quantity2" value="{{$quantity2}}">
 
-        <input type="hidden" name="pname" value="{{$pname}}">
-        <input type="hidden" name="pgender" value="{{$pgender}}">
-        <input type="hidden" name="pid" value="{{$pid}}">
-        <input type="hidden" name="pbirth" value="{{$pbirth}}">
-        
+        @for ($i = 0; $i < count($price[3]); $i++)
+          <input type="hidden" name="pname[]" value="{{$pname[$i]}}">
+          <input type="hidden" name="pgender[]" value="{{$pgender[$i]}}">
+          <input type="hidden" name="pid[]" value="{{$pid[$i]}}">
+          <input type="hidden" name="pbirth[]" value="{{$pbirth[$i]}}">
+        @endfor
+
         <input type="hidden" name="cname" value="{{$cname}}">
         <input type="hidden" name="cphone" value="{{$cphone}}">
         <input type="hidden" name="cemail" value="{{$cemail}}">
@@ -146,18 +148,23 @@
                 </div>
                 @endif
                 <br>
-            <div class="container">
-              <div class="row">
-                <h5 class="fs">旅客</h5></div><br>
-              <div class="row offset-md-1">
-                <div class="col-md-6">姓名：{{$pname}}</div>
-                <div class="col-md-6">身分證字號：{{$pid}}</div>
+
+            @for ($i = 0; $i < count($price[3]); $i++)
+              <div class="container">
+                <div class="row">
+                  <h5 class="fs">旅客{{$i+1}}( {{$totickets[$i+1][0]->tName}}票種
+                    {{isset($foId)?'--->'.$totickets[$i+1][0]->tName.'票種':''}})</h5></div><br>
+                <div class="row offset-md-1">
+                  <div class="col-md-6">姓名：{{$pname[$i]}}</div>
+                  <div class="col-md-6">身分證字號：{{$pid[$i]}}</div>
+                </div><br>
+                <div class="row offset-md-1">
+                  <div class="col-md-6">性別：{{($pgender[$i])==0?'女':'男'}}</div>
+                  <div class="col-md-6">生日：{{$pbirth[$i]}}</div>
+                </div><br>
               </div><br>
-              <div class="row offset-md-1">
-                <div class="col-md-6">性別：{{$showgender}}</div>
-                <div class="col-md-6">生日：{{$pbirth}}</div>
-              </div><br>
-            </div><br>
+            @endfor
+
             <div class="container">
               <div class="row">
                 <h5 class="fs">聯絡人</h5></div><br>
