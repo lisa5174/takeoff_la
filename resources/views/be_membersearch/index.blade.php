@@ -52,7 +52,7 @@
           <div class="col-6">身分證字號：{{$passengers[$i]->pId}}</div>
         </div><br>
         <div class="row offset-md-1">
-          <div class="col-6">性別：{{$passengers[$i]->gender}}</div>
+          <div class="col-6">性別：{{(($passengers[$i]->gender)==0 ? '女' : '男')}}</div>
           <div class="col-6">生日：{{$passengers[$i]->birthday}}</div>
         </div><br>
       </div><br>
@@ -71,14 +71,18 @@
       <div class="container">
         <div class="row">
           <h5 class="fs">信用卡</h5></div> <br>
+          
+          @php
+            $p = $pays[$i]->caNumber;
+            $validity = $pays[$i]->validityPeriod
+          @endphp
+
         <div class="row offset-md-1">
-          <div class="col-6">卡別：{{$pays[$i]->creType}}</div>
-          <div class="col-4">有效日期(月/年)：{{$pays[$i]->validityPeriod}}/</div>
+          <div class="col-6">卡別：{{$pays[$i]->creName}}</div>
+          <div class="col-4">有效日期(月/年)：{{substr("$validity",0,2)}}/{{substr("$validity",-2)}}</div>
         </div> <br>
         <div class="row offset-md-1">
-        {{-- $p = $pays[$i]->caNumber --}}
-        {{-- 卡號：{{substr("",0,4)}}-{{substr("$pays[$i]->caNumber",4,4)}}-
-        <div class="col-6">{{substr("$pays[$i]->caNumber",8,4)}}-{{substr("$pays[$i]->caNumber",-4)}}</div> --}}
+        <div class="col-6">卡號：{{substr("$p",0,4)}}-{{substr("$p",4,4)}}-{{substr("$p",8,4)}}-{{substr("$p",-4)}}</div>
         <div class="col-4">檢查碼：{{$pays[$i]->checkCode}}</div>
       </div><br>
     </div><br>

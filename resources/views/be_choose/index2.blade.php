@@ -1,11 +1,5 @@
 {{-- choose --}}
-@if(isset($mId))
-  @extends('layouts.be_member')  
-    {{-- 有登入 --}}
-@else
-  @extends('layouts.be_buy')
-  {{-- 沒有登入 --}}
-@endif
+@extends(((isset($mId)) ? 'layouts.be_member' : 'layouts.be_buy' ))
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
@@ -533,8 +527,13 @@
                     @endif
                 @endforeach
                   </div>
-                  </fieldset> 
-                  <button type="button" onclick="location.href='{{ url()->previous() }}'" class="previous action-button-previous">上一步</button>
+                  </fieldset>
+                  <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+                  <script>
+                      document.getElementById('back').onclick = function () {
+                          window.history.back();
+                      }
+                  </script> 
             {{-- </form> --}}
           </form>
          </div></div>

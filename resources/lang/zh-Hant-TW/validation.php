@@ -217,6 +217,8 @@ return [
         'mpw'                   => '密碼',
         'adAccount'             => '帳號',
         'adPassword'            => '密碼',
-
+        'rphone'                => '手機號碼',
+        'remail'                => 'E-mail',
+        'rpwd'                  => '密碼',
     ],
 ];

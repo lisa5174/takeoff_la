@@ -39,7 +39,7 @@ class be_finish extends Controller
             'quantity2' => 'required|integer|between:0,4', //嬰兒
 
             'cretype' => 'required|integer|between:1,4', 
-            'camonth' => 'required|numeric|between:1,12', 
+            'camonth' => 'required|numeric|between:1,12|digits:2',//1到12的兩位數字 
             'cayear' => 'required|numeric|gte:'.$thisyear, 
             'id1' => 'required|size:4', 
             'id2' => 'required|size:4', 
@@ -51,6 +51,9 @@ class be_finish extends Controller
         // return dd(strlen($request->cacheckcode));
         if ($request->cretype == 3 && strlen($request->cacheckcode) != 4) {
             return back()->withErrors(['檢查碼必須是 4 個字元。']);
+        }
+        if ($request->cretype != 3 && strlen($request->cacheckcode) == 4) {
+            return back()->withErrors(['檢查碼必須是 3 個字元。']);
         }
 
         $to ="

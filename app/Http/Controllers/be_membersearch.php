@@ -72,14 +72,16 @@ class be_membersearch extends Controller
             }
 
             if (($airticket[$i]->apayId) == null){ //讀取付款資料
-                $p = DB::select("select * from payment where mId = '$mId'");
+                $p = DB::select("select * from payment as a INNER JOIN creditcard as b ON a.creType = b.creType where a.mId = '$mId'");
                 $pays[$i]=$p[0];
             }
             else{
                 $pid = $airticket[$i]->apayId;
                 $p = DB::select(
-                "select apayType as creType,apayNumber as caNumber,apayValidityPeriod as validityPeriod,apayCheckCode as checkCode
-                from airpayment where apayId = '$pid'");
+                "select a.apayNumber as caNumber,a.apayValidityPeriod as validityPeriod,a.apayCheckCode as checkCode,b.creName 
+                from airpayment as a
+                INNER JOIN creditcard as b ON a.apayType = b.creType
+                where a.apayId = '$pid'");
                 $pays[$i]=$p[0];
             }
 

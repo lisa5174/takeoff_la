@@ -87,7 +87,8 @@ Route::get('/order2',[be_order::class,'index2'])->name('order.index2')->middlewa
 Route::resource('pay', be_pay::class)->only('index')->middleware('userAuth');
 Route::resource('finish', be_finish::class)->only('index')->middleware('userAuth');
 
-Route::resource('register', be_register::class)->only('index');
+Route::resource('register', be_register::class)->only('index','register');
+Route::post('/register',[be_register::class,'register'])->name('register.register');
 
 Route::resource('login', be_login::class)->only('index','login','logout');
 Route::post('/login',[be_login::class,'login'])->name('login.login');

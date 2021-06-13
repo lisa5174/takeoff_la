@@ -147,7 +147,14 @@
           @endforeach
         @endif
       </div><br>
-        <button type="button" class="previous action-button-previous" onclick="location.href='{{ url()->previous() }}'">上一步</button>
+      <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+      <script>
+          document.getElementById('back').onclick = function () {
+              window.history.back();
+          }
+      </script>
+        {{-- <button type="button" class="previous action-button-previous" onclick="location.href='{{ url()->previous() }}'">上一步</button> --}}
+        {{-- url()->previous()是返回用戶在應用程序中的最後一個位置，而不是瀏覽器訪問的最後一個 URL。 --}}
         <button type="submit" class="next action-button">下一步</button>
     </fieldset>
     </form>

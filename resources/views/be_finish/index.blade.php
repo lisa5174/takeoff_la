@@ -185,7 +185,12 @@
               </div><br>
             </div><br>
         </div>
-          <button class="previous action-button-previous" type="button" onclick="location.href='{{ url()->previous() }}'">上一步</button>
+          <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+          <script>
+              document.getElementById('back').onclick = function () {
+                  window.history.back();
+              }
+          </script>
           <button class="next action-button" type="submit">完成</button>
         </fieldset>
     </form>

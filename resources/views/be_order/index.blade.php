@@ -121,10 +121,13 @@
                                 @endforeach
                             @endif
                           </div>
-                        {{-- <button type="submit" class="previous action-button-previous">上一步</button> 
-                        <button type="submit" class="next action-button">下一步</button> --}}
                 </fieldset>
-                        <button type="button" onclick="location.href='{{ url()->previous() }}'" class="previous action-button-previous">上一步</button>
+                        <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+                        <script>
+                            document.getElementById('back').onclick = function () {
+                                window.history.back();
+                            }
+                        </script>
                         <button type="submit" class="next action-button">下一步</button>
             </form>
         </div> 
