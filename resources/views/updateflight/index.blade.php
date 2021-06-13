@@ -163,7 +163,7 @@
               <div class="col-6">生日：</div>
             </div><br>
             <div class="row offset-md-1">
-              <div class="col-4">票種：<a href="updateticket" class="text-reset">修改</a></div>
+              <div class="col-4">票種：</div>
             </div><br>
             <div class="row offset-md-1">
               <div class="col-4">航班資訊：</div>

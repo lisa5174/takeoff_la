@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.be_buy')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
+@endsection
+
+@section('title')
+    <title>Take off 空|註冊</title>
+@endsection
+
+@section('main')
+<div class="col">
+  <div class="row justify-content-center mt-0">
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -18,15 +21,28 @@
         </div>
     @endif
 
-    註冊  (手機號碼跟E-mail可擇一輸入)<br>
-    <form action="{{ route('register.register')}}" method="POST">
+  <div class="col-12 col-sm-10 col-md-6 col-lg-4  text-center p-0 mt-5 mb-3"> 
+    <form id="msform" action="{{ route('register.register')}}" method="POST">
         @csrf 
-        手機號碼：<input type="text" name="rphone" /> <br>
-        E-mail：<input type="text" name="remail" /> <br>
-        *密碼：<input type="password" name="rpwd"/> <br>
-        <button type="submit">註冊</button>
+    <fieldset> 
+      <div class="form-card "> 
+        <h2 class="fs-title">註冊</h2>
+        <h5>(手機號碼跟E-mail可擇一輸入)</h5><br>    
+          <div class="container">
+            <div class="row offset-md-1">
+              <div class="col-10">
+                手機號碼：<input type="text" name="rphone" /> <br>
+                E-mail：<input type="text" name="remail" /> <br>
+                *密碼：<input type="password" name="rpwd"/>
+              </div>
+            </div> 
+            <div class="col-10" style="text-align: center;">
+              已經是會員嗎?<a onclick="location.href='{{route('login.index')}}'">點這邊吧~</a>
+           </div>
+          </div>
+      </div>     
+      <button class="next action-button" type="submit">註冊</button>
+    </fieldset>
     </form>
-
-    
-</body>
-</html>
+  </div>
+@endsection

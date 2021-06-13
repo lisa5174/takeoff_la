@@ -27,7 +27,7 @@
         class="navbar navbar-expand-lg navbar-dark static-top"
         style="background-color: #6798c0">
          <div class="container">
-          <a class="navbar-brand" href="homePage.html"> Take off 空 </a>
+          <button class="navbar-brand"  onclick="location.href='{{route('homepage.index')}}'"> Take off 空 </button>
           <button
             class="navbar-toggler"
             type="button"
@@ -42,7 +42,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <button class="nav-link" href="homePage.html">
+                <button class="nav-link"  onclick="location.href='{{route('homepage.index')}}'">
                   回首頁
                   <span class="sr-only">(current)</span>
                 </button>
@@ -70,15 +70,15 @@
               </li>
               
               <li class="nav-item dropdown d-sm-block d-md-none">
-                <button class="dropdown-item" href="order_search.html">查看訂單</button>
+                <button class="dropdown-item"onclick="location.href='{{route('membersearch.index')}}'" href="order_search.html">查看訂單</button>
                 <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdownPortfolio"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">管理帳戶</a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio" >
-                    <button class="dropdown-item active" href="member_information.html">會員基本資料</button>
+                    <button class="dropdown-item active" onclick="location.href='{{route('member.index')}}'">會員基本資料</button>
                     <!-- active表示有底色 -->
-                    <button class="dropdown-item " href="member_resetpw.html">重設密碼</button>
+                    <button class="dropdown-item "  onclick="location.href='{{route('resetpw.index')}}'">重設密碼</button>
                     </div>                                                                
               </li><!-- Smaller devices menu END -->
             </ul>
@@ -96,12 +96,12 @@
               
               <!-- /END Separator -->
               <!-- Menu with submenu -->
-             <a href="order_search.html" class="bg-transparent list-group-item list-group-item-action">
+             <button onclick="location.href='{{route('membersearch.index')}}'" class="bg-transparent list-group-item list-group-item-action">
                  <div class="d-flex w-100 justify-content-start align-items-center">
                      <span class="fas fa-search fa-fw mr-3"></span> 
                      <span class="menu-collapsed">查看訂單</span>
                  </div>
-             </a>
+             </button>
              <a href="#submenu1" class="bg-transparent list-group-item list-group-item-action" data-toggle="collapse" aria-expanded="false">
                  <div class="d-flex w-100 justify-content-start align-items-center">
                      <span class="fas fa-user-edit fa-fw mr-3"></span>
@@ -110,29 +110,30 @@
                  </div>
              </a>
              <!-- Submenu content -->
-             <div id='submenu1' class="collapse sidebar-submenu">
-                 <a href="member_information.html" class="bg-transparent list-group-item list-group-item-action ">
-                     <span class="menu-collapsed">會員基本資料</span>
-                 </a>
-                 <a href="member_resetpw.html" class="bg-transparent list-group-item list-group-item-action ">
-                     <span class="menu-collapsed">重設密碼</span>
-                 </a>
+             <div id='submenu1' class="collapse sidebar-submenu" >
+                 <button onclick="location.href='{{route('member.index')}}'" class="bg-transparent list-group-item list-group-item-action ">
+                     <span class="menu-collapsed" style="font-size: 18px">會員基本資料</span>
+                 </button>
+                 <button onclick="location.href='{{route('resetpw.index')}}'" class="bg-transparent list-group-item list-group-item-action ">
+                     <span class="menu-collapsed" style="font-size: 18px">重設密碼</span>
+                 </button>
                  
            </div><!-- sidebar-container END -->
     </div><!-- sidebar-container END -->
 
 <!-- MAIN -->
-        <div class="col">                     
+        <div class="col wrapper">                     
           <div class="row justify-content-center mt-0">
-            <div class="col-12 col-sm-9  text-center p-0 mt-5 mb-3"> 
+            <div class="col-12 col-sm-9  text-center p-0 mt-5 mb-5"> 
               @yield('main')
             </div>
-            <footer class="footer row ">
-              <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
-            </footer>
+            
           </div>  
         </div>   <!-- Main Col END -->   
-      </div>     <!-- body-row END -->        
+      </div>     <!-- body-row END -->       
+      <footer class="footer row ">
+        <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
+      </footer> 
         <div mv-app="clock" mv-bar="none">
 
           <script type="text/javascript"> //現在時間

@@ -111,7 +111,7 @@
                     </button>
                     <button  onclick="location.href='{{route('aflogin.aflogout')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fas fa-sign-out-alt fa-fw mr-3"></span>
+                            <span class="fas fa-sign-out-alt fa-lg mr-3"></span>
                             <span class="menu-collapsed">登出</span>    
                         </div>
                     </button>
