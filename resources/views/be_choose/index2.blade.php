@@ -10,7 +10,7 @@
 @endsection
 
 @section('main')
-<div class="container-fluid" id="grad1">
+<div class="container-fluid warp" id="grad1">
   <div class="row justify-content-center mt-0">
 <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
     @if ($errors->any())
@@ -40,7 +40,7 @@
                     @if ($foflight->date == date('Y-m-d', strtotime('+8HOUR') ))
                         @if ($foflight->Ltime > date('H:i', strtotime('+8HOUR') ))
                         <div class="border border-secondary rounded-1 col-md-12">
-                            回程:
+                            <b>回程:</b>
                             @foreach ($toplace as $tp)
                                 {{$tp->loName}}
                             @endforeach
@@ -245,33 +245,7 @@
                                 </div>
                               
 
-                              @if(isset($mId))
-                                  {{-- 有登入 --}}
-                                  
-                                  <button type="submit" class="next action-button">確定</button>
-                              @else
-                              {{-- 沒有登入 --}}
-                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
-                                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog">
-                                              <div class="modal-content">
-                                              <div class="modal-header">
-                                                  {{-- <input type="hidden" name="fId"> --}}
-                                                  <h5 class="modal-title" id="exampleModalLabel">登入</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              </div>
-                                              <div class="modal-body">
-                                                  <div class="mb-3">
-                                                      如要繼續訂購機票請先登入
-                                                  </div>
-                                              </div>
-                                              <div class="modal-footer">
-                                                  <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                  <button type="button" class="btn btn-primary" onclick="location.href='{{route('login.index')}}'">前往登入</button>
-                                                  {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
-                                              </div>
-                                              </div>
-                                              @endif
+                             
                                           </div>
                                       </div>
                                 </div>
@@ -285,7 +259,7 @@
                         @endif
                     @else
                     <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
-                        回程:
+                        <b>回程:</b>
                         @foreach ($toplace as $tp)
                             {{$tp->loName}}
                         @endforeach
@@ -493,34 +467,7 @@
                               </div>
                             
             
-                            @if(isset($mId))
-                                {{-- 有登入 --}}
-                                <button type="submit" class="next action-button">確定</button>
-                            @else
-                            {{-- 沒有登入 --}}
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                {{-- <input type="hidden" name="fId"> --}}
-                                                <h5 class="modal-title" id="exampleModalLabel">登入</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    如要繼續訂購機票請先登入
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                <button type="button" class="btn btn-primary" onclick="location.href='{{route('login.index')}}'">前往登入</button>
-                                                {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                              @endif
+                            
                             </div>
                             </div>  
                           </div>
@@ -529,14 +476,43 @@
                     @endif
                 @endforeach
                   </div>
-                  </fieldset>
+                  
+                  @if(isset($mId))
+                  {{-- 有登入 --}}
                   <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+                  <button type="submit" class="next action-button">確定</button>
+              @else
+              {{-- 沒有登入 --}}
+              <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+                  <button type="button" class="next action-button"  data-bs-target="#exampleModal">確定</button>
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                              <div class="modal-header">
+                                  {{-- <input type="hidden" name="fId"> --}}
+                                  <h5 class="modal-title" id="exampleModalLabel">登入</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="mb-3">
+                                      如要繼續訂購機票請先登入
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                  <button type="button" class="btn btn-primary" onclick="location.href='{{route('login.index')}}'">前往登入</button>
+                                  {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
+                              </div>
+                              </div>
+                              @endif
+                 
                   <script>
                       document.getElementById('back').onclick = function () {
                           window.history.back();
                       }
                   </script> 
             {{-- </form> --}}
+          </fieldset>
           </form>
          </div></div>
                     

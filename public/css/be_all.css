@@ -32,7 +32,9 @@ html {
     height: 100%;
     margin: 0;
 }
-
+.warp {
+    min-height: 100%;
+}
 .footer {
     background-color: #6798c0;
     height: 50pt;

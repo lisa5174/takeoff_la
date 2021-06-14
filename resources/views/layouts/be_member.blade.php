@@ -95,8 +95,8 @@
         @yield('main')
       
     </div></div>                
-    <footer class="footer row ">
-      <label class="col align-self-center">Copyright © 2021 Take off 空 products. 版權所有</label>
+    <footer class="footer">
+      <label class="col align-self-center"style="margin-top: 15px;">Copyright © 2021 Take off 空 products. 版權所有</label>
     </footer>
   <script>// Hide submenus
     $('#body-row .collapse').collapse('hide'); 

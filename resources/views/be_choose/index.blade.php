@@ -10,7 +10,7 @@
 @endsection
 
 @section('main')
-<div class="container-fluid" id="grad1">
+<div class="container-fluid warp" id="grad1">
     <div class="row justify-content-center mt-0">
 <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
     @if ($errors->any())
@@ -39,7 +39,7 @@
         @if ($toflight->date == date('Y-m-d', strtotime('+8HOUR') ))
             @if ($toflight->Ltime > date('H:i', strtotime('+8HOUR') ))
             <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
-                去程:
+                <b>去程:</b>
                 @foreach ($toplace as $tp)
                     {{$tp->loName}}
                 @endforeach
@@ -238,7 +238,7 @@
                       </div>
                       @endif
                 </div>
-               
+                      </div>
             </div>
           </div>
 
@@ -249,7 +249,7 @@
             @endif
         @else
         <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
-            去程:
+            <b>去程:</b>
             @foreach ($toplace as $tp)
                 {{$tp->loName}}
             @endforeach
@@ -460,7 +460,7 @@
     {{-- {{dd($mId,$datefo)}} --}}
     @if(!isset($mId) && !isset($datefo))
         {{-- 沒有登入而且單程 --}}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
+        <button type="button" class="next action-button" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -475,8 +475,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='{{route('login.index')}}'">前往登入</button>
+                        <button type="submit" class="previous action-button-previous" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="next action-button" onclick="location.href='{{route('login.index')}}'">前往登入</button>
                         {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
                     </div>
                     </div>
