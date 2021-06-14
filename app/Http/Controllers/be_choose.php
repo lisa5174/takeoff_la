@@ -35,9 +35,10 @@ class be_choose extends Controller
         from flight as a 
         INNER JOIN airplane as b ON a.fName = b.airName
         INNER JOIN location as c ON a.toPlace = c.loId
-        INNER JOIN location as d ON a.foPlace = d.loId 
+        INNER JOIN location as d ON a.foPlace = d.loId
+        INNER JOIN airplane as e ON a.fName = e.airName  
         where a.toPlace = '$apto' and  a.foPlace = '$apfo' and  
-        a.date = '$dateto' AND a.status = 1
+        a.date = '$dateto' AND a.status = 1 AND a.unboughtSeat < e.airSeat
         order by `a`.`date` ASC,`a`.`time` asc
         ";
         //'2021-05-10' 記得加分號

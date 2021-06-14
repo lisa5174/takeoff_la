@@ -18,10 +18,13 @@
         </div>
     @endif
 
+    @if (($airticketnum[0]->num)==0)
+        抱歉，您尚未購買任何機票喔~趕快去下訂吧(´･ω･`)  
+    @endif
     @for ($i = 0; $i < $airticketnum[0]->num; $i++)
     <div class="container">
       <div class="row">
-        <h5 class="fs">訂單編號：{{$airticket[$i]->aId}}</h5></div>
+        <h5 class="fs">訂單編號：{{$airticket[$i]->aId}} &nbsp&nbsp&nbsp 價格：{{$price[$i]}}</h5></div>
       </div><br>
       <div class="row">
         <h5 class="fs">航班</h5></div> <br>
@@ -36,17 +39,12 @@
         <div class="col-6">起飛日期：{{$flight[$i]->date}}</div>
         <div class="col-6">起飛時間：{{$flight[$i]->Ltime}}</div>
       </div><br>
-      <div class="row offset-md-1">
-        <div class="col-6">人數票種：</div><br>
-        @foreach ($tickettypenum[$i] as $tn)
-        <div class="col-6">
-            {{$tn->tName}}票種{{$tn->aNum}}張</div><br>
-        @endforeach
-        <div class="col-6">機票價格：{{$airticket[$i]->aprice}}</div><br>
-      </div><br>
+      {{-- <div class="row offset-md-1">
+        <div class="col-6">機票價格：{{$price[$i]}}</div><br>
+      </div><br> --}}
       <div class="container">
         <div class="row">
-          <h5 class="fs">旅客</h5></div> <br>
+          <h5 class="fs">旅客({{$tickettype[$i]->tName}}票種)</h5></div> <br>
         <div class="row offset-md-1">
           <div class="col-6">姓名：{{$passengers[$i]->pName}}</div>
           <div class="col-6">身分證字號：{{$passengers[$i]->pId}}</div>

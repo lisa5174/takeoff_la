@@ -19,12 +19,13 @@ class be_membersearch extends Controller
         $airticket = DB::select("SELECT * FROM airtickets where mId = '$mId' order by aId asc");
         $airticketnum = DB::select("SELECT COUNT(*) AS num FROM airtickets where mId = '$mId'");
         
-        $tickettypenum = [];
         $flight = [];
+        $price = [];
+        $tickettype = [];
         $passengers = [];
         $contacts = [];
         $pays = [];
-        for ($i=0; $i < $airticketnum[0]->num; $i++) {
+        for ($i=0; $i < $airticketnum[0]->num; $i++) { //這個會員有幾張票的迴圈
             $fid = $airticket[$i]->fId;
             $f ="
             select `a`.`date`,`a`.`fName`,`c`.`loName` as `toplace`, `d`.`loName` as `foplace`,`a`.`fprice`, LEFT(a.time,5) AS Ltime 
@@ -40,14 +41,11 @@ class be_membersearch extends Controller
             // }, $ff);
             $flight[$i] = $ff[0];//讀取航班資料
 
-            $aid = $airticket[$i]->aId;//讀取票種人數資料
-            $t = 
-            "SELECT b.tName,a.aNum
-            FROM atickettype AS a
-            INNER JOIN tickettype as b ON a.tId = b.tId
-            WHERE aId = '$aid'";
-            $tickettypenum[$i] = DB::select($t);
+            $tid = $airticket[$i]->tId;//讀取票種
+            $tt = DB::select("SELECT * FROM tickettype where tId = '$tid'");
+            $tickettype[$i] = $tt[0];
 
+            $price[$i] = round(($tickettype[$i]->tPrice)*($flight[$i]->fprice));
 
             if (($airticket[$i]->airpId) == null){ //讀取旅客資料
                 $p = DB::select("select * from passenger where mId = '$mId'");
@@ -87,9 +85,11 @@ class be_membersearch extends Controller
 
         }
         // $airticketnum[0]->num
-        // return dd($airticketnum,$airticket,$flight,$tickettypenum,$passengers,$contacts,$pays);
-        return view("be_membersearch.index",['airticketnum' => $airticketnum,
-        'airticket' => $airticket,'flight' => $flight,'tickettypenum' => $tickettypenum,
+        // return dd($airticketnum,$airticket,$flight,$price,$tickettype,$passengers,$contacts,$pays);
+        return view("be_membersearch.index",
+        ['airticketnum' => $airticketnum,
+        'airticket' => $airticket,'flight' => $flight,
+        'price' => $price,'tickettype' => $tickettype,
         'passengers' => $passengers,'contacts' => $contacts,'pays' => $pays]);
     }
 
@@ -191,28 +191,6 @@ class be_membersearch extends Controller
         $date = DB::select( $d );
 
         // return dd($today.($date[0]->todaynum+1));
-
-        // $dlen = strlen($date[0]->todaynum+1); //今天訂單長度+1
-        // return dd($dlen);
-        
-        // $zero = '';
-        // for ($i=0; $i < (7-$dlen); $i++) { //7位元減今天訂單長度，要補幾個0
-        //     $zero .= '0';
-        // }
-        // return dd($today.$zero.$date[0]->todaynum);
-
-        // $dlen2 = strlen(($date[0]->todaynum)+2);
-        // return dd($dlen2);
-        
-        // $zero2 = '';
-        // for ($i=0; $i < (7-$dlen2); $i++) { 
-        //     $zero2 .= '0';
-        // }
-        // return dd($zero2);
-
-        // $aidto = $today.$zero.($date[0]->todaynum+1);
-        // $aidfo = $today.$zero2.($date[0]->todaynum+2);
-        // count($request->pid)
 
         $allnum=0;//全部新增機票數量
         for ($i=1; $i < 5; $i++) { //4圈ticket
@@ -341,8 +319,8 @@ class be_membersearch extends Controller
         }
 
         // return view("be_membersearch.index");
-        // return redirect()->route('membersearch.index')->with('notice','機票購買成功!');
-        return dd('機票購買成功');
+        return redirect()->route('membersearch.index')->with('notice','機票購買成功!');
+        // return dd('機票購買成功');
     }
 
     /**

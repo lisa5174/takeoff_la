@@ -147,7 +147,6 @@ class putshelf extends Controller
             'date' => $request->apdate,//'2021-04-08'
             'time' => $request->aptime,//'07:36:00'
             'unboughtSeat' => 0,
-            'boughtSeat' => 0,
             'status' => 1,
             'fprice' => $request->apprice
             ]
