@@ -24,6 +24,7 @@
       <fieldset> 
         <div class="form-card"> 
           <h2 class="fs-title">旅客資料</h2>
+         
         @if(empty($passengers))
         <div class="row offset-md-1">
           <div class="col-4">
@@ -59,7 +60,7 @@
           <div class="row offset-md-1">
             <div class="col-4">
               性別：<br>
-              <select name="gender"> 
+              <select  class="list-dt" name="gender"> 
                   {{-- <option selected></option> --}}
                   <option value="1" {{ (($passenger->gender) == "1" ? "selected":"") }}>男</option>
                   <option value="0" {{ (($passenger->gender) == "0" ? "selected":"") }}>女</option>

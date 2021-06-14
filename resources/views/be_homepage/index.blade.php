@@ -275,7 +275,7 @@
             selectTool[13] = new Array('6','高雄(KHH)','2');
             selectTool[14] = new Array('6','台中(RMQ)','3');
             selectTool[15] = new Array('7','松山(TSA)','1');
-            selectTool[16] = new Array('7','高雄(KHH)','2');
+            selectTool[16] = new Array('7','台中(RMQ)','3');
           }
           
           function showNext(){
