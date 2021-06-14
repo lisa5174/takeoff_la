@@ -54,7 +54,7 @@
         
                 <!-- progressbar -->  
                 <ul id="progressbar">  
-                   <li class="active" id="account"><strong>選擇航班</strong></li>  
+                    <li class="active" id="account"><strong>選擇航班</strong></li>  
                     <li id="personal" class="active"><strong>填寫訂單</strong></li>  
                     <li id="payment"><strong>付款</strong></li>  
                     <li id="confirm"><strong>完成訂單</strong></li>      
@@ -128,7 +128,7 @@
 
                           <div class="row">
                             <h4 class="fs-title2">聯絡人</h4> <br>
-                             
+                            
                             @if(empty($contacts))
                             <div class="col-md-3"> 
                                 姓名：<input type="text" name="cname" value="{{ old('cname') }}"></div>

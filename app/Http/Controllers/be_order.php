@@ -30,6 +30,7 @@ class be_order extends Controller
 
         // return dd($toticket4);
 
+        $tictype = [];//新增這行應該不會壞掉吧?
         for ($i=1; $i <= 4; $i++) { 
             $t = 'toticket'.$i;
             $num = $$t[0];
@@ -111,9 +112,25 @@ class be_order extends Controller
             elseif($request->ticket15 > $request->ticket14) return back()->withErrors(['每一名愛心票，僅可享有一名愛心陪同票優惠']);
         }
 
-        $numto = count($haspeopleto);//數陣列內容
+        $numto = count($haspeopleto);//數陣列內容，有幾種票種
 
-        switch($numto)
+        $tictype = [];//新增這行應該不會壞掉吧?
+        $cnt = 0;
+        for ($i=2; $i <= 16; $i++) { //旅客票種
+            $t = 'ticket'.$i;
+            $num = intval($request->$t); //$ticket2有幾張
+            // return dd($num);
+            for ($j=0; $j < $num; $j++){
+                $cnt += 1;
+                $tt = DB::select("select tName from tickettype where tId = '$i'");
+                // return dd($tt[0]);
+                if ($tt != []) $tictype[$cnt] = $tt[0];
+            }
+        }
+        // return dd($tictype);
+
+        //有幾種票種
+        switch($numto) 
         {
             case 1:
                 $a ="ticket".$haspeopleto[0];
@@ -121,8 +138,9 @@ class be_order extends Controller
                 ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
-                'foticket2' =>['',''],'foticket3' =>['',''],'foticket4' =>['',''],'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts]);//router會帶參數
+                'foticket2' =>['',''],'foticket3' =>['',''],'foticket4' =>['',''],
+                'quantity' => $request->quantity,'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts,'tictype' => $tictype]);//router會帶參數
             case 2:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -131,8 +149,9 @@ class be_order extends Controller
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>['',''],'foticket4' =>['',''],
-                'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts]);
+                'quantity' => $request->quantity,'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts,
+                'tictype' => $tictype]);
             case 3:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -142,20 +161,23 @@ class be_order extends Controller
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],'foticket4' =>['',''],
-                'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts]);
+                'quantity' => $request->quantity,'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts,
+                'tictype' => $tictype]);
             case 4:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
                 $c = "ticket".$haspeopleto[2];
                 $d = "ticket".$haspeopleto[3];
                 return view("be_order.index",
-                ['toId' => $request->toId,'foId' => $request->foId,'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
+                ['toId' => $request->toId,'foId' => $request->foId,
+                'toticket1' => $request->toticket1,'toticket2' => $request->toticket2,
                 'toticket3' => $request->toticket3,'toticket4' => $request->toticket4,
-                'foticket1' =>[$haspeopleto[0],$request->$a],
-                'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],
-                'foticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts]);
+                'foticket1' =>[$haspeopleto[0],$request->$a],'foticket2' =>[$haspeopleto[1],$request->$b],
+                'foticket3' =>[$haspeopleto[2],$request->$c],'foticket4' =>[$haspeopleto[3],$request->$d],
+                'quantity' => $request->quantity,'quantity2' => $request->quantity2,
+                'passengers' => $passengers,'contacts' => $contacts,
+                'tictype' => $tictype]);
         }
 
         // return dd($choose);

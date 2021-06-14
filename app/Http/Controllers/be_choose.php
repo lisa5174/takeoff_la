@@ -103,7 +103,7 @@ class be_choose extends Controller
             'ticket13' => 'required|integer|between:0,4',
             'ticket14' => 'required|integer|between:0,4',//愛心
             'ticket15' => 'required|integer|between:0,4',//愛陪
-            'ticket16' => 'required|integer|between:0,4',
+            'ticket16' => 'required|integer|between:0,4',//兒童
             'quantity' => 'required|integer|between:1,4', //成人
             'quantity2' => 'required|integer|between:0,4|lte:quantity' //嬰兒
         ]);
@@ -223,6 +223,29 @@ class be_choose extends Controller
 
             //to用hidden傳，fo到login.blade.php(order)判斷，並以hidden傳
 
+            $tvalue = [];
+            $vtype = ['','2','16','7','8','9','10',[],'11','13','14','15','12'];
+            $vtype[7] = ['3','4','5','6'];
+            // return ($vtype);
+            for ($i=1; $i <= 12; $i++) {
+                if ($i == 7) {
+                    for ($j=0; $j < 4; $j++) {
+                        $t = "ticket";
+                        $x = $t.$vtype[$i][$j]; 
+                        if(isset($request->$x)) $tvalue[$i] = $request->$x;
+                    }
+                    if(empty($tvalue[$i])) $tvalue[$i] = '0';
+                }
+                else{
+                    $t = "ticket";
+                    $x = $t.$vtype[$i];
+                    if(isset($request->$x)) $tvalue[$i] = $request->$x;
+                    else $tvalue[$i] = '0';
+                }
+            
+            }
+            // return dd($tvalue);
+
             switch($numto)
             {
                 case 1:
@@ -231,7 +254,8 @@ class be_choose extends Controller
                     'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
                     'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
                     'ticket11' => $ticket11]
-                    ,['quantity' => $request->quantity,
+                    ,['tvalue' => $tvalue,
+                    'quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>['',''],'toticket3' =>['',''],'toticket4' =>['',''],'quantity2' => $request->quantity2,'mId' => $mId]);//router會帶參數
                 case 2:
@@ -241,7 +265,8 @@ class be_choose extends Controller
                     'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
                     'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
                     'ticket11' => $ticket11]
-                    ,['quantity' => $request->quantity,
+                    ,['tvalue' => $tvalue,
+                    'quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>['',''],'toticket4' =>['',''],
                     'quantity2' => $request->quantity2,'mId' => $mId]);
@@ -253,7 +278,8 @@ class be_choose extends Controller
                     'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
                     'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
                     'ticket11' => $ticket11]
-                    ,['quantity' => $request->quantity,
+                    ,['tvalue' => $tvalue,
+                    'quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],'toticket4' =>['',''],
                     'quantity2' => $request->quantity2,'mId' => $mId]);
@@ -266,7 +292,8 @@ class be_choose extends Controller
                     'ticket1' => $ticket1,'ticket2' => $ticket2,'ticket3' => $ticket3,'ticket4' => $ticket4,'ticket5' => $ticket5,
                     'ticket6' => $ticket6,'ticket7' => $ticket7,'ticket8' => $ticket8,'ticket9' => $ticket9,'ticket10' => $ticket10,
                     'ticket11' => $ticket11]
-                    ,['quantity' => $request->quantity,
+                    ,['tvalue' => $tvalue,
+                    'quantity' => $request->quantity,
                     'toId' => $request->apId,'toticket1' =>[$haspeopleto[0],$request->$a],
                     'toticket2' =>[$haspeopleto[1],$request->$b],'toticket3' =>[$haspeopleto[2],$request->$c],
                     'toticket4' =>[$haspeopleto[3],$request->$d],'quantity2' => $request->quantity2,'mId' => $mId]);
