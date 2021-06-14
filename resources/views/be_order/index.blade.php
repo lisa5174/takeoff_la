@@ -89,7 +89,7 @@
                                     姓名：<input type="text" name="pname[]" value="{{$passenger->pName}}"></div>
                                     {{-- 性別：{{$gender}}<br> --}}
                                   <div class="col-md-2">
-                                    性別：
+                                    性別：<br>
                                     <select name="pgender[]" class="list-dt"> 
                                         <option value="1" {{$passenger->pId == '1' ? 'selected' : ''}}>男</option>
                                         <option value="0" {{$passenger->pId == '0' ? 'selected' : ''}}>女</option>

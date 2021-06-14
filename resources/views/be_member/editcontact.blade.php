@@ -47,11 +47,10 @@
           <div class="col-4">
             行動電話：<input type="text" name="cPhone" value="{{$contact->cPhone}}"><br>
           </div>
-        </div><br>
+        </div>
         <div class="row offset-md-1">
-          <div class="col-4">
-            電子信箱：</div>
-            <div class="col-12">
+          <div class="col-6">
+            電子信箱：
             <input type="text" name="cEmail" value="{{$contact->cEmail}}"><br>
           </div>
         </div>

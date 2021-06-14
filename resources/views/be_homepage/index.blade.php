@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    <title>Take off 空|後台_首頁</title>
+    <title>Take off 空|首頁</title>
 @endsection
 
 @section('main')

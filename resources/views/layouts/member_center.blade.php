@@ -134,7 +134,7 @@
       <footer class="footer">
         <label class="col align-self-center"style="margin-top: 15px;">Copyright © 2021 Take off 空 products. 版權所有</label>
       </footer> 
-        <div mv-app="clock" mv-bar="none">
+        {{-- <div mv-app="clock" mv-bar="none">
 
           <script type="text/javascript"> //現在時間
           window.onload=function(){
@@ -149,7 +149,7 @@
           var s=date.getSeconds(); //獲取秒
           var d=document.getElementById('Date');
           d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
-      </div>
+      </div> --}}
   <script>// Hide submenus
     $('#body-row .collapse').collapse('hide'); 
     

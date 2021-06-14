@@ -11,8 +11,8 @@
 
 @section('main')
 <div class="container-fluid warp" id="grad1">
-  <div class="row justify-content-center mt-0">
-<div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
+  <div class="row justify-content-center mt-0" >
+<div class=" col-md-12 col-lg-10 col-xl-8 text-center p-0 mt-5 mb-3">  
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -24,7 +24,7 @@
     @endif  
     <form id="msform" action="{{ route('order.index2')}}" method="GET">   
         <!-- progressbar -->  
-        <ul id="progressbar">  
+        <ul id="progressbar"  style="padding:0px">  
             <li class="active" id="account"><strong>選擇航班</strong></li>  
             <li id="personal"><strong>填寫訂單</strong></li>  
             <li id="payment"><strong>付款</strong></li>  
@@ -39,7 +39,7 @@
                 @foreach ($foflights as $foflight)
                     @if ($foflight->date == date('Y-m-d', strtotime('+8HOUR') ))
                         @if ($foflight->Ltime > date('H:i', strtotime('+8HOUR') ))
-                        <div class="border border-secondary rounded-1 col-md-12">
+                        <div class="border border-secondary rounded-1 col-md-12"style="padding: 10px; padding-left:15px">
                             <b>回程:</b>
                             @foreach ($toplace as $tp)
                                 {{$tp->loName}}
@@ -59,7 +59,6 @@
                               <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 飛機名稱:{{$foflight->fName}}
                                 起飛時間:{{$foflight->Ltime}}
-                                全額票價:{{$foflight->fprice}}
                                 旅客人數:{{$quantity}}
                                 @if ($quantity2 != 0)
                                     嬰兒人數:{{$quantity2}}
@@ -278,7 +277,6 @@
                           <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             飛機名稱:{{$foflight->fName}}
                             起飛時間:{{$foflight->Ltime}}
-                            全額票價:{{$foflight->fprice}}
                             旅客人數:{{$quantity}}
                             @if ($quantity2 != 0)
                                 嬰兒人數:{{$quantity2}}
