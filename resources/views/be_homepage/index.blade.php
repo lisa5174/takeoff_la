@@ -20,14 +20,14 @@
             </ul>
         </div>
     @endif  
-  <div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
+  <div class=" col-md-12 col-lg-10 col-xl-8 text-center p-0 mt-5 mb-3">  
       <form action="{{ route('homepage.store')}} " method="POST" id="msform">  
         @csrf
 
         <!-- progressbar -->  
         <fieldset class="card"> 
-            <div class="form-card">  
-              <div  class="container">
+            <div class="form-card"style="padding-left:150px">  
+              <div  class="container" style="padding-left:0px">
                 <h4 class="fs-title">訂票購買
                    <input type="radio" class="btn-check" name="type" id="btnradio1" value='domestic-credit' autocomplete="off" checked>
                   <label class="btn btn-outline-info btn-sm " for="btnradio1">單程</label>
@@ -36,71 +36,6 @@
                 </h4>
               </div>
               <br>
-               {{-- <div id='domestic-credit-form'>
-                <div class="row">
-                  <div class="col-md-5">
-                  <form action="{{ route('homepage.store')}} " method="POST">  --}}
-                      {{-- choose.index --}}
-                       {{-- @csrf
-                      <label for="inputAddress" class="form-label">出發機場：</label>
-                      <select name="be_apto" class="form-select" aria-label="Default select example" id="bigSelect" onchange="showNext()">
-                          <option selected></option>
-                          <option value="1" {{ (old("be_apto") == "1" ? "selected":"") }}>松山(TSA)</option>
-                          <option value="2" {{ (old("be_apto") == "2" ? "selected":"") }}>高雄(KHH)</option>
-                          <option value="3" {{ (old("be_apto") == "3" ? "selected":"") }}>台中(RMQ)</option>
-                          <option value="4" {{ (old("be_apto") == "4" ? "selected":"") }}>花蓮(HUN)</option>
-                          <option value="5" {{ (old("be_apto") == "5" ? "selected":"") }}>台東(TTT)</option>
-                          <option value="6" {{ (old("be_apto") == "6" ? "selected":"") }}>澎湖(MZG)</option>
-                          <option value="7" {{ (old("be_apto") == "7" ? "selected":"") }}>金門(KNH)</option>
-                      </select>
-                   </div>
-                      
-                      <br>
-                   <div class="col-md-5">
-                      <label for="inputAddress" class="form-label">目的機場：</label>
-                      <select name="be_apfo" class="form-select" aria-label="Default select example" id="sonSelect">
-                          <option selected ></option>  --}}
-                          {{-- <option value="1" {{ (old("be_apfo") == "1" ? "selected":"") }}>松山(TSA)</option>
-                          <option value="2" {{ (old("be_apfo") == "2" ? "selected":"") }}>高雄(KHH)</option>
-                          <option value="3" {{ (old("be_apfo") == "3" ? "selected":"") }}>台中(RMQ)</option>
-                          <option value="4" {{ (old("be_apfo") == "4" ? "selected":"") }}>花蓮(HUN)</option>
-                          <option value="5" {{ (old("be_apfo") == "5" ? "selected":"") }}>台東(TTT)</option>
-                          <option value="6" {{ (old("be_apfo") == "6" ? "selected":"") }}>澎湖(MZG)</option>
-                          <option value="7" {{ (old("be_apfo") == "7" ? "selected":"") }}>金門(KNH)</option> --}}
-                       {{-- </select>
-                   </div>
-                </div>
-                      <br>
-                  <div class="row">
-                    <div class="col-md-5">
-                      <label for="inputAddress" class="form-label">啟程日期：</label>
-                      <input type="date" value="{{ old('dateto') }}" name="dateto" class="form-control" id="dateto" max="2030-12-31" min="">
-                      </div>
-                   </div>
-                   <div class="row">
-                    <div class="col-md-5">
-                      <label for="inputState">搭乘人數</label>
-                    </div>
-                  </div>
-
-                  
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label for="">旅客</label>
-                      <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-1' field='quantity' /> --}}
-                      {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-                     {{-- <input type='text' readonly="readonly" name='quantity' value="{{old('quantity') ?? '1'}}" class='qty col-md-2'  style="width: 15%;"/>
-                      <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-1' field='quantity' />
-                    </div>
-                    <div class="col-md-6">
-                      <label for="">嬰兒 (未滿2歲)</label>
-                      <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-1' field='quantity2' />
-                      <input type='text' readonly="readonly" name='quantity2' value="{{ old('quantity2','0') }}" class='qty col-md-2'  style="width: 15%;"/>
-                      <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-1' field='quantity2' />
-                      <div id='font' style='margin:0px;color:red;'></div>
-                    </div>
-                   </div>
-                </div> --}}
 
               {{-- <div id='aboard-credit-form' style="display: none"> --}}
                 <div class="row">
@@ -194,7 +129,8 @@
       switch($(this).val()) {
         case 'domestic-credit':
           $("#aboard-credit-form").hide()
-          //$("#msform")[0].reset(); 清空
+          document.getElementById("apdate").value = '';
+          //$("#msform")[0].reset(); //清空
           break
         case 'aboard-credit':
           $("#aboard-credit-form").show()

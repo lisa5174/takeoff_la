@@ -330,49 +330,57 @@
                                 @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[3]!=0)
                                 <label for="">敬老</label>
                               <div class="text-end">
                                 @foreach ($ticket2 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket7' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket7' /> --}}
                                 <input type='text' readonly="readonly" name='ticket7' value="{{$tvalue[3]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket7' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket7' /> --}}
                               </div>
+                              @endif
                               </div>
 
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[4]!=0)
                                 <label for="">軍人</label>
                               <div class="text-end">
                                 @foreach ($ticket3 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket8' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket8' /> --}}
                                 <input type='text' readonly="readonly" name='ticket8' value="{{$tvalue[4]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket8' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket8' /> --}}
                               </div>
+                              @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[5]!=0)
                                 <label for="">愛心</label>
                               <div class="text-end">
                                 @foreach ($ticket4 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket9' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket9' /> --}}
                                 <input type='text' readonly="readonly" name='ticket9' value="{{$tvalue[5]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket9' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket9' /> --}}
                               </div>
+                              @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[6]!=0)
                                 <label for="">愛心陪同</label>
                               <div class="text-end">
                                 @foreach ($ticket5 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket10' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket10' /> --}}
                                 <input type='text' readonly="readonly" name='ticket10' value="{{$tvalue[6]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' /> --}}
                               </div>
+                              @endif
                               </div>
                                 
                               @if ($ticket11 -> isNotEmpty())
@@ -409,48 +417,56 @@
                                 <hr>
                             <div class="row">
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[8]!=0)
                                 <label for="">離島居民</label>
                               <div class="text-end">
                                 @foreach ($ticket7 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket11' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket11' /> --}}
                                 <input type='text' readonly="readonly" name='ticket11' value="{{$tvalue[8]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket11' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket11' /> --}}
                               </div>
+                              @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[9]!=0)
                                 <label for="">離島居民敬老</label>
                               <div class="text-end">
                                 @foreach ($ticket8 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket13' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket13' /> --}}
                                 <input type='text' readonly="readonly" name='ticket13' value="{{$tvalue[9]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket13' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket13' /> --}}
                               </div>
+                              @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[10]!=0)
                                 <label for="">離島居民愛心</label>
                               <div class="text-end">
                                 @foreach ($ticket9 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket14' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket14' /> --}}
                                 <input type='text' readonly="readonly" name='ticket14' value="{{$tvalue[10]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket14' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket14' /> --}}
                               </div>
+                              @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
+                                @if ($tvalue[11]!=0)
                                 <label for="">離島居民愛陪</label>
                               <div class="text-end">
                                 @foreach ($ticket10 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket15' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket15' /> --}}
                                 <input type='text' readonly="readonly" name='ticket15' value="{{$tvalue[11]}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket15' />
+                                {{-- <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket15' /> --}}
                               </div>
+                              @endif
                               </div>
                               <div class="col-xl-4" style="padding-right: 0%;">
                                 @if ($ticket11 -> isNotEmpty())

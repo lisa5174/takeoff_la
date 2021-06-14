@@ -24,7 +24,7 @@
         <div class="container">
           <div class="row">
             <h5 class="fs col-2">會員資料</h5>
-            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editmember')}}'">修改會員資料</button></div><br>
+            <button class="next action-button" style="width: 150px;font-size:16px;" type="button" onclick="location.href='{{route('member.editmember')}}'">修改會員資料</button></div><br>
             @foreach ($members as $member)
             <div class="row offset-md-1">
               <div class="col-6">

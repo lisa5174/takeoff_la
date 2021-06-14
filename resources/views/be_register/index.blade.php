@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-<div class="col">
+<div class="col warp">
   <div class="row justify-content-center mt-0">
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
@@ -37,7 +37,7 @@
               </div>
             </div> 
             <div class="col-10" style="text-align: center;">
-              已經是會員嗎?<a onclick="location.href='{{route('login.index')}}'">點這邊吧~</a>
+              已經是會員嗎?<a onclick="location.href='{{route('login.index')}}'" style="cursor: pointer; text-decoration:underline;color:#FEC601;">點這邊吧~</a>
            </div>
           </div>
       </div>     
