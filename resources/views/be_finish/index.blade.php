@@ -153,7 +153,7 @@
               <div class="container">
                 <div class="row">
                   <h5 class="fs">旅客{{$i+1}}( {{$totickets[$i+1][0]->tName}}票種
-                    {{isset($foId)?'--->'.$totickets[$i+1][0]->tName.'票種':''}})</h5></div><br>
+                    {{isset($foId)?'--->'.$fotickets[$i+1][0]->tName.'票種':''}})</h5></div><br>
                 <div class="row offset-md-1">
                   <div class="col-md-6">姓名：{{$pname[$i]}}</div>
                   <div class="col-md-6">身分證字號：{{$pid[$i]}}</div>

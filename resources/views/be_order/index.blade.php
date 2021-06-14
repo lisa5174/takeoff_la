@@ -80,7 +80,7 @@
                                     $cnt += 1;
                                 @endphp
                                 
-                                <h4 class="fs-title2">旅客{{$cnt}}({{$tictype[$i]->tName}}票種)</h4> <br>
+                                <h4 class="fs-title2">旅客{{$cnt}}({{$tictype[$i]->tName}}票種--->{{$fotictype[$i]->tName}}票種)</h4> <br>
 
                                 @if(!empty($passengers) && $cnt==1)
 

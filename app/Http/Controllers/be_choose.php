@@ -94,16 +94,16 @@ class be_choose extends Controller
             'ticket4' => 'nullable|integer|between:0,4',
             'ticket5' => 'nullable|integer|between:0,4', 
             'ticket6' => 'nullable|integer|between:0,4', 
-            'ticket7' => 'required|integer|between:0,4',
-            'ticket8' => 'required|integer|between:0,4',
-            'ticket9' => 'required|integer|between:0,4',//愛心
-            'ticket10' => 'required|integer|between:0,4', //愛陪
-            'ticket11' => 'required|integer|between:0,4', 
+            'ticket7' => 'nullable|integer|between:0,4',
+            'ticket8' => 'nullable|integer|between:0,4',
+            'ticket9' => 'nullable|integer|between:0,4',//愛心
+            'ticket10' => 'nullable|integer|between:0,4', //愛陪
+            'ticket11' => 'nullable|integer|between:0,4', 
             'ticket12' => 'nullable|integer|between:0,4',
-            'ticket13' => 'required|integer|between:0,4',
-            'ticket14' => 'required|integer|between:0,4',//愛心
-            'ticket15' => 'required|integer|between:0,4',//愛陪
-            'ticket16' => 'required|integer|between:0,4',//兒童
+            'ticket13' => 'nullable|integer|between:0,4',
+            'ticket14' => 'nullable|integer|between:0,4',//愛心
+            'ticket15' => 'nullable|integer|between:0,4',//愛陪
+            'ticket16' => 'nullable|integer|between:0,4',//兒童
             'quantity' => 'required|integer|between:1,4', //成人
             'quantity2' => 'required|integer|between:0,4|lte:quantity' //嬰兒
         ]);

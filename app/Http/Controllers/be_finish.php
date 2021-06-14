@@ -94,7 +94,7 @@ class be_finish extends Controller
         $totickets[1] = DB::select( $toticsql1 );
         $totickets[2] = DB::select( $toticsql2 );
         $totickets[3] = DB::select( $toticsql3 );
-        $totickets[4] = DB::select( $toticsql4 );
+        $totickets[4] = DB::select( $toticsql4 );//$totickets[$i][0]->tName,tPrice
 
         $toprice = $toflights[0]->fprice;
         $tprice = 0;
@@ -102,9 +102,10 @@ class be_finish extends Controller
         for($i = 1; $i <= 4; $i++){
             if(!empty($totickets[$i])){
                 $tprice += round(($totickets[$i][0]->tPrice)*($toprice));
-                $tticket[$i] = $totickets[$i][0]->tName;
+                $tticket[$i] = $totickets[$i][0]->tName; //$tticket[$i] 紀錄票種，但因為參數太多，沒參數可以傳遞，所以放在price[3]
             }
         }
+        // return dd($tticket); 
 
 
         $fprice = 0;
@@ -122,25 +123,25 @@ class be_finish extends Controller
             $fotickets[1] = DB::select( $foticsql1 );
             $fotickets[2] = DB::select( $foticsql2 );
             $fotickets[3] = DB::select( $foticsql3 );
-            $fotickets[4] = DB::select( $foticsql4 );
+            $fotickets[4] = DB::select( $foticsql4 );//$fotickets[$i][0]->tName,tPrice
 
             $foprice = $foflights[0]->fprice;
             for($i = 1; $i <= 4; $i++){
                 if(!empty($fotickets[$i])){
                     $fprice += round(($fotickets[$i][0]->tPrice)*($foprice));
-                    $fticket[$i] = $fotickets[$i][0]->tName;
+                    $fticket[$i] = $fotickets[$i][0]->tName; //$fticket[$i] 紀錄票種，但因為參數太多，沒參數可以傳遞，所以放在price[4]
                 } 
             }
 
         }
         
-        $price[0] = $tprice + $fprice;
+        $price[0] = $tprice + $fprice; //總價格
         $price[1] = $tprice;
         $price[2] = $fprice;
-        $price[3] = $tticket;
-        $price[4] = $fticket;
+        $price[3] = $tticket; //去程票種
+        $price[4] = $fticket; //回程票種
         // return dd($price);
-        // return dd(count($price[3]));
+        // return dd(count($price[3])); //數有幾張票
 
         // $showgender = '';
         // if ($request->pgender == 1) $showgender = '男';

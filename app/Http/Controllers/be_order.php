@@ -72,16 +72,16 @@ class be_order extends Controller
             'ticket4' => 'nullable|integer|between:0,4',
             'ticket5' => 'nullable|integer|between:0,4', 
             'ticket6' => 'nullable|integer|between:0,4', 
-            'ticket7' => 'required|integer|between:0,4',
-            'ticket8' => 'required|integer|between:0,4',
-            'ticket9' => 'required|integer|between:0,4',//愛心
-            'ticket10' => 'required|integer|between:0,4', //愛陪
-            'ticket11' => 'required|integer|between:0,4', 
+            'ticket7' => 'nullable|integer|between:0,4',
+            'ticket8' => 'nullable|integer|between:0,4',
+            'ticket9' => 'nullable|integer|between:0,4',//愛心
+            'ticket10' => 'nullable|integer|between:0,4', //愛陪
+            'ticket11' => 'nullable|integer|between:0,4', 
             'ticket12' => 'nullable|integer|between:0,4',
-            'ticket13' => 'required|integer|between:0,4',
-            'ticket14' => 'required|integer|between:0,4',//愛心
-            'ticket15' => 'required|integer|between:0,4',//愛陪
-            'ticket16' => 'required|integer|between:0,4',
+            'ticket13' => 'nullable|integer|between:0,4',
+            'ticket14' => 'nullable|integer|between:0,4',//愛心
+            'ticket15' => 'nullable|integer|between:0,4',//愛陪
+            'ticket16' => 'nullable|integer|between:0,4',
             'quantity' => 'required|integer|between:1,4', //成人
             'quantity2' => 'required|integer|between:0,4|lte:quantity' //嬰兒
         ]);
@@ -114,7 +114,7 @@ class be_order extends Controller
 
         $numto = count($haspeopleto);//數陣列內容，有幾種票種
 
-        $tictype = [];//新增這行應該不會壞掉吧?
+        $fotictype = [];
         $cnt = 0;
         for ($i=2; $i <= 16; $i++) { //旅客票種
             $t = 'ticket'.$i;
@@ -124,8 +124,20 @@ class be_order extends Controller
                 $cnt += 1;
                 $tt = DB::select("select tName from tickettype where tId = '$i'");
                 // return dd($tt[0]);
-                if ($tt != []) $tictype[$cnt] = $tt[0];
+                if ($tt != []) $fotictype[$cnt] = $tt[0];
             }
+        }
+        // return dd($fotictype);
+
+        // $foticket = [];
+        $tictype = [];//新增這行應該不會壞掉吧?
+        for ($i=1; $i <= 4; $i++) { 
+            $t = 'toticket'.$i;
+            $num = $request->$t[0];
+            $tt = DB::select("select tName from tickettype where tId = '$num'");
+            // return dd($tt);
+            if ($tt == []) $tictype[$i] = [];
+            else $tictype[$i] = $tt[0];
         }
         // return dd($tictype);
 
@@ -140,7 +152,8 @@ class be_order extends Controller
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>['',''],'foticket3' =>['',''],'foticket4' =>['',''],
                 'quantity' => $request->quantity,'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts,'tictype' => $tictype]);//router會帶參數
+                'passengers' => $passengers,'contacts' => $contacts],
+                ['tictype' => $tictype,'fotictype' => $fotictype]);//router會帶參數
             case 2:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -150,8 +163,8 @@ class be_order extends Controller
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>['',''],'foticket4' =>['',''],
                 'quantity' => $request->quantity,'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts,
-                'tictype' => $tictype]);
+                'passengers' => $passengers,'contacts' => $contacts],
+                ['tictype' => $tictype,'fotictype' => $fotictype]);
             case 3:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -162,8 +175,8 @@ class be_order extends Controller
                 'foticket1' =>[$haspeopleto[0],$request->$a],
                 'foticket2' =>[$haspeopleto[1],$request->$b],'foticket3' =>[$haspeopleto[2],$request->$c],'foticket4' =>['',''],
                 'quantity' => $request->quantity,'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts,
-                'tictype' => $tictype]);
+                'passengers' => $passengers,'contacts' => $contacts],
+                ['tictype' => $tictype,'fotictype' => $fotictype]);
             case 4:
                 $a = "ticket".$haspeopleto[0];
                 $b = "ticket".$haspeopleto[1];
@@ -176,8 +189,8 @@ class be_order extends Controller
                 'foticket1' =>[$haspeopleto[0],$request->$a],'foticket2' =>[$haspeopleto[1],$request->$b],
                 'foticket3' =>[$haspeopleto[2],$request->$c],'foticket4' =>[$haspeopleto[3],$request->$d],
                 'quantity' => $request->quantity,'quantity2' => $request->quantity2,
-                'passengers' => $passengers,'contacts' => $contacts,
-                'tictype' => $tictype]);
+                'passengers' => $passengers,'contacts' => $contacts],
+                ['tictype' => $tictype,'fotictype' => $fotictype]);
         }
 
         // return dd($choose);

@@ -108,29 +108,40 @@ class be_membersearch extends Controller
         $p=0;
         $c=0;
         $card=0;
-        if (($passengers[0]->pId == $request->pid[0])&&($passengers[0]->pName == $request->pname[0])&&
-        ($passengers[0]->gender == $request->pgender[0])&&($passengers[0]->birthday == $request->pbirth[0])) {
-            //旅客0沒變更會員儲存的旅客資料
-            if (count($request->pid)==1) {//且只有一位旅客
-                $p = 0;
+        if (isset($passengers[0])){ //會員儲存的旅客資料存在!!!!
+            if (($passengers[0]->pId == $request->pid[0])&&($passengers[0]->pName == $request->pname[0])&&
+            ($passengers[0]->gender == $request->pgender[0])&&($passengers[0]->birthday == $request->pbirth[0])) {
+                //旅客0沒變更會員儲存的旅客資料
+                if (count($request->pid)==1) {//且只有一位旅客
+                    $p = 0;
+                }
+                else $p = 2; //不只有一位旅客
             }
-            else $p = 2; //不只有一位旅客
+            else $p = 1;//全部有變更
         }
         else $p = 1;//全部有變更
+        
         // return dd($p);
 
-        if (($contacts[0]->cName == $request->cname)&&($contacts[0]->cPhone == $request->cphone)&&
-        ($contacts[0]->cEmail == $request->cemail)) {
-            $c = 0;
+        if (isset($contacts[0])){ //會員儲存的聯絡人資料存在!!!!
+            if (($contacts[0]->cName == $request->cname)&&($contacts[0]->cPhone == $request->cphone)&&
+            ($contacts[0]->cEmail == $request->cemail)) {
+                $c = 0;
+            }
+            else $c = 1;
         }
-        else $c = 1;
+        else $c = 1;//有變更
 
         $period = $request->camonth.substr("$request->cayear", -2);//信用卡日期
-        if (($pays[0]->caNumber == $request->caid)&&($pays[0]->creType == $request->cretype)&&
-        ($pays[0]->validityPeriod == $period)&&($pays[0]->checkCode == $request->cacheckcode)) {
-            $card = 0;
+        if (isset($contacts[0])){ //會員儲存信用卡資料存在!!!!
+            if (($pays[0]->caNumber == $request->caid)&&($pays[0]->creType == $request->cretype)&&
+            ($pays[0]->validityPeriod == $period)&&($pays[0]->checkCode == $request->cacheckcode)) {
+                $card = 0;
+            }
+            else $card = 1;
         }
-        else $card = 1;
+        else $card = 1;//有變更
+
         // return dd($p,$c,$card);
         
         $pid = [];
@@ -148,7 +159,7 @@ class be_membersearch extends Controller
                         'apbirthday' => $request->pbirth[$i],
                     ]
                 );
-                $pid[$i+1] = DB::select('SELECT LAST_INSERT_ID() as id;');
+                $pid[$i+1] = DB::select('SELECT LAST_INSERT_ID() as id;'); //名稱一律都是id
             }
         }
         // return dd($pid[2]);
@@ -203,23 +214,24 @@ class be_membersearch extends Controller
         // $aidfo = $today.$zero2.($date[0]->todaynum+2);
         // count($request->pid)
 
-        $allnum=0;
+        $allnum=0;//全部新增機票數量
         for ($i=1; $i < 5; $i++) { //4圈ticket
             $t = 'toticket'.$i;
-            if (isset($request->$t[0]) && ($request->$t[0]) != null) $num = $request->$t[1];
-            else $num=0;
+            if (isset($request->$t[0]) && ($request->$t[0]) != null) $num = $request->$t[1]; 
+            //如果票種存在"而且"不等於null，num就等於此票種的數量
+            else $num=0; //否則等於0
             // return dd($request->$t[0]);
             // return dd($num);
 
             for ($j=0; $j < $num; $j++) { //num是票種數量
                 $allnum += 1;
-                if (($i==1) && ($j==0) && ($p==2)) { //當旅客0沒變更會員儲存的旅客資料
+                if (($i==1) && ($j==0) && ($p==2)) { //當旅客0 ($i==1) && ($j==0) 沒變更會員儲存的旅客資料($p==2)
                     $apid = null;
                 }
-                elseif($p==0) $apid = null;
+                elseif($p==0) $apid = null; //旅客0沒變更會員儲存的旅客資料，且只有一位旅客
                 else {
-                    if (isset($pid[$i][0])) { //重要!!!否則會壞掉
-                        $apid = $pid[$i][0]->id;
+                    if (isset($pid[$i][0])) { //重要!!!否則會壞掉，需先判斷是否存在
+                        $apid = $pid[$i][0]->id; //$pid從[1]儲存Insert進airpassenger的id
                     }
                     else $apid = null;
                 }
@@ -227,7 +239,7 @@ class be_membersearch extends Controller
                 // return dd($apid);
                 
                 if (($i==1) && ($j==0)) {
-                    $bb = $request->quantity2;
+                    $bb = $request->quantity2; //在第一筆機票儲存嬰兒資料
                 }
                 else $bb = null;
                 // return dd($bb);
@@ -239,7 +251,7 @@ class be_membersearch extends Controller
                     $zero .= '0';
                 }
 
-                $aidto = $today.$zero.($date[0]->todaynum+$allnum); //訂單編號 = 今天+0+今天訂單長度+這次購買第幾張
+                $aidto = $today.$zero.($date[0]->todaynum+$allnum); //訂單編號 = 今天date+0+今天訂單長度+這次購買第幾張
 
                 DB::table('airtickets')->Insert(
                     [
@@ -254,26 +266,77 @@ class be_membersearch extends Controller
                         'date' => $today,
                     ]
                 );
+                
+                $unseat = DB::select("select unboughtSeat from flight where fId = '$request->toId'");
+                $addunseat = ($unseat[0]->unboughtSeat)+1;
+
+                DB::table('flight')->where('fId', $request->toId)->update(
+                    ['unboughtSeat' => $addunseat]
+                );
+        
             }
         }
 
         if (isset($request->foId)) {
-            for ($i=0; $i < count($request->pid); $i++) {
-                if (($i==0 ) && ($p==2)) {
-                    $apid = null;
+            for ($i=1; $i < 5; $i++) { //4圈ticket
+                $t = 'foticket'.$i;
+                if (isset($request->$t[0]) && ($request->$t[0]) != null) $num = $request->$t[1]; 
+                //如果票種存在"而且"不等於null，num就等於此票種的數量
+                else $num=0; //否則等於0
+                // return dd($request->$t[0]);
+                // return dd($num);
+    
+                for ($j=0; $j < $num; $j++) { //num是票種數量
+                    $allnum += 1;
+                    if (($i==1) && ($j==0) && ($p==2)) { //當旅客0 ($i==1) && ($j==0) 沒變更會員儲存的旅客資料($p==2)
+                        $apid = null;
+                    }
+                    elseif($p==0) $apid = null; //旅客0沒變更會員儲存的旅客資料，且只有一位旅客
+                    else {
+                        if (isset($pid[$i][0])) { //重要!!!否則會壞掉，需先判斷是否存在
+                            $apid = $pid[$i][0]->id; //$pid從[1]儲存Insert進airpassenger的id
+                        }
+                        else $apid = null;
+                    }
+                    // return dd($pid[2][0]);
+                    // return dd($apid);
+                    
+                    if (($i==1) && ($j==0)) {
+                        $bb = $request->quantity2; //在第一筆機票儲存嬰兒資料
+                    }
+                    else $bb = null;
+                    // return dd($bb);
+    
+                    $dlen = strlen(($date[0]->todaynum)+$allnum); //今天訂單長度+這次購買第幾張
+    
+                    $zero = '';
+                    for ($qq=0; $qq < (7-$dlen); $qq++) { //7位元減訂單長度，要補幾個0
+                        $zero .= '0';
+                    }
+    
+                    $aidto = $today.$zero.($date[0]->todaynum+$allnum); //訂單編號 = 今天date+0+今天訂單長度+這次購買第幾張
+    
+                    DB::table('airtickets')->Insert(
+                        [
+                            'aId' => $aidto,
+                            'fId' => $request->foId,
+                            'tId' => $request->$t[0],
+                            'baby' => $bb,
+                            'mId' => $mId,
+                            'airpId'=> $apid,
+                            'acId' => ($c==1 ? $cid[0]->id : null),
+                            'apayId' => ($card==1 ? $cardid[0]->id : null),
+                            'date' => $today,
+                        ]
+                    );
+
+                    $unseat = DB::select("select unboughtSeat from flight where fId = '$request->foId'");
+                    $addunseat = ($unseat[0]->unboughtSeat)+1;
+    
+                    DB::table('flight')->where('fId', $request->foId)->update(
+                        ['unboughtSeat' => $addunseat]
+                    );
                 }
-                else $apid = $pid[$i][0]->id;
-                DB::table('airtickets')->Insert(
-                    [
-                        'aId' => $aidfo,
-                        'fId' => $request->foId,
-                        'mId' => $mId,
-                        'airpId'=> ($p==1 ? $pid[0]->id : null),
-                        'acId' => ($c==1 ? $cid[0]->id : null),
-                        'apayId' => ($card==1 ? $cardid[0]->id : null),
-                        'date' => $today,
-                    ]
-                );
             }
         }
 
