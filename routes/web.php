@@ -8,6 +8,7 @@ use \App\Http\Controllers\offshelf;
 use \App\Http\Controllers\search;
 use \App\Http\Controllers\updateflight;
 use \App\Http\Controllers\updateticket;
+use \App\Http\Controllers\showorder;
 
 use \App\Http\Controllers\be_homepage;
 use \App\Http\Controllers\be_choose;
@@ -68,6 +69,7 @@ Route::resource('flights', todayflight::class)->only('index')->middleware('afuse
 Route::resource('putshelfs', putshelf::class)->only('index','store')->middleware('afuserAuth');
 Route::resource('offshelfs', offshelf::class)->only('index','store','off')->middleware('afuserAuth');
 Route::resource('updateticket', updateticket::class)->only('index')->middleware('afuserAuth');
+Route::resource('showorder', showorder::class)->only('index')->middleware('afuserAuth');
 
 
 // Route::get('/flight',[\App\Http\Controllers\buyticket::class,'buyticket']);//沒用到
