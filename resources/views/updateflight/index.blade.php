@@ -30,7 +30,7 @@
     <nav>
         <div class="nav nav-tabs col-md-10" id="nav-tab" role="tablist" >
             <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">航班</a>
-            <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">旅客</a>
+            
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -139,60 +139,7 @@
             @endif
         </div>
         
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><!--旅客-->
-          <div class="row g-3 align-items-center float-right">
 
-            <div class="col-auto">
-              <label for="inputPassword6" class="col-form-label">訂單編號：</label>
-            </div>
-            <div class="col-auto">
-              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">搜尋</button>
-            </div>
-          </div><br>
-          <div class="container">
-            <div class="row"><h4>訂單資訊</h4></div><br>
-            <div class="row offset-md-1">
-              <div class="col-4">姓名：</div>
-              <div class="col-6">身分證字號：</div>
-            </div><br>
-            <div class="row offset-md-1">
-              <div class="col-4">性別：</div>
-              <div class="col-6">生日：</div>
-            </div><br>
-            <div class="row offset-md-1">
-              <div class="col-4">票種：</div>
-            </div><br>
-            <div class="row offset-md-1">
-              <div class="col-4">航班資訊：</div>
-            </div>
-          </div><br>
-          
-          <div class="d-grid gap-2 col-2 mx-auto">
-            <!-- Button trigger modal -->
-            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">取消訂單</button>
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">取消訂單</h5>
-                    <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    確定要取消訂單嗎?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-primary">確認</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
 

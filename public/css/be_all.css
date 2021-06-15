@@ -489,3 +489,23 @@ select.list-dt:focus {
     text-align: right;
     padding-left: 10px;
 }
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    z-index: 1;
+    color: #474e55;
+
+    background-color: #46729e;
+}
+.list-group-item-action:active {
+    z-index: 1;
+    color: #474e55;
+    background-color: #46729e;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    background-color: #fdd85d;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}

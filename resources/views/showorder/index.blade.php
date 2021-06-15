@@ -1,31 +1,47 @@
 {{-- showorder --}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th><h6><b> 訂單編號</th>
-                <th><h6><b> 會員編號</th>
-                <th><h6><b> 訂購票種</th>
-                <th><h6><b> 機票價格</th>
-                <th><h6><b> 飛機名稱</th>
-                <th><h6><b> 起飛時間</th>
-                <th><h6><b> 起飛地點</th>
-                <th><h6><b> 降落地點</th>
-            </tr>
-        </thead>
+@extends('layouts.flights')
 
-        <tbody>
-            @foreach($flights as $flight)
-                <tr>
+@section('css')
+  <link rel="stylesheet" href="{{ asset('css/b_today.css')}}"/>
+@endsection
+
+@section('title')
+  <title>Take off 空|後台_查看訂單</title>
+@endsection
+
+@section('main')
+
+
+
+  <span class="col-10" id="g1">
+      <nav class="nav nav-tabs ">    
+        <div  id="nav-tab " role="tablist" >
+          <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-home" aria-selected="true">訂單</a>
+       </div>
+      </nav>
+
+     <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <section class="table table-hover">
+          <div > <!--時間表-->
+            <table cellpadding="0" cellspacing="0" >
+              <thead>
+                <tr class="tbl-header">
+                  <th><h6><b> 訂單編號</th>
+                  <th><h6><b> 會員編號</th>
+                  <th><h6><b> 訂購票種</th>
+                  <th><h6><b> 機票價格</th>
+                  <th><h6><b> 飛機名稱</th>
+                  <th><h6><b> 起飛時間</th>
+                  <th><h6><b> 起飛地點</th>
+                  <th><h6><b> 降落地點</th>
+                </tr>
+              </thead>
+            </div>
+            <div class="tbl-content">
+              <tbody>
+                @foreach($flights as $flight)
+                  <tr>
                     <td>{{ $flight->aId}}</td>
                     <td>{{ $flight->mId}}</td>
                     <td>{{ $flight->tName}}</td>
@@ -34,9 +50,13 @@
                     <td>{{ $flight->Ltime }}</td>  
                     <td>{{ $flight->toplace}}</td>
                     <td>{{ $flight->foplace}}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-</html>
+                  </tr>
+                @endforeach
+              </tbody>
+           </table>
+            </div>
+        </section>
+      </div>
+    </div>
+  </span>
+@endsection

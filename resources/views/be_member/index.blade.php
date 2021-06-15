@@ -23,7 +23,7 @@
       <h2 class="fs-title">會員基本資料</h2>    
         <div class="container">
           <div class="row">
-            <h5 class="fs col-2">會員資料</h5>
+            <h5 class="fs col-9  align-self-center">會員資料</h5>
             <button class="next action-button" style="width: 150px;font-size:16px;" type="button" onclick="location.href='{{route('member.editmember')}}'">修改會員資料</button></div><br>
             @foreach ($members as $member)
             <div class="row offset-md-1">
@@ -39,8 +39,8 @@
 
         <div class="container">
           <div class="row">
-            <h5 class="fs">旅客資料</h5></div> <br>
-            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editpassenger')}}'">編輯旅客資料</button><br>
+            <h5 class="fs col-9  align-self-center">旅客資料</h5>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editpassenger')}}'">編輯旅客資料</button></div> <br>
             {{-- {{dd($passengers)}} --}}
             @if(empty($passengers))
             <div class="row offset-md-1">
@@ -83,8 +83,8 @@
             
         <div class="container">
           <div class="row">
-            <h5 class="fs">聯絡人資料</h5></div> <br>
-            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editcontact')}}'">編輯聯絡人資料</button><br>
+            <h5 class="fs col-9  align-self-center">聯絡人資料</h5>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editcontact')}}'">編輯聯絡人資料</button></div> <br>
             @if(empty($contacts))
             <div class="row offset-md-1">
               <div class="col-6">
@@ -120,8 +120,8 @@
             
         <div class="container">
           <div class="row">
-            <h5 class="fs">信用卡資料</h5></div> <br>
-            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editpay')}}'">編輯信用卡資料</button><br>
+            <h5 class="fs col-9  align-self-center">信用卡資料</h5>
+            <button class="next action-button" style="width: 150px;font-size:16px" type="button" onclick="location.href='{{route('member.editpay')}}'">編輯信用卡資料</button></div> <br>
             @if(empty($pays))
             <div class="row offset-md-1">
               <div class="col-6">

@@ -32,9 +32,7 @@
     <fieldset> 
         <div class="form-card"> 
             <h4 class="fs-title">選擇航班</h4>
-    @if(empty($toflights))
-        <h4>查無航班!</h4>
-    @endif
+    
     @php
         $cnt = 0;
     @endphp
@@ -51,11 +49,15 @@
             <br>
             日期:{{$dateto}}
         </div><br>
+    @if(empty($toflights))
+        <h4 class="col-2">查無航班!</h4>
+    @endif
     @foreach ($toflights as $toflight)
     @php
         $cnt += 1;
         $cntt=strval($cnt);
     @endphp
+    
         @if ($toflight->date == date('Y-m-d', strtotime('+8HOUR') ))
             @if ($toflight->Ltime > date('H:i', strtotime('+8HOUR') ))
             

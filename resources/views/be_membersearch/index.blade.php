@@ -21,16 +21,26 @@
     @if (($airticketnum[0]->num)==0)
         抱歉，您尚未購買任何機票喔~趕快去下訂吧(´･ω･`)  
     @endif
+    <h5 class="fs-title">查看訂單</h5>
     @for ($i = 0; $i < $airticketnum[0]->num; $i++)
+    <div class="accordion" id="accordionExample"><!--手風琴-->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseOne{{$i}}" aria-expanded="false" aria-controls="collapseOne" >
+            <div class="row">
+              <div class="fs" style="font-size: 16px">訂單編號：{{$airticket[$i]->aId}} &nbsp&nbsp&nbsp 日期：{{$flight[$i]->date}} &nbsp&nbsp&nbsp {{$flight[$i]->toplace}}--->{{$flight[$i]->foplace}} &nbsp&nbsp&nbsp 價格：{{$price[$i]}}</div>
+            </div>
+          </button>
+        </h2>
+        {{-- <form action="{{ route('order.index2')}}" method="GET"> --}}
+          <div id="collapseOne{{$i}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
     <div class="container">
-      <div class="row">
-        <h5 class="fs">訂單編號：{{$airticket[$i]->aId}} &nbsp&nbsp&nbsp 價格：{{$price[$i]}}</h5></div>
-      </div><br>
       <div class="row">
         <h5 class="fs">航班</h5></div> <br>
       <div class="row offset-md-1">
         <div class="col-6">飛機名稱：{{$flight[$i]->fName}}</div>
-      </div>
+      </div><br>
         <div class="row offset-md-1">
         <div class="col-6">出發機場：{{$flight[$i]->toplace}}</div>
         <div class="col-6">目的機場：{{$flight[$i]->foplace}}</div>
@@ -39,6 +49,7 @@
         <div class="col-6">起飛日期：{{$flight[$i]->date}}</div>
         <div class="col-6">起飛時間：{{$flight[$i]->Ltime}}</div>
       </div><br>
+    </div><br>
       {{-- <div class="row offset-md-1">
         <div class="col-6">機票價格：{{$price[$i]}}</div><br>
       </div><br> --}}
@@ -84,8 +95,10 @@
         <div class="col-4">檢查碼：{{$pays[$i]->checkCode}}</div>
       </div><br>
     </div><br>
+  </div></div></div></div>
     @endfor
-    </div>
+    
+
   </fieldset>
 </form>
 @endsection

@@ -33,9 +33,7 @@
         <fieldset> 
           <div class="form-card"> 
               <h4 class="fs-title">選擇航班</h4>
-                @if(empty($foflights))
-                    <h4>查無航班!</h4>
-                @endif  
+                
                 @php
                   $cnt = 0;
                 @endphp
@@ -52,6 +50,9 @@
                   <br>
                   日期:{{$dateto}}
               </div><br>
+              @if(empty($toflights))
+                  <h4 class="col-2">查無航班!</h4>
+              @endif
                 @foreach ($foflights as $foflight)
                 @php
                   $cnt += 1;
