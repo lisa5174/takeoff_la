@@ -22,7 +22,7 @@
             </ul>
         </div>
     @endif  
-    <form id="msform" action="{{ route('order.index2')}}" method="GET">   
+    <div id="msform">   
         <!-- progressbar -->  
         <ul id="progressbar"  style="padding:0px">  
             <li class="active" id="account"><strong>選擇航班</strong></li>  
@@ -38,7 +38,7 @@
                   $cnt = 0;
                 @endphp
               <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
-                  <b>去程:</b>
+                  <b>回程:</b>
                   @foreach ($toplace as $tp)
                       {{$tp->loName}}
                   @endforeach
@@ -50,7 +50,7 @@
                   <br>
                   日期:{{$dateto}}
               </div><br>
-              @if(empty($toflights))
+              @if(empty($foflights))
                   <h4 class="col-2">查無航班!</h4>
               @endif
                 @foreach ($foflights as $foflight)
@@ -60,20 +60,7 @@
                 @endphp
                     @if ($foflight->date == date('Y-m-d', strtotime('+8HOUR') ))
                         @if ($foflight->Ltime > date('H:i', strtotime('+8HOUR') ))
-                        <div class="border border-secondary rounded-1 col-md-12"style="padding: 10px; padding-left:15px">
-                            <b>回程:</b>
-                            @foreach ($toplace as $tp)
-                                {{$tp->loName}}
-                            @endforeach
-                            ->
-                            @foreach ($foplace as $fp)
-                                {{$fp->loName}}
-                            @endforeach
-                            
-                            <br>
-            
-                            日期:{{$dateto}}
-                        </div><br>
+                        
                         <div class="accordion" id="accordionExample"><!--手風琴-->
                           <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -86,7 +73,7 @@
                                 @endif
                               </button>
                             </h2>
-                            {{-- <form action="{{ route('order.index2')}}" method="GET"> --}}
+                            <form action="{{ route('order.index2')}}" method="GET">
                               <div id="collapseOne{{$cntt}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                 @csrf 
@@ -263,35 +250,49 @@
                                   @endif
                                 </div>
                                 </div>
-                              
 
-                             
-                                          </div>
-                                      </div>
-                                </div>
-                                </div>
-                            {{-- </form> --}}
                               </div>
-                        </div>
+                               
+                              
+                             
+                              @if(isset($mId))
+                              {{-- 有登入 --}}
+                              <button type="submit" class="next action-button">確定</button>
+                          @else
+                          {{-- 沒有登入 --}}
+                              <button type="button" class="next action-button" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
+                                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                          <div class="modal-header">
+                                              {{-- <input type="hidden" name="fId"> --}}
+                                              <h5 class="modal-title" id="exampleModalLabel">購票通知</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                                <h5>  如要繼續訂購機票請先登入</h5>
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="submit" class="previous action-button-previous" data-bs-dismiss="modal">取消</button>
+                                              <button type="button" class="next action-button" onclick="location.href='{{route('login.index')}}'">前往登入</button>
+                                              {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
+                                          </div>
+                                          </div>
+                                      </div></div>
+                                          @endif
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                              </div>
+                              <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+                       
                       </div>
                         @else
                             <h4>查無航班!</h4>
                         @endif
                     @else
-                    <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
-                        <b>回程:</b>
-                        @foreach ($toplace as $tp)
-                            {{$tp->loName}}
-                        @endforeach
-                        ->
-                        @foreach ($foplace as $fp)
-                            {{$fp->loName}}
-                        @endforeach
-                        
-                        <br>
-            
-                        日期:{{$dateto}}
-                    </div><br>
+                    
                     <div class="accordion" id="accordionExample"><!--手風琴-->
                       <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
@@ -304,7 +305,7 @@
                             @endif
                           </button>
                         </h2>
-                            {{-- <form action="{{ route('order.index2')}}" method="GET"> --}}
+                            <form action="{{ route('order.index2')}}" method="GET">
                               <div id="collapseTwo{{$cntt}}" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                               @csrf 
@@ -504,14 +505,7 @@
             
                             
                             </div>
-                            </div>  
-                          </div>
-                      </div>
-                    </div>
-                    @endif
-                @endforeach
-                  
-                  <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+                        
                   @if(isset($mId))
                   {{-- 有登入 --}}
                   <button type="submit" class="next action-button">確定</button>
@@ -537,17 +531,30 @@
                               </div>
                           </div></div>
                               @endif
+                            </div>  
+                          </div>
+                        </div>
+                        
+                      </div>
+                    
+                  </form>
+                    @endif
+                @endforeach
+                  
+               
                  
-                  <script>
-                      document.getElementById('back').onclick = function () {
-                          window.history.back();
-                      }
-                  </script> 
-            {{-- </form> --}}
+                  
+            
           </fieldset>
+          <input type="button" class="previous action-button-previous" id='back' value='上一步'>
+          <script>
+            document.getElementById('back').onclick = function () {
+                window.history.back();
+            }
+        </script> 
           </form>
         </div>
-                    
+  </div>    
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
@@ -559,14 +566,14 @@
                 // Get the field name
                 fieldName = $(this).attr('field');
                 // Get its current value
-                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                var currentVal = parseInt($('input[id=' + fieldName + ']').val());
                 // If is not undefined
                 if (!isNaN(currentVal) && currentVal < 4) {
                 // Increment
-                $('input[name=' + fieldName + ']').val(currentVal + 1);
+                $('input[id=' + fieldName + ']').val(currentVal + 1);
                 } else {
                 // Otherwise put a 0 there
-                $('input[name=' + fieldName + ']').val(4);
+                $('input[id=' + fieldName + ']').val(4);
                 }
             });
             // This button will decrement the value till 0
@@ -576,14 +583,14 @@
                 // Get the field name
                 fieldName = $(this).attr('field');
                 // Get its current value
-                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                var currentVal = parseInt($('input[id=' + fieldName + ']').val());
                 // If it isn't undefined or its greater than 0
                 if (!isNaN(currentVal) && currentVal > 0) {
                 // Decrement one
-                $('input[name=' + fieldName + ']').val(currentVal - 1);
+                $('input[id=' + fieldName + ']').val(currentVal - 1);
                 } else {
                 // Otherwise put a 0 there
-                $('input[name=' + fieldName + ']').val(0);
+                $('input[id=' + fieldName + ']').val(0);
                 }
             });
         });
