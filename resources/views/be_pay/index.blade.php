@@ -11,7 +11,7 @@
 @section('main')
 <div class="container-fluid" id="grad1">
   <div class="row justify-content-center mt-0">
-<div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
+<div class=" col-md-12 col-lg-10 col-xl-8 text-center p-0 mt-5 mb-3">  
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -62,7 +62,7 @@
         <input type="hidden" name="cemail" value="{{$cemail}}">
 
     <!-- progressbar -->  
-    <ul id="progressbar">  
+    <ul id="progressbar"  style="padding:0px">  
         <li class="active" id="account"><strong>選擇航班</strong></li>  
         <li id="personal" class="active"><strong>填寫訂單</strong></li>  
         <li id="payment" class="active"><strong>付款</strong></li>  

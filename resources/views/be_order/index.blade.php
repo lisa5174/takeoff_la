@@ -11,7 +11,7 @@
 @section('main')
 <div class="container-fluid" id="grad1">
   <div class="row justify-content-center mt-0">
-<div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">   
+<div class=" col-md-12 col-lg-10 col-xl-8 text-center p-0 mt-5 mb-3">   
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">
             <ul>
@@ -53,7 +53,7 @@
         
         
                 <!-- progressbar -->  
-                <ul id="progressbar">  
+                <ul id="progressbar" style="padding:0px">  
                     <li class="active" id="account"><strong>選擇航班</strong></li>  
                     <li id="personal" class="active"><strong>填寫訂單</strong></li>  
                     <li id="payment"><strong>付款</strong></li>  
@@ -79,9 +79,11 @@
                                 @php
                                     $cnt += 1;
                                 @endphp
-                                
-                                <h4 class="fs-title2">旅客{{$cnt}}({{$tictype[$i]->tName}}票種
-                                  {{isset($fotictype[$i])?'--->'.$fotictype[$i]->tName.'票種':''}})</h4> <br>
+                                <h4 class="fs-title2">旅客{{$cnt}} &nbsp;<i class="fas fa-plane"></i>{{$tictype[$i]->tName}}票種
+                                  {{isset($fotictype[$i])?'--->':''}}
+                                  <i class="fas fa-plane fa-flip-horizontal" style={{isset($fotictype[$i])?'display: none':''}} ></i>
+                                  {{isset($fotictype[$i])?$fotictype[$i]->tName.'票種':''}}
+                                  </h4> <br>
 
                                 @if(!empty($passengers) && $cnt==1)
 

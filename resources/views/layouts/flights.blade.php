@@ -81,37 +81,37 @@
                     <!-- Menu with submenu -->
                     <button  onclick="location.href='{{route('today')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-plane fa-fw mr-3"></span> 
+                            <span class="fa fa-plane fa-fw mr-3"aria-hidden="true"></span> 
                             <span class="menu-collapsed">今日航班</span>
                         </div>
                     </button>
                     <button  onclick="location.href='{{route('putshelf')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-upload fa-fw mr-3"></span>
+                            <span class="fa fa-upload fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">上架</span>
                         </div>
                     </button>
                     <button  onclick="location.href='{{route('offshelf')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-download fa-fw mr-3"></span>
+                            <span class="fa fa-download fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">下架</span>    
                         </div>
                     </button>
                     <button  onclick="location.href='{{route('updateflight.index')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-pencil fa-fw mr-3"></span>
+                            <span class="fa fa-pencil fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">修改</span>    
                         </div>
                     </button>
                     <button  onclick="location.href='{{route('search')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-search fa-fw mr-3"></span>
+                            <span class="fa fa-search fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">查詢</span>    
                         </div>
                     </button>
                     <button  onclick="location.href='{{route('aflogin.aflogout')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fas fa-sign-out-alt fa-lg mr-3"></span>
+                            <span class="fas fa-sign-out-alt mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">登出</span>    
                         </div>
                     </button>

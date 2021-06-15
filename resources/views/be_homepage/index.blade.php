@@ -26,14 +26,18 @@
 
         <!-- progressbar -->  
         <fieldset class="card"> 
-            <div class="form-card"style="padding-left:150px">  
+            <div class="form-card"style="padding-left:100px">  
               <div  class="container" style="padding-left:0px">
+                <div class="d-grid gap-2 d-md-block">
                 <h4 class="fs-title">訂票購買
-                   <input type="radio" class="btn-check" name="type" id="btnradio1" value='domestic-credit' autocomplete="off" checked>
+                  
+                   <input type="radio" class="btn-check" name="type" id="btnradio1" value='domestic-credit' autocomplete="off" checked style="width:20px">
                   <label class="btn btn-outline-info btn-sm " for="btnradio1">單程</label>
-                  <input type="radio" class="btn-check" name="type" id="btnradio2" value='aboard-credit' autocomplete="off">
+                  <input type="radio" class="btn-check" name="type" id="btnradio2" value='aboard-credit' autocomplete="off" style="width:20px">
                   <label class="btn btn-outline-info btn-sm " for="btnradio2">來回</label>
+                 
                 </h4>
+                </div>
               </div>
               <br>
 

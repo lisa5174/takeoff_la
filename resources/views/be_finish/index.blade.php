@@ -11,7 +11,7 @@
 @section('main')
 <div class="container-fluid" id="grad1">
   <div class="row justify-content-center mt-0">
-<div class=" col-md-12 col-lg-10 col-xl-6 text-center p-0 mt-5 mb-3">  
+<div class=" col-md-12 col-lg-10 col-xl-8 text-center p-0 mt-5 mb-3">  
     <form id="msform" action="{{ route('membersearch.checkoutsuccess')}}" method="GET">
         @csrf 
         {{-- 去程航班id --}}
@@ -60,7 +60,7 @@
         <input type="hidden" name="caid" value="{{$caid[0]}}">
         <input type="hidden" name="cacheckcode" value="{{$cacheckcode}}">
         <!-- progressbar -->  
-        <ul id="progressbar">  
+        <ul id="progressbar"  style="padding:0px">  
           <li class="active" id="account"><strong>選擇航班</strong></li>  
           <li id="personal" class="active"><strong>填寫訂單</strong></li>  
           <li id="payment" class="active"><strong>付款</strong></li>  
@@ -88,9 +88,9 @@
                 </div><br>
                 @endforeach
                 <div class="row offset-md-1">
-                  <div class="col-md-6">人數票種：
+                  <div class="col-md-6">人數票種：<br>
                 @foreach ($totickets[1] as $toticket)
-                    {{$toticket->tName}}票種{{$toticket1[1]}}張<br>
+                    <div >{{$toticket->tName}}票種{{$toticket1[1]}}張</div><br>
                 @endforeach  
                 @foreach ($totickets[2] as $toticket)
                     {{$toticket->tName}}票種{{$toticket2[1]}}張<br>
@@ -124,21 +124,21 @@
                 </div><br>
                 @endforeach
                 <div class="row offset-md-1">
-                  <div class="col-md-6">人數票種：
+                  <div class="col-md-6">人數票種：<br>
                     @foreach ($fotickets[1] as $foticket)
-                        {{$foticket->tName}}票種{{$foticket1[1]}}張<br>
+                        &nbsp;&nbsp;{{$foticket->tName}}票種{{$foticket1[1]}}張<br>
                     @endforeach  
                     @foreach ($fotickets[2] as $foticket)
-                        {{$foticket->tName}}票種{{$foticket2[1]}}張<br>
+                        &nbsp;&nbsp;{{$foticket->tName}}票種{{$foticket2[1]}}張<br>
                     @endforeach  
                     @foreach ($fotickets[3] as $foticket)
-                        {{$foticket->tName}}票種{{$foticket3[1]}}張<br>
+                        &nbsp;&nbsp;{{$foticket->tName}}票種{{$foticket3[1]}}張<br>
                     @endforeach  
                     @foreach ($fotickets[4] as $foticket)
-                        {{$foticket->tName}}票種{{$foticket4[1]}}張<br>
+                        &nbsp;&nbsp; {{$foticket->tName}}票種{{$foticket4[1]}}張<br>
                     @endforeach
                     @if ($quantity2 != 0)
-                    嬰兒票種{{$quantity2}}張<br>
+                        &nbsp;&nbsp;嬰兒票種{{$quantity2}}張<br>
                     @endif 
                   </div>
                   <div class="col-md-6">機票價格：{{$price[2]}}</div><br>

@@ -35,8 +35,28 @@
               <h4 class="fs-title">選擇航班</h4>
                 @if(empty($foflights))
                     <h4>查無航班!</h4>
-                @endif    
+                @endif  
+                @php
+                  $cnt = 0;
+                @endphp
+              <div class="border border-secondary rounded-1 col-md-12" style="padding: 10px; padding-left:15px">
+                  <b>去程:</b>
+                  @foreach ($toplace as $tp)
+                      {{$tp->loName}}
+                  @endforeach
+                  ->
+                  @foreach ($foplace as $fp)
+                      {{$fp->loName}}
+                  @endforeach
+                  
+                  <br>
+                  日期:{{$dateto}}
+              </div><br>
                 @foreach ($foflights as $foflight)
+                @php
+                  $cnt += 1;
+                  $cntt=strval($cnt);
+                @endphp
                     @if ($foflight->date == date('Y-m-d', strtotime('+8HOUR') ))
                         @if ($foflight->Ltime > date('H:i', strtotime('+8HOUR') ))
                         <div class="border border-secondary rounded-1 col-md-12"style="padding: 10px; padding-left:15px">
@@ -56,7 +76,7 @@
                         <div class="accordion" id="accordionExample"><!--手風琴-->
                           <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
-                              <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                              <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseOne{{$cntt}}" aria-expanded="false" aria-controls="collapseOne">
                                 飛機名稱:{{$foflight->fName}}
                                 起飛時間:{{$foflight->Ltime}}
                                 旅客人數:{{$quantity}}
@@ -66,7 +86,7 @@
                               </button>
                             </h2>
                             {{-- <form action="{{ route('order.index2')}}" method="GET"> --}}
-                              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                              <div id="collapseOne{{$cntt}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                 @csrf 
                                 {{-- 去程航班id --}}
@@ -88,10 +108,10 @@
                                 <div class="col-xl-4" style="padding-right: 0%;">
                                   <label for="">全額</label>${{$foflight->fprice}}
                                 <div class="text-end">
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket2' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket2{{$cntt}}' />
                                   {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-                                  <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty' style="width: 15%;" />
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2' />
+                                  <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty' id='ticket2{{$cntt}}' style="width: 15%;" />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4"style="padding-right: 0%;">
@@ -100,9 +120,9 @@
                                   @foreach ($ticket1 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket16' />
-                                  <input type='text' readonly="readonly" name='ticket16' value="{{old('ticket16') ?? '0'}}" class='qty' style="width: 15%;" />
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket16' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket16{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket16' value="{{old('ticket16') ?? '0'}}" class='qty' id='ticket16{{$cntt}}' style="width: 15%;" />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket16{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -111,9 +131,9 @@
                                   @foreach ($ticket2 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket7' />
-                                  <input type='text' readonly="readonly" name='ticket7' value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket7' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket7{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket7' value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id='ticket7{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket7{{$cntt}}' />
                                 </div>
                                 </div>
 
@@ -123,9 +143,9 @@
                                   @foreach ($ticket3 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket8' />
-                                  <input type='text' readonly="readonly" name='ticket8' value="{{old('ticket8') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket8' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket8{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket8' value="{{old('ticket8') ?? '0'}}" class='qty col-md-4' id='ticket8{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket8{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -134,9 +154,9 @@
                                   @foreach ($ticket4 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket9' />
-                                  <input type='text' readonly="readonly" name='ticket9' value="{{old('ticket9') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket9' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket9{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket9' value="{{old('ticket9') ?? '0'}}" class='qty col-md-4' id='ticket9{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket9{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -145,9 +165,9 @@
                                   @foreach ($ticket5 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket10' />
-                                  <input type='text' readonly="readonly" name='ticket10' value="{{old('ticket10') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket10{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket10' value="{{old('ticket10') ?? '0'}}" class='qty col-md-4' id='ticket10{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket10{{$cntt}}' />
                                 </div>
                                 </div>
                                   
@@ -175,7 +195,7 @@
                                         @endphp  
                                     @endif
                                     <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
-                                    <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
+                                    <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id={{$x}} style="width: 15%;"/>
                                     <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
                                 </div>
                                     @endforeach
@@ -191,9 +211,9 @@
                                   @foreach ($ticket7 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket11' />
-                                  <input type='text' readonly="readonly" name='ticket11' value="{{old('ticket11') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket11' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket11{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket11' value="{{old('ticket11') ?? '0'}}" class='qty col-md-4' id='ticket11{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket11{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -202,9 +222,9 @@
                                   @foreach ($ticket8 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket13' />
-                                  <input type='text' readonly="readonly" name='ticket13' value="{{old('ticket13') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket13' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket13{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket13' value="{{old('ticket13') ?? '0'}}" class='qty col-md-4' id='ticket13{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket13{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -213,9 +233,9 @@
                                   @foreach ($ticket9 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket14' />
-                                  <input type='text' readonly="readonly" name='ticket14' value="{{old('ticket14') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket14' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket14{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket14' value="{{old('ticket14') ?? '0'}}" class='qty col-md-4' id='ticket14{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket14{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -224,9 +244,9 @@
                                   @foreach ($ticket10 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket15' />
-                                  <input type='text' readonly="readonly" name='ticket15' value="{{old('ticket15') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket15' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket15{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket15' value="{{old('ticket15') ?? '0'}}" class='qty col-md-4' id='ticket15{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket15{{$cntt}}' />
                                 </div>
                                 </div>
                                 <div class="col-xl-4" style="padding-right: 0%;">
@@ -236,9 +256,9 @@
                                   @foreach ($ticket11 as $t1)
                                       ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                   @endforeach
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket12' />
-                                  <input type='text' readonly="readonly" name='ticket12' value="{{old('ticket12') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket12' />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket12{{$cntt}}' />
+                                  <input type='text' readonly="readonly" name='ticket12' value="{{old('ticket12') ?? '0'}}" class='qty col-md-4' id='ticket12{{$cntt}}' style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket12{{$cntt}}' />
                                   @endif
                                 </div>
                                 </div>
@@ -274,7 +294,7 @@
                     <div class="accordion" id="accordionExample"><!--手風琴-->
                       <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
-                          <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          <button class="accordion-button  collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo{{$cntt}}" aria-expanded="false" aria-controls="collapseTwo">
                             飛機名稱:{{$foflight->fName}}
                             起飛時間:{{$foflight->Ltime}}
                             旅客人數:{{$quantity}}
@@ -284,8 +304,8 @@
                           </button>
                         </h2>
                             {{-- <form action="{{ route('order.index2')}}" method="GET"> --}}
-                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
+                              <div id="collapseTwo{{$cntt}}" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
                               @csrf 
                               {{-- 去程航班id --}}
                               <input type="hidden" name="toId" value="{{$toId}}">
@@ -308,10 +328,10 @@
                               <div class="col-xl-4" style="padding-right: 0%;">
                                 <label for="">全額</label>${{$foflight->fprice}}
                               <div class="text-end">
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket2' />
+                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket2{{$cntt}}' />
                                 {{-- text readonly 只可複制，不可進行編輯。後台會接收到傳值。 --}}
-                                <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty' style="width: 15%;" />
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2' />
+                                <input type='text' readonly="readonly" name='ticket2' value="{{old('ticket2') ?? '0'}}" class='qty' id='ticket2{{$cntt}}' style="width: 15%;" />
+                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket2{{$cntt}}' />
                               </div>
                               </div>
                               <div class="col-xl-4"style="padding-right: 0%;">
@@ -405,7 +425,7 @@
                                       @endphp  
                                   @endif
                                   <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
-                                  <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
+                                  <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id={{$x}} style="width: 15%;"/>
                                   <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
                               </div>
                                   @endforeach
@@ -473,9 +493,9 @@
                                 @foreach ($ticket11 as $t1)
                                     ${{round(($t1->tPrice) * ($foflight->fprice))}}
                                 @endforeach
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket12' />
-                                <input type='text' readonly="readonly" name='ticket12' value="{{old('ticket12') ?? '0'}}" class='qty col-md-4' style="width: 15%;"/>
-                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket12' />
+                                <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field='ticket12{{$cntt}}' />
+                                <input type='text' readonly="readonly" name='ticket12' value="{{old('ticket12') ?? '0'}}" class='qty col-md-4' id='ticket12{{$cntt}}'style="width: 15%;"/>
+                                <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field='ticket12{{$cntt}}' />
                                 @endif
                               </div>
                               </div>
@@ -489,35 +509,32 @@
                     </div>
                     @endif
                 @endforeach
-                  </div>
                   
+                  <input type="button" class="previous action-button-previous" id='back' value='上一步'>
                   @if(isset($mId))
                   {{-- 有登入 --}}
-                  <input type="button" class="previous action-button-previous" id='back' value='上一步'>
                   <button type="submit" class="next action-button">確定</button>
               @else
               {{-- 沒有登入 --}}
-              <input type="button" class="previous action-button-previous" id='back' value='上一步'>
-                  <button type="button" class="next action-button"  data-bs-target="#exampleModal">確定</button>
+                  <button type="button" class="next action-button" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
                       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                               <div class="modal-content">
                               <div class="modal-header">
                                   {{-- <input type="hidden" name="fId"> --}}
-                                  <h5 class="modal-title" id="exampleModalLabel">登入</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">購票通知</h5>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                  <div class="mb-3">
-                                      如要繼續訂購機票請先登入
-                                  </div>
+                                    <h5>  如要繼續訂購機票請先登入</h5>
                               </div>
                               <div class="modal-footer">
-                                  <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                  <button type="button" class="btn btn-primary" onclick="location.href='{{route('login.index')}}'">前往登入</button>
+                                  <button type="submit" class="previous action-button-previous" data-bs-dismiss="modal">取消</button>
+                                  <button type="button" class="next action-button" onclick="location.href='{{route('login.index')}}'">前往登入</button>
                                   {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
                               </div>
                               </div>
+                          </div></div>
                               @endif
                  
                   <script>
@@ -528,7 +545,7 @@
             {{-- </form> --}}
           </fieldset>
           </form>
-         </div></div>
+        </div>
                     
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
