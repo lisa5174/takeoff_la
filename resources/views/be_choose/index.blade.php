@@ -22,7 +22,8 @@
             </ul>
         </div>
     @endif  
-  <form id="msform" action="{{ route('choose.index2')}}" method="GET">
+  {{-- <form id="msform" action="{{ route('choose.index2')}}" method="GET"> --}}
+    <div id="msform">
     <ul id="progressbar" style="padding:0px">  
         <li class="active" id="account"><strong>選擇航班</strong></li>  
         <li id="personal"><strong>填寫訂單</strong></li>  
@@ -73,10 +74,10 @@
                       @endif
                     </button>
                 </h2>
-                {{-- <form action="{{ route('choose.index2')}}" method="GET" > --}}
+                <form action="{{ route('choose.index2')}}" method="GET" >
                   <div id="collapseOne{{$cntt}}".$cntt class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                       <div class="accordion-body">
-                    {{-- @csrf  --}}
+                    @csrf 
                     {{-- 去程航班id --}}
                     <input type="hidden" name="apId" value="{{$toflight->fId}}">
                     <input type="hidden" name="quantity" value="{{$quantity}}">
@@ -247,8 +248,38 @@
                       </div>
                       @endif
                 </div>
-                      </div>
             </div>
+
+                @if(!isset($mId) && !isset($datefo))
+                    {{-- 沒有登入而且單程 --}}
+                    <button type="button" class="next action-button" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    {{-- <input type="hidden" name="fId"> --}}
+                                    <h5 class="modal-title" id="exampleModalLabel">登入</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        如要繼續訂購機票請先登入
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="previous action-button-previous" data-bs-dismiss="modal">取消</button>
+                                    <button type="button" class="next action-button" onclick="location.href='{{route('login.index')}}'">前往登入</button>
+                                    {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                @else
+                {{-- 有登入 --}}
+                    <button type="submit" class="next action-button">確定</button>
+                @endif
+            </div>
+            </form>
           </div>
             </div>
             @else
@@ -268,11 +299,11 @@
             @endif
         </button>
     </h2>
-            {{-- <form action="{{ route('choose.index2')}}" method="GET"> --}}
+            <form action="{{ route('choose.index2')}}" method="GET">
                 {{-- {{dd('jfjskdlfjdsaaaaaaa'.$cntt)}} --}}
                 <div id='collapseTwo{{$cntt}}' class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                {{-- @csrf  --}}
+                @csrf 
                 {{-- 去程航班id --}}
                 <input type="hidden" name="apId" value="{{$toflight->fId}}">
                 <input type="hidden" name="quantity" value="{{$quantity}}">
@@ -443,9 +474,38 @@
                   @endif
               </div>  
           </div>
+            @if(!isset($mId) && !isset($datefo))
+                {{-- 沒有登入而且單程 --}}
+                <button type="button" class="next action-button" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                {{-- <input type="hidden" name="fId"> --}}
+                                <h5 class="modal-title" id="exampleModalLabel">登入</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    如要繼續訂購機票請先登入
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="previous action-button-previous" data-bs-dismiss="modal">取消</button>
+                                <button type="button" class="next action-button" onclick="location.href='{{route('login.index')}}'">前往登入</button>
+                                {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            @else
+            {{-- 有登入 --}}
+                <button type="submit" class="next action-button">確定</button>
+            @endif
+
         </div>
       </div></div>
-            {{-- </form> --}}
+            </form>
         @endif
     @endforeach
   </fieldset> 
@@ -453,37 +513,10 @@
     {{-- <button type="submit" class="next action-button" >確定</button> --}}
     
     {{-- {{dd($mId,$datefo)}} --}}
-    @if(!isset($mId) && !isset($datefo))
-        {{-- 沒有登入而且單程 --}}
-        <button type="button" class="next action-button" data-bs-toggle="modal" data-bs-target="#exampleModal">確定</button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        {{-- <input type="hidden" name="fId"> --}}
-                        <h5 class="modal-title" id="exampleModalLabel">登入</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            如要繼續訂購機票請先登入
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="previous action-button-previous" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="next action-button" onclick="location.href='{{route('login.index')}}'">前往登入</button>
-                        {{-- <button type="submit" class="btn btn-primary">確認</button> --}}
-                    </div>
-                    </div>
-                </div>
-            </div>
-    @else
-    {{-- 有登入 --}}
-        <button type="submit" class="next action-button">確定</button>
-    @endif
 
 
-</form>  
+{{-- </form>   --}}
+</div>  
 </div> 
 
 

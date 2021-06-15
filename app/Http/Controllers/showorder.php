@@ -28,6 +28,7 @@ class showorder extends Controller
         // return dd($flights);
         return view('showorder.index',['flights' => $flights]);
 
+
     }
 
     /**
