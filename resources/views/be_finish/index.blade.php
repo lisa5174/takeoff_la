@@ -149,22 +149,37 @@
                 @endif
                 <br>
 
+                @php
+                  $cnt = 0;
+                @endphp
+                {{-- {{dd($fotickets)}} --}}
+            {{-- 有幾種票種 --}}
             @for ($i = 0; $i < count($price[3]); $i++)
-              <div class="container">
-                <div class="row">
-                  <h5 class="fs">旅客{{$i+1}}&nbsp;(<i class="fas fa-plane"></i> {{$totickets[$i+1][0]->tName}}票種
-                    {{isset($foId)?'--->':''}}
-                    <i class="fas fa-plane fa-flip-horizontal" style={{isset($foId)?'':'display:none'}} ></i>
-                    {{isset($foId)?$fotickets[$i+1][0]->tName.'票種':''}})</h5></div><br>
-                <div class="row offset-md-1">
-                  <div class="col-md-6">姓名：{{$pname[$i]}}</div>
-                  <div class="col-md-6">身分證字號：{{$pid[$i]}}</div>
+            @php
+              $ti = 'toticket'.strval($i+1);
+            @endphp
+            {{-- {{dd($$ti[1])}} --}}
+                {{-- 這票種有幾張 --}}
+              @for ($j = 0; $j < $$ti[1]; $j++)
+                <div class="container">
+                  <div class="row">
+                    <h5 class="fs">旅客{{$cnt+1}}&nbsp;(<i class="fas fa-plane"></i> {{$totickets[$i+1][0]->tName}}票種
+                      {{isset($foId)?'--->':''}}
+                      <i class="fas fa-plane fa-flip-horizontal" style={{isset($foId)?'':'display:none'}} ></i>
+                      {{isset($foId)?$fotickets[$i+1][0]->tName.'票種':''}})</h5></div><br>
+                  <div class="row offset-md-1">
+                    <div class="col-md-6">姓名：{{$pname[$cnt]}}</div>
+                    <div class="col-md-6">身分證字號：{{$pid[$cnt]}}</div>
+                  </div><br>
+                  <div class="row offset-md-1">
+                    <div class="col-md-6">性別：{{($pgender[$cnt])==0?'女':'男'}}</div>
+                    <div class="col-md-6">生日：{{$pbirth[$cnt]}}</div>
+                  </div><br>
                 </div><br>
-                <div class="row offset-md-1">
-                  <div class="col-md-6">性別：{{($pgender[$i])==0?'女':'男'}}</div>
-                  <div class="col-md-6">生日：{{$pbirth[$i]}}</div>
-                </div><br>
-              </div><br>
+                @php
+                  $cnt += 1;
+                @endphp
+              @endfor
             @endfor
 
             <div class="container">

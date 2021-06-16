@@ -80,11 +80,11 @@
                                     $cnt += 1;
                                 @endphp
                                 <h4 class="fs-title2">旅客{{$cnt}} &nbsp;<i class="fas fa-plane"></i>{{$tictype[$i]->tName}}票種
-                                  {{isset($fotictype[$i])?'--->':''}}
-                                  <i class="fas fa-plane fa-flip-horizontal" style={{isset($fotictype[$i])?'':'display:none'}} ></i>
-                                  {{isset($fotictype[$i])?$fotictype[$i]->tName.'票種':''}}
+                                  {{isset($fotictype[$cnt])?'--->':''}}
+                                  <i class="fas fa-plane fa-flip-horizontal" style={{isset($fotictype[$cnt])?'':'display:none'}} ></i>
+                                  {{isset($fotictype[$cnt])?$fotictype[$cnt]->tName.'票種':''}}
                                   </h4> <br>
-
+                                  {{-- {{dd($fotictype)}} --}}
                                 @if(!empty($passengers) && $cnt==1)
 
                                   <div class="col-md-3"> 

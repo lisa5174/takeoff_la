@@ -141,7 +141,7 @@ class be_finish extends Controller
         $price[3] = $tticket; //去程票種
         $price[4] = $fticket; //回程票種
         // return dd($price);
-        // return dd(count($price[3])); //數有幾張票
+        // return dd(count($price[3])); //數有幾張票種
 
         // $showgender = '';
         // if ($request->pgender == 1) $showgender = '男';
