@@ -4,6 +4,7 @@
 .dropdown-item:active {
     background-color: #80b7d5;
 }
+
 .qty {
     width: 40px;
     height: 35px;
@@ -72,7 +73,14 @@ html {
     margin: 0 3% 20px 3%;
     position: relative;
 }
-
+#home {
+    padding-left: 150px !important;
+}
+@media screen and (max-width: 600px) {
+    #home {
+        padding-left: 40px !important;
+    }
+}
 #msform fieldset {
     background: white;
     border: 0 none;

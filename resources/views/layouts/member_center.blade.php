@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     
     @yield('title')
-    <style>
+    {{-- <style>
       button:hover{
       background:#0F0;
       background:inherit;
@@ -28,7 +28,7 @@
       background:#00F;
       background:inherit;
      }
-    </style>
+    </style> --}}
 </head>
 <body>
     <div>
@@ -136,7 +136,7 @@
 <!-- MAIN -->
         <div class="col wrap">                     
           <div class="row justify-content-center mt-0">
-            <div class="col-12 col-sm-9  text-center p-0 mt-5 mb-5"> 
+            <div class="col-12 col-sm-11  text-center p-0 mt-5 mb-5"> 
               @yield('main')
             </div>
             

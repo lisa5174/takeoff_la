@@ -26,7 +26,7 @@
 
         <!-- progressbar -->  
         <fieldset class="card"> 
-            <div class="form-card"style="padding-left:100px">  
+            <div class="form-card" id="home">  
               <div  class="container" style="padding-left:0px">
                 <div class="d-grid gap-2 d-md-block">
                 <h4 class="fs-title">訂票購買

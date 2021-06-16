@@ -137,9 +137,9 @@
                     </button>
           </div><!-- sidebar-container END -->
 
-  <div class="col"  style="padding-right:50px;">                     
-   <div class="container" style="padding-left:5px;">
-    <div class="container">
+  <div class="col" id="cc" style="padding-right: 50px;">                     
+   <div class="container" id="cc2" >
+    <div class="container" id="cc3">
         @yield('main')
     </div>    
    </div>
