@@ -39,15 +39,15 @@
       <div class="row">
         <h5 class="fs">航班</h5></div> <br>
       <div class="row offset-md-1">
-        <div class="col-6">飛機名稱：{{$flight[$i]->fName}}</div>
+        <div class="col-md-6">飛機名稱：{{$flight[$i]->fName}}</div>
       </div><br>
         <div class="row offset-md-1">
-        <div class="col-6">出發機場：{{$flight[$i]->toplace}}</div>
-        <div class="col-6">目的機場：{{$flight[$i]->foplace}}</div>
+        <div class="col-md-6">出發機場：{{$flight[$i]->toplace}}</div>
+        <div class="col-md-6">目的機場：{{$flight[$i]->foplace}}</div>
       </div><br>
       <div class="row offset-md-1">
-        <div class="col-6">起飛日期：{{$flight[$i]->date}}</div>
-        <div class="col-6">起飛時間：{{$flight[$i]->Ltime}}</div>
+        <div class="col-md-6">起飛日期：{{$flight[$i]->date}}</div>
+        <div class="col-md-6">起飛時間：{{$flight[$i]->Ltime}}</div>
       </div><br>
     </div><br>
       {{-- <div class="row offset-md-1">
@@ -57,12 +57,12 @@
         <div class="row">
           <h5 class="fs">旅客({{$tickettype[$i]->tName}}票種)</h5></div> <br>
         <div class="row offset-md-1">
-          <div class="col-6">姓名：{{$passengers[$i]->pName}}</div>
-          <div class="col-6">身分證字號：{{$passengers[$i]->pId}}</div>
+          <div class="col-md-6">姓名：{{$passengers[$i]->pName}}</div>
+          <div class="col-md-6">身分證字號：{{$passengers[$i]->pId}}</div>
         </div><br>
         <div class="row offset-md-1">
-          <div class="col-6">性別：{{(($passengers[$i]->gender)==0 ? '女' : '男')}}</div>
-          <div class="col-6">生日：{{$passengers[$i]->birthday}}</div>
+          <div class="col-md-6">性別：{{(($passengers[$i]->gender)==0 ? '女' : '男')}}</div>
+          <div class="col-md-6">生日：{{$passengers[$i]->birthday}}</div>
         </div><br>
       </div><br>
       
@@ -70,11 +70,11 @@
         <div class="row">
           <h5 class="fs">聯絡人</h5></div> <br>
         <div class="row offset-md-1">
-          <div class="col-6">姓名：{{$contacts[$i]->cName}}</div>
-          <div class="col-6">行動電話：{{$contacts[$i]->cPhone}}</div>
+          <div class="col-md-6">姓名：{{$contacts[$i]->cName}}</div>
+          <div class="col-md-6">行動電話：{{$contacts[$i]->cPhone}}</div>
         </div><br>
         <div class="row offset-md-1">
-          <div class="col-6">電子信箱：{{$contacts[$i]->cEmail}}</div>
+          <div class="col-md-6">電子信箱：{{$contacts[$i]->cEmail}}</div>
         </div><br>
       </div><br>
       <div class="container">
@@ -87,12 +87,12 @@
           @endphp
 
         <div class="row offset-md-1">
-          <div class="col-6">卡別：{{$pays[$i]->creName}}</div>
-          <div class="col-4">有效日期(月/年)：{{substr("$validity",0,2)}}/{{substr("$validity",-2)}}</div>
+          <div class="col-md-6">卡別：{{$pays[$i]->creName}}</div>
+          <div class="col-md-4">有效日期(月/年)：{{substr("$validity",0,2)}}/{{substr("$validity",-2)}}</div>
         </div> <br>
         <div class="row offset-md-1">
-        <div class="col-6">卡號：{{substr("$p",0,4)}}-{{substr("$p",4,4)}}-{{substr("$p",8,4)}}-{{substr("$p",-4)}}</div>
-        <div class="col-4">檢查碼：{{$pays[$i]->checkCode}}</div>
+        <div class="col-md-6">卡號：{{substr("$p",0,4)}}-{{substr("$p",4,4)}}-{{substr("$p",8,4)}}-{{substr("$p",-4)}}</div>
+        <div class="col-md-4">檢查碼：{{$pays[$i]->checkCode}}</div>
       </div><br>
     </div><br>
   </div></div></div></div>

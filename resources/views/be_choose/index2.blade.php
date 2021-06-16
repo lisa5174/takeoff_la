@@ -182,9 +182,9 @@
                                             $x='ticket6'
                                         @endphp  
                                     @endif
-                                    <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
-                                    <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id={{$x}} style="width: 15%;"/>
-                                    <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
+                                    <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x.$cntt}} />
+                                    <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id={{$x.$cntt}} style="width: 15%;"/>
+                                    <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x.$cntt}} />
                                 </div>
                                     @endforeach
                                 </div>
@@ -426,9 +426,9 @@
                                           $x='ticket6'
                                       @endphp  
                                   @endif
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x}} />
-                                  <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id={{$x}} style="width: 15%;"/>
-                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x}} />
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='-' class='qtyminus col-md-3' field={{$x.$cntt}} />
+                                  <input type='text' readonly="readonly" name={{$x}} value="{{old('ticket7') ?? '0'}}" class='qty col-md-4' id={{$x.$cntt}} style="width: 15%;"/>
+                                  <input style="border-bottom: 0px;width:15%;" type='button' value='+' class='qtyplus col-md-3' field={{$x.$cntt}} />
                               </div>
                                   @endforeach
                               </div>

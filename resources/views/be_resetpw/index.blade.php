@@ -26,7 +26,7 @@
         <h2 class="fs-title">重設密碼</h2><br>  
 				<div class="container">
 				<div class="row offset-md-1">
-          <div class="col-4 ">
+          <div class="col-md-4 ">
             原密碼：<input type="password" name="pwd"/>
             新密碼：<input type="password" name="newpwd"/>
             確認新密碼：<input type="password" name="newpwd_confirmation"/>

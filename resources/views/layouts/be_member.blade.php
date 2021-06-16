@@ -42,7 +42,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <button class="nav-link" href="homePage.html">
+                <button class="nav-link" onclick="location.href='{{route('homepage.index')}}'">
                   回首頁
                   <span class="sr-only">(current)</span>
                 </button>

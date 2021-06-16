@@ -100,7 +100,7 @@
               <input class="col-3" type="text" id="month" name="camonth" placeholder="月" maxlength="2" oninput = "value=value.replace(/[^\d]/g,'')"/>
               <input class="col-4" type="text"  id="year" name="cayear" placeholder="年" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"/> 
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <label >檢查碼：</label><br>   
               <input class="col-4" type="text"  id="check" name="cacheckcode"  maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"/><br>
             </div>
@@ -140,7 +140,7 @@
               <input class="col-4" type="text"  id="year" name="cayear" placeholder="年" maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
               value="{{'20'.substr("$pay->validityPeriod", -2)}}"/> 
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               檢查碼：<br>
               <input class="col-md-4" type="text"  id="check" name="cacheckcode"  maxlength="4" oninput = "value=value.replace(/[^\d]/g,'')"
               value="{{$pay->checkCode}}"/>
