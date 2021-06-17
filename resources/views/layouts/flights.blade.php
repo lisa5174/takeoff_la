@@ -19,6 +19,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     @yield('title')
+    <link rel="icon" href="{{ asset('/favicon.ico')}}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico')}}" type="image/x-icon"/>
     @yield('name')
 </head>
 <body>
@@ -29,7 +31,10 @@
         class="navbar navbar-expand-lg navbar-dark static-top"
         style="background-color: #6798c0">
         <div class="container">
-            <button class="navbar-brand" onclick="location.href='{{route('today')}}'"> Take off 空 </button>
+            {{-- <div class="row"> --}}
+                <img src="{{ asset('/icon.png')}}" width="50px" height="50px" style="margin: 0px" alt="icon">
+                <button class="navbar-brand no-gutters" onclick="location.href='{{route('today')}}'"> Take off 空 </button>
+            {{-- </div> --}}
             <div id="Date"> </div>
             <div>
                 <!-- Bootstrap NavBar -->
