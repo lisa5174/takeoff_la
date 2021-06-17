@@ -3,7 +3,25 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/be_all.css')}}"/>
 @endsection
+@section('name')
+<style>
+  #chc2,#chc3 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #fdd85d;
+} 
+#chc1 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #ffd23e;
+    border:2px #af8c19 solid;
+    border-bottom-width:3px 
+} 
 
+</style>
+@endsection
 @section('title')
     <title>Take off 空|會員中心_查看訂單</title>
 @endsection

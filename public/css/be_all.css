@@ -4,7 +4,16 @@
 .dropdown-item:active {
     background-color: #80b7d5;
 }
-
+#img {
+    background: UrlEncode("bg.gif") left top;
+    /* width: 17px;
+    height: 17px; */
+    /* background-image: url("bg.gif"); */
+    background-size: cover;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
 .qty {
     width: 40px;
     height: 35px;
@@ -441,6 +450,7 @@ select.list-dt:focus {
     height: 50px;
     color: black;
     font-size: 20px;
+    /* background-color: #fdd85d; */
 }
 #sidebar-container .list-group a {
     height: 50px;
@@ -497,7 +507,7 @@ select.list-dt:focus {
     text-align: right;
     padding-left: 10px;
 }
-.list-group-item-action:focus,
+/* .list-group-item-action:focus,
 .list-group-item-action:hover {
     z-index: 1;
     color: #474e55;
@@ -508,12 +518,4 @@ select.list-dt:focus {
     z-index: 1;
     color: #474e55;
     background-color: #46729e;
-}
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    background-color: #fdd85d;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-}
+} */

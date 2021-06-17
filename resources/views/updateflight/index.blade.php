@@ -7,7 +7,24 @@
 @section('title')
     <title>Take off 空|後台_修改</title>
 @endsection
-
+@section('name')
+<style>
+  #chc2,#chc3, #chc1,#chc5, #chc6,#chc7 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #fdd85d;
+} 
+#chc4 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #ffd23e;
+    border:2px #af8c19 solid;
+    border-bottom-width:3px 
+} 
+</style>
+@endsection
 @section('main')
 
     @if (session()->has('notice')) 

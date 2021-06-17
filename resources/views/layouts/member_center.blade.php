@@ -18,17 +18,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     
     @yield('title')
-    {{-- <style>
-      button:hover{
-      background:#0F0;
-      background:inherit;
-     }
-     /* 按下 */
-     button:active{
-      background:#00F;
-      background:inherit;
-     }
-    </style> --}}
+
+    @yield('name')
+
 </head>
 <body>
     <div>
@@ -107,8 +99,8 @@
               
               <!-- /END Separator -->
               <!-- Menu with submenu -->
-             <button onclick="location.href='{{route('membersearch.index')}}'" class="bg-transparent list-group-item list-group-item-action" aria-expanded="false">
-                 <div class="d-flex w-100 justify-content-start align-items-center" id="chc1" onclick="Change();">
+             <button onclick="location.href='{{route('membersearch.index')}}'" class=" list-group-item" aria-expanded="false"id="chc1">
+                 <div class="d-flex w-100 justify-content-start align-items-center" >
                      <span class="fas fa-search fa-fw mr-3"></span> 
                      <span class="menu-collapsed">查看訂單</span>
                  </div>
@@ -120,12 +112,12 @@
                      <span class="submenu-icon ml-auto"></span>
                  </div>
              </a>
-             <!-- Submenu content -->
+             {{-- <!-- Submenu content -->bg-transparent  --}}
              <div id='submenu1' class="collapse sidebar-submenu show active" >
-                 <button onclick="location.href='{{route('member.index')}}'" class="bg-transparent list-group-item list-group-item-action " id="chc2" onclick="Change();">
+                 <button onclick="location.href='{{route('member.index')}}'" class=" list-group-item list-group-item-action " id="chc2">
                      <span class="menu-collapsed" style="font-size: 18px">會員基本資料</span>
                  </button>
-                 <button onclick="location.href='{{route('resetpw.index')}}'" class="bg-transparent list-group-item list-group-item-action "id="chc3" onclick="Change();">
+                 <button onclick="location.href='{{route('resetpw.index')}}'" class="list-group-item list-group-item-action "id="chc3" >
                      <span class="menu-collapsed" style="font-size: 18px">重設密碼</span>
                  </button>
              </div>    
@@ -146,7 +138,7 @@
       <footer class="footer">
         <label class="col align-self-center"style="margin-top: 15px;">Copyright © 2021 Take off 空 products. 版權所有</label>
       </footer> 
-        {{-- <div mv-app="clock" mv-bar="none">
+         {{-- <div mv-app="clock" mv-bar="none">
 
           <script type="text/javascript"> //現在時間
           window.onload=function(){
@@ -161,15 +153,7 @@
           var s=date.getSeconds(); //獲取秒
           var d=document.getElementById('Date');
           d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
-      </div> --}}
-
-    <script> 
-      // function  toChange(color){
-      //   var odiv = document.getElementById('div1');
-      //   odiv.style.background=color;}
-      function Change(){
-      chc1.style.backgroundColor = "yellow";}
-    </script>
+      </div> -- --}}
 
   <script>// Hide submenus
     $('#body-row .collapse').collapse('hide'); 

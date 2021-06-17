@@ -7,7 +7,25 @@
 @section('title')
     <title>Take off 空|會員中心_重設密碼</title>
 @endsection
+@section('name')
+<style>
+  #chc1,#chc2 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #fdd85d;
+} 
+#chc3 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #ffd23e;
+    border:2px #af8c19 solid;
+    border-bottom-width:3px ;
+} 
 
+</style>
+@endsection
 @section('main')
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">

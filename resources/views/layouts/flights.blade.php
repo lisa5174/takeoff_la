@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     @yield('title')
+    @yield('name')
 </head>
 <body>
     <div>
@@ -91,31 +92,31 @@
                     </a>
                     
                 <div id='submenu1' class="collapse sidebar-submenu show active" >
-                    <button  onclick="location.href='{{route('today')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px">
+                    <button  onclick="location.href='{{route('today')}}'" class="list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px"id="chc1">
                         <div class="d-flex w-100 justify-content-start align-items-center"style="color: black">
                             <span class="fa fa-plane fa-fw mr-3"aria-hidden="true"></span> 
                             <span class="menu-collapsed" >今日航班</span>
                         </div>
                     </button>
-                    <button  onclick="location.href='{{route('putshelf')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px">
+                    <button  onclick="location.href='{{route('putshelf')}}'" class=" list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px"id="chc2">
                         <div class="d-flex w-100 justify-content-start align-items-center"style="color: black">
                             <span class="fa fa-upload fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed" >上架</span>
                         </div>
                     </button>
-                    <button  onclick="location.href='{{route('offshelf')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px">
+                    <button  onclick="location.href='{{route('offshelf')}}'" class=" list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px"id="chc3">
                         <div class="d-flex w-100 justify-content-start align-items-center"style="color: black">
                             <span class="fa fa-download fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">下架</span>    
                         </div>
                     </button>
-                    <button  onclick="location.href='{{route('updateflight.index')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px">
+                    <button  onclick="location.href='{{route('updateflight.index')}}'" class="list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px"id="chc4">
                         <div class="d-flex w-100 justify-content-start align-items-center"style="color: black">
                             <span class="fa fa-pencil fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed" >修改</span>    
                         </div>
                     </button>
-                    <button  onclick="location.href='{{route('search')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px">
+                    <button  onclick="location.href='{{route('search')}}'" class="list-group-item list-group-item-action flex-column align-items-start"style="padding-left:30px"id="chc5">
                         <div class="d-flex w-100 justify-content-start align-items-center"style="color: black">
                             <span class="fa fa-search fa-fw mr-3"aria-hidden="true"></span>
                             <span class="menu-collapsed">查詢</span>    
@@ -123,7 +124,7 @@
                     </button>
                 </div>
 
-                    <button  onclick="location.href='{{route('showorder.index')}}'" class="bg-transparent list-group-item list-group-item-action flex-column align-items-start">
+                    <button  onclick="location.href='{{route('showorder.index')}}'" class="list-group-item list-group-item-action flex-column align-items-start"id="chc6">
                         <div class="d-flex w-100 justify-content-start align-items-center"style="color: black">
                             <span class="material-icons mr-3"aria-hidden="true"style="margin-right:13px !important;">airplane_ticket</span>
                             <span class="menu-collapsed" >查看訂單</span>    

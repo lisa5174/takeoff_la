@@ -11,15 +11,20 @@
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous"
     />
-
+    <link rel="icon" href="favicon.ico" type="image/x-icon" /> 
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    {{-- <link rel="icon.png" type="image/x-icon"/> --}}
+   
     @yield('css')
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     
     @yield('title')
+    
 </head>
-<body>
+<body id="img">
+  
     <div>
         <!-- Navigation導覽列 -->
         <!-- navbar只有light,dark,為設定字體顏色 -->
@@ -91,7 +96,8 @@
             var d=document.getElementById('Date');
             d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
         </div> --}}
-
+        <div id="img"></div>
+ 
         @yield('main')
       
     </div></div>                

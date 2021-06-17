@@ -7,7 +7,24 @@
 @section('title')
     <title>Take off 空|後台_查詢</title>
 @endsection
-
+@section('name')
+<style>
+  #chc2,#chc3, #chc4,#chc1, #chc6 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #fdd85d;
+} 
+#chc5 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #ffd23e;
+    border:2px #af8c19 solid;
+    border-bottom-width:3px 
+} 
+</style>
+@endsection
 @section('main')
     @if ($errors->any())
         <div class="errors m-2 p-1 bg-red-500 text-red-100 font-thin rounded">

@@ -7,7 +7,24 @@
 @section('title')
     <title>Take off 空|後台_上架</title>
 @endsection
-
+@section('name')
+<style>
+  #chc1,#chc3, #chc4,#chc5, #chc6,#chc7 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #fdd85d;
+} 
+#chc2 {
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    background-color: #ffd23e;
+    border:2px #af8c19 solid;
+    border-bottom-width:3px 
+} 
+</style>
+@endsection
 @section('main')
     {{-- <a href="{{ route('putshelfs.create')}}">新增上架</a> --}}
     
