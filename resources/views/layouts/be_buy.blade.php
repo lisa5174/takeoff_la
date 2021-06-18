@@ -19,7 +19,7 @@
     
     @yield('title')
 </head>
-<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
+<body background="{{ asset('/paperairplane.gif')}}" style="background-repeat:no-repeat">
     <div>
         <!-- Navigation導覽列 -->
         <!-- navbar只有light,dark,為設定字體顏色 -->
@@ -32,7 +32,7 @@
             <img src="{{ asset('/icon1.png')}}" width="50px" height="50px" style="margin: 0px" alt="icon" class="navbar-brand no-gutters"> 
              <span style="font-size:22px">Take off 空 </span></button>
         </div>
-          <button class="navbar-brand"  onclick="location.href='{{route('homepage.index')}}'"> Take off 空 </button>
+          
           <button
             class="navbar-toggler"
             type="button"
@@ -99,7 +99,6 @@
         </div> --}}
     
         @yield('main')
-
       </div></div>
       <footer class="footer">
         <label class="col align-self-center"style="margin-top: 15px;">Copyright © 2021 Take off 空 products. 版權所有</label>

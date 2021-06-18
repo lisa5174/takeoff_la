@@ -23,7 +23,7 @@
     <link rel="shortcut icon" href="{{ asset('/favicon.ico')}}" type="image/x-icon"/>
     @yield('name')
 </head>
-<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
+<body >
     <div>
         <!-- Navigation導覽列 -->
         <!-- navbar只有light,dark,為設定字體顏色 -->

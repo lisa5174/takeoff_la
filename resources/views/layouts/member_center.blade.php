@@ -22,7 +22,7 @@
     @yield('name')
 
 </head>
-<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
+<body background="{{ asset('/paperairplane.gif')}}" style="background-repeat:no-repeat">
     <div>
         <!-- Navigation導覽列 -->
         <!-- navbar只有light,dark,為設定字體顏色 -->
@@ -130,7 +130,7 @@
     </div><!-- sidebar-container END -->
 
 <!-- MAIN -->
-        <div class="col wrap">                     
+        <div class="col warp">                     
           <div class="row justify-content-center mt-0">
             <div class="col-12 col-sm-11  text-center p-0 mt-5 mb-5"> 
               @yield('main')

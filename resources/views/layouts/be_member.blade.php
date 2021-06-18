@@ -23,7 +23,7 @@
     @yield('title')
     
 </head>
-<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
+<body background="{{ asset('/paperairplane.gif')}}" style="background-repeat:no-repeat">
   
     <div>
         <!-- Navigation導覽列 -->
