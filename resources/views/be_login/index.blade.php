@@ -24,7 +24,7 @@
     <div class="col-12 col-sm-10 col-md-6 col-lg-4  text-center p-0 mt-5 mb-3"> 
     <form id="msform" action="{{ route('login.login')}}" method="POST">
         @csrf 
-        <fieldset> 
+        <fieldset style="background: transparent;"> 
             <div class="form-card "> 
               <h2 class="fs-title">登入</h2><br>    
                 <div class="container">
