@@ -29,7 +29,7 @@
 @endsection
 @section('main')
 <form id="msform">  
-  <fieldset> 
+  <fieldset style="background: transparent;"> 
     @if (session()->has('notice')) 
         <div class="m-2 bg-green-300 px-3 py-2 rounded">
             {{ session()->get('notice')}}

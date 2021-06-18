@@ -25,7 +25,7 @@
         @csrf
 
         <!-- progressbar -->  
-        <fieldset class="card"> 
+        <fieldset class="card" style="background: transparent;"> 
             <div class="form-card" id="home">  
               <div  class="container" style="padding-left:0px">
                 <div class="d-grid gap-2 d-md-block">

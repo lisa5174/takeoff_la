@@ -28,7 +28,7 @@
 
 @section('main')
 <form id="msform">  
-    <fieldset> 
+    <fieldset style="background: transparent;"> 
       <div class="form-card"> 
     @if (session()->has('notice')) 
         <div class="m-2 bg-green-300 px-3 py-2 rounded">

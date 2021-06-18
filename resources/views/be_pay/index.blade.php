@@ -69,7 +69,7 @@
         <li id="confirm"><strong>完成訂單</strong></li>      
     </ul> <!-- fieldsets -->
     
-    <fieldset> 
+    <fieldset style="background: transparent;"> 
       <div class="form-card"> 
         <h2 class="fs-title">填寫信用卡資料</h2><br>
           @if(empty($pays))

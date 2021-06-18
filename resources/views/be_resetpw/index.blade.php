@@ -39,7 +39,7 @@
 
     <form id="msform" action="{{ route('resetpw.updatepw')}}" method="POST">
       @csrf
-			<fieldset> 
+			<fieldset style="background: transparent;"> 
 			  <div class="form-card"> 
         <h2 class="fs-title">重設密碼</h2><br>  
 				<div class="container">

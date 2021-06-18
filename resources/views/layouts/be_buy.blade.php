@@ -19,7 +19,7 @@
     
     @yield('title')
 </head>
-<body>
+<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
     <div>
         <!-- Navigation導覽列 -->
         <!-- navbar只有light,dark,為設定字體顏色 -->
@@ -27,6 +27,11 @@
         class="navbar navbar-expand-lg navbar-dark static-top"
         style="background-color: #6798c0">
          <div class="container">
+          <div class="row-4">
+            <button class="navbar-brand no-gutters" onclick="location.href='{{route('homepage.index')}}'">
+            <img src="{{ asset('/icon1.png')}}" width="50px" height="50px" style="margin: 0px" alt="icon" class="navbar-brand no-gutters"> 
+             <span style="font-size:22px">Take off 空 </span></button>
+        </div>
           <button class="navbar-brand"  onclick="location.href='{{route('homepage.index')}}'"> Take off 空 </button>
           <button
             class="navbar-toggler"

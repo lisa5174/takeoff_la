@@ -30,7 +30,7 @@
         <li id="payment"><strong>付款</strong></li>  
         <li id="confirm"><strong>完成訂單</strong></li>      
     </ul> <!-- fieldsets -->
-    <fieldset> 
+    <fieldset style="background: transparent;"> 
         <div class="form-card"> 
             <h4 class="fs-title">選擇航班</h4>
     

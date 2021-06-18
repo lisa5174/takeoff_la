@@ -23,7 +23,7 @@
     <link rel="shortcut icon" href="{{ asset('/favicon.ico')}}" type="image/x-icon"/>
     @yield('name')
 </head>
-<body background="{{ asset('/paperairplane.gif')}}">
+<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
     <div>
         <!-- Navigation導覽列 -->
         <!-- navbar只有light,dark,為設定字體顏色 -->
@@ -31,10 +31,11 @@
         class="navbar navbar-expand-lg navbar-dark static-top"
         style="background-color: #6798c0">
         <div class="container">
-            {{-- <div class="row"> --}}
-                <img src="{{ asset('/icon.png')}}" width="50px" height="50px" style="margin: 0px" alt="icon">
-                <button class="navbar-brand no-gutters" onclick="location.href='{{route('today')}}'"> Take off 空 </button>
-            {{-- </div> --}}
+            <div class="row-4">
+                <button class="navbar-brand no-gutters" onclick="location.href='{{route('today')}}'">
+                <img src="{{ asset('/icon1.png')}}" width="50px" height="50px" style="margin: 0px" alt="icon" class="navbar-brand no-gutters"> 
+                 <span style="font-size:22px">Take off 空 </span></button>
+            </div>
             <div id="Date"> </div>
             <div>
                 <!-- Bootstrap NavBar -->

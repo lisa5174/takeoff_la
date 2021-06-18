@@ -67,7 +67,7 @@
           <li id="confirm" class="active"><strong>完成訂單</strong></li>      
         </ul> <!-- fieldsets -->
         
-        <fieldset> 
+        <fieldset style="background: transparent;"> 
         <div class="form-card"> 
           <h2 class="fs-title">訂票資訊</h2>
             <div class="container">

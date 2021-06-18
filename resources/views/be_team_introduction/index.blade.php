@@ -13,7 +13,7 @@
     <div class="row justify-content-center mt-0">
         <div class="col-12 col-sm-9 col-md-7  text-center p-0 mt-5 mb-3"> 
             <form id="msform">  
-                <fieldset> 
+                <fieldset style="background: transparent;"> 
                   <div class="form-card"> 
                     <h4 class="fs-title">團隊介紹</h4>
                       <div class="row">

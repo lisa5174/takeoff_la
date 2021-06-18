@@ -23,7 +23,7 @@
     @yield('title')
     
 </head>
-<body id="img">
+<body background="{{ asset('/paperairplane1.gif')}}" style="background-repeat:no-repeat">
   
     <div>
         <!-- Navigation導覽列 -->
@@ -32,7 +32,11 @@
         class="navbar navbar-expand-lg navbar-dark static-top"
         style="background-color: #6798c0">
          <div class="container">
-          <button class="navbar-brand"  onclick="location.href='{{route('homepage.index')}}'"> Take off 空 </button>
+          <div class="row-4">
+            <button class="navbar-brand no-gutters" onclick="location.href='{{route('homepage.index')}}'">
+            <img src="{{ asset('/icon1.png')}}" width="50px" height="50px" style="margin: 0px" alt="icon" class="navbar-brand no-gutters"> 
+             <span style="font-size:22px">Take off 空 </span></button>
+        </div>
           <button
             class="navbar-toggler"
             type="button"
@@ -96,7 +100,7 @@
             var d=document.getElementById('Date');
             d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+/*'星期'+day+*/' '+h+':'+m+':'+s; },1000) }</script>
         </div> --}}
-        <div id="img"></div>
+
  
         @yield('main')
       
