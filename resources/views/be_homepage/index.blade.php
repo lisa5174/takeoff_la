@@ -83,7 +83,7 @@
                       </div>
                     <div class="col-md-5" id='aboard-credit-form' style="display: none">          
                       <label for="inputAddress" class="form-label" >回程日期：</label>
-                      <input type="date" value="{{ old('datefo') }}" name="datefo" class="form-control" id="apdate" >
+                      <input type="date" value="{{ old('datefo') }}" name="datefo" class="form-control" id="apdate" max="2030-12-31" min="">
                     </div>
                    </div>
 
@@ -143,23 +143,7 @@
     })
       </script>
 
-    <script>
-        $(function(){
-            //得到當前時間
-          var date_now = new Date();
-          //得到當前年份
-          var year = date_now.getFullYear();
-          //得到當前月份
-          //注：
-          //  1：js中獲取Date中的month時，會比當前月份少一個月，所以這裡需要先加一
-          //  2: 判斷當前月份是否小於10，如果小於，那麼就在月份的前面加一個 '0' ， 如果大於，就顯示當前月份
-          var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
-          //得到當前日子（多少號）
-          var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
-          //設置input標籤的max屬性
-          var month1 = date_now.getMonth()+2 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
-          //設置input標籤的max屬性
-          $("#dateto").attr("min",year+"-"+month+"-"+date);})  </script>
+   
 <script>
     $(function(){
         //得到當前時間
@@ -173,12 +157,28 @@
       var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
       //得到當前日子（多少號）
       var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+      var nowdate=year+"-"+month+"-"+date;
       //設置input標籤的max屬性
-      var month1 = date_now.getMonth()+2 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
-      //設置input標籤的max屬性
-      $("#dateto2").attr("min",year+"-"+month+"-"+date);})  
+      $("#dateto2").attr("min",nowdate);});  
       
-  </script>
+  $(function (){
+      //得到當前時間
+    var date_now = new Date();
+    //得到當前年份
+    var year = date_now.getFullYear();
+    //得到當前月份
+    //注：
+    //  1：js中獲取Date中的month時，會比當前月份少一個月，所以這裡需要先加一
+    //  2: 判斷當前月份是否小於10，如果小於，那麼就在月份的前面加一個 '0' ， 如果大於，就顯示當前月份
+    var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+    //得到當前日子（多少號）
+    var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+    var nowdate=year+"-"+month+"-"+date;
+    //設置input標籤的max屬性
+
+     $("#apdate").attr("min",nowdate);});  
+ 
+</script>
     <script>
         $(function() {
         // This button will increment the value

@@ -43,12 +43,12 @@
                   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <a class="navbar-brand" href="#">                    
+                  <a class="navbar-brand">                    
                   <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">                           
                       <!-- This menu is hidden in bigger devices with d-sm-none. -->
                       <li class="nav-item dropdown d-sm-block d-md-none" >
-                            <button class="dropdown-item" style="color: white;.over{color:black}" onclick="location.href='{{route('today')}}'">今日航班</button>
+                            <button class="dropdown-item" onclick="location.href='{{route('today')}}'">今日航班</button>
                             <button class="dropdown-item" onclick="location.href='{{route('putshelf')}}'">上架航班</button>
                             <button class="dropdown-item" onclick="location.href='{{route('offshelf')}}'">下架航班</button>
                             <button class="dropdown-item" onclick="location.href='{{route('updateflight.index')}}'">修改航班</button>

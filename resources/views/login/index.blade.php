@@ -6,30 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-     
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+   
     <link rel="stylesheet" href="{{ asset('css/b_today.css')}}"/>
     <title>Take off 空|後台_登入</title>
   </head>
-<body>
+<body style="background-color: white">
   <div>
     <!-- Navigation導覽列 -->
     <!-- navbar只有light,dark,為設定字體顏色 -->
-<nav
-    class="navbar navbar-expand-lg navbar-dark static-top"
-    style="background-color: #6798c0">
+<nav class="navbar navbar-expand-lg navbar-dark static-top" style="background-color: #6798c0">
     <div class="container">
-        <a class="navbar-brand" href="homePage.html"> Take off 空 </a>
+      <div class="row-4">
+        <button class="navbar-brand no-gutters" onclick="location.href='{{route('today')}}'" style="border: 0px;background: transparent;">
+        <img src="{{ asset('/icon1.png')}}" width="50px" height="42px" style="margin: 0px" alt="icon" class="navbar-brand no-gutters"> 
+         <span style="font-size:22px">Take off 空 </span></button>
+      </div>
         <div id="Date"> </div>
-         <div class="navbar-brand"style="visibility:hidden">Take off 空</div> {{--隱藏文字，讓時間置中 --}}
+         <div class="navbar-brand"style="visibility:hidden">Take off 空000000</div> {{--隱藏文字，讓時間置中 --}}
     </a></div></a></div>
 
     <div mv-app="clock" mv-bar="none">

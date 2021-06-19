@@ -56,7 +56,7 @@
                             <div class="col-5">飛機名稱：{{ $flight->fName}}</div>
                           </div><br>
                           <div class="row offset-md-1">
-                            <div class="col-5">起飛日期：<input type="date" value="{{ $flight->date }}" name="updatedate" class="form-control"></div>
+                            <div class="col-5">起飛日期：<input type="date" value="{{ $flight->date }}" name="updatedate" class="form-control"id="fapdate" max="2030-12-31" min=""></div>
                             <div class="col-5">起飛時間：<input type="time" value="{{ $flight->Ltime }}" name="updatetime" class="form-control"></div>
                           </div><br>
                           <div class="row offset-md-1">
@@ -83,6 +83,23 @@
     </div>
     </span>
     
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            //得到當前時間
+          var date_now = new Date();
+          //得到當前年份
+          var year = date_now.getFullYear();
+          //得到當前月份
+          //注：
+          //  1：js中獲取Date中的month時，會比當前月份少一個月，所以這裡需要先加一
+          //  2: 判斷當前月份是否小於10，如果小於，那麼就在月份的前面加一個 '0' ， 如果大於，就顯示當前月份
+          var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+          //得到當前日子（多少號）
+          var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+          //設置input標籤的max屬性
+          var month1 = date_now.getMonth()+2 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+          //設置input標籤的max屬性
+          $("#fapdate").attr("min",year+"-"+month+"-"+date);})  </script>
     
 @endsection

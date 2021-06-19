@@ -209,6 +209,7 @@
               </div><br>
             </div><br>
         </div>
+      </fieldset>
           <input type="button" class="previous action-button-previous" id='back' value='上一步'>
           <script>
               document.getElementById('back').onclick = function () {
@@ -216,7 +217,7 @@
               }
           </script>
           <button class="next action-button" type="submit">完成</button>
-        </fieldset>
+        
     </form>
   </div>  
  

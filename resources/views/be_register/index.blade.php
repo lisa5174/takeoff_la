@@ -33,7 +33,7 @@
               <div class="col-10">
                 手機號碼：<input type="text" name="rphone" /> <br>
                 E-mail：<input type="text" name="remail" /> <br>
-                *密碼：<input type="password" name="rpwd"/>
+                <span style="color: red">*</span>密碼：<input type="password" name="rpwd"/>
               </div>
             </div> 
             <div class="col-10" style="text-align: center;">
